@@ -1,0 +1,252 @@
+
+<div class="container regForm">
+  <div class="card  col-sm-6 col-md-12">
+    <div class="card-title m-auto">
+
+      <h3>Register</h3>
+    </div>
+    <div class="card-content">
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-row">
+
+          <!-- First Name -->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputFirstName">First Name
+              <!-- <div style="display: inline;" *ngIf="f.firstName.errors && (f.firstName.dirty || f.firstName.touched)">
+                <span [hidden]="!f.firstName.errors.required" class="error"> [required]</span>
+                <span [hidden]="!f.firstName.errors.minlength" class="error"> [atleast 3 characters]</span>
+              </div> -->
+            </label>
+            <input type="text" class="form-control" placeholder="first name" formControlName="firstName" required />
+            <label [ngClass]="regForm.controls['firstName'].hasError('required') ||regForm.controls['firstName'].hasError('minlength') ? 'error-label text-danger' : 'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['firstName'].hasError('required') ||
+                regForm.controls['firstName'].hasError('minlength') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              Must be atleast 3 characters long!!
+            </label>
+            <label [ngClass]=" regForm.controls['firstName'].hasError('required') ||
+                regForm.controls['firstName'].hasError('pattern') ? 'error-label text-danger' :
+  'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['firstName'].hasError('required') ||
+                regForm.controls['firstName'].hasError('pattern') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              Enter only alphabets.
+            </label>
+
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputLastName">Last Name</label>
+            <input type="text" class="form-control" placeholder="last name" formControlName="lastName" required />
+          </div>
+          <!--Gender-->
+          <div class="form-group col-sm-12 col-md-12">
+          <label for="gender">Gender</label>
+          <span class="error" *ngIf="f.gender.invalid">[required]
+          </span>
+            <div>
+              <input id="male" type="radio" value="male" name="gender" formControlName="gender" (change)="changeGender($event)">
+              <label for="male">Male</label>&nbsp;&nbsp;
+
+
+              <input id="female" type="radio" value="female" name="gender" formControlName="gender" (change)="changeGender($event)">
+              <label for="female">Female</label>
+           </div>
+
+            <div *ngIf="f.gender.touched && f.gender.invalid" class="alert alert-danger">
+                <div *ngIf="f.gender.errors &&f.gender.errors.required">Name is required.</div>
+            </div>
+            </div>
+          <!-- <div class="form-group col-sm-12 col-md-6">
+            <label for="inputLastName">Gender</label>
+            <input type="text" class="form-control" placeholder="last name" formControlName="lastName" required />
+          </div> -->
+          <!-- Email Field -->
+          <div class="form-group col-sm-12 col-md-12">
+            <label for="inputEmail4">Email
+              <!-- <div style="display: inline;"
+                *ngIf="f.email.errors && (f.email.dirty || f.email.touched)">
+                <span [hidden]="!f.email.errors.required" class="error"> [required]</span>
+              </div> -->
+            </label>
+            <input type="email" class="form-control" placeholder="Email address" formControlName="email" required />
+            <label [ngClass]="regForm.controls['email'].hasError('required') ||regForm.controls['email'].hasError('email') ? 'error-label text-danger' : 'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['email'].hasError('required') ||
+                regForm.controls['email'].hasError('email') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              Enter valid email address
+            </label>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group col-sm-12 col-md-12">
+            <label for="inputPassword">Password
+              <!-- <div style="display: inline;" *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
+                <span [hidden]="!f.password.errors.required" class="error"> [required]</span>
+              </div> -->
+            </label>
+
+            <input type="password" class="form-control" [type]="hide ? 'password' : 'text'"  maxlength=16 placeholder="Enter your password" formControlName="password" required >
+            <span (click)="hide = !hide">
+              <i class="fa fa-eye" aria-hidden="true" *ngIf="!hide"></i>
+              <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="hide"></i>
+            </span>
+
+
+            <label [ngClass]="regForm.controls['password'].hasError('required') ||
+                regForm.controls['password'].hasError('minlength') ? 'error-label text-danger' :
+  'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['password'].hasError('required') ||
+                regForm.controls['password'].hasError('minlength') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              Must be at least 8 characters!
+            </label>
+            <label [ngClass]=" regForm.controls['password'].hasError('required') ||
+                regForm.controls['password'].hasError('pattern') ? 'error-label text-danger' :
+  'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['password'].hasError('required') ||
+                regForm.controls['password'].hasError('pattern') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              include atleast 1 Capital letter,1 digit,1 special Character(#,@)!
+            </label>
+
+            <!-- <div  *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
+                  <span style="display: block;" [hidden]="!f.password.errors.minlength" class="error"> [should contain 8 to 16 letters]</span>
+
+                  <span [hidden]="!f.password.errors.pattern" class="error"> [include atleast 1 Capital letter,1 digit,1 special Character(#,@)]</span>
+              </div> -->
+          </div>
+<!-- Password Field -->
+<div class="form-group col-sm-12 col-md-12">
+  <label for="inputConfirmPassword">Confirm Password
+    </label>
+  <input type="password" class="form-control" [type]="hide1 ? 'password' : 'text'" maxlength=16 placeholder="Enter your password" formControlName="confirmPassword" required />
+  <span (click)="hide1 = !hide1">
+    <i class="fa fa-eye" aria-hidden="true" *ngIf="!hide1"></i>
+    <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="hide1"></i>
+  </span>
+  <label [ngClass]=" regForm.controls['confirmPassword'].hasError('required') ||
+  regForm.controls['confirmPassword'].invalid ? 'error-label text-danger' :
+'error-label text-success'">
+<i class="material-icons">
+  {{ regForm.controls['confirmPassword'].hasError('required') ||
+  regForm.controls['confirmPassword'].invalid ? 'cancel' :
+  'check_circle' }}
+</i>
+ Password Must Match!
+</label>
+</div>
+
+
+
+
+
+          <!-- Date Of Birth Field-->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputDOB">Date of Birth
+              <!-- <div style="display: inline;"
+                *ngIf="f.dob.errors && (f.dob.dirty || f.dob.touched)">
+                <span [hidden]="!f.dob.errors.required" class="error"> [required]</span>
+                <span [hidden]="!f.dob.errors.minlength" class="error"> [should contain 10 digits]</span>
+              </div> -->
+            </label>
+            <input type="date" class="form-control" formControlName="dob"  required />
+            <label [ngClass]=" regForm.controls['dob'].hasError('required') ||
+            regForm.controls['dob'].hasError('invalidAge') ? 'error-label text-danger' :
+'error-label text-success'">
+          <i class="material-icons">
+            {{ regForm.controls['dob'].hasError('required') ||
+            regForm.controls['dob'].hasError('invalidAge') ? 'cancel' :
+            'check_circle' }}
+          </i>
+          Must be atleast 18 years old and valid date of birth.
+        </label>
+          </div>
+
+          <!-- Phone Number Field -->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputPhone">Phone Number
+              <!-- <div style="display: inline;"
+                *ngIf="f.phone.errors && (f.phone.dirty || f.phone.touched)">
+                <span [hidden]="!f.phone.errors.required" class="error"> [required]</span>
+                <span [hidden]="!f.phone.errors.minlength" class="error"> [should contain 10 digits]</span>
+              </div> -->
+            </label>
+            <input type="text" class="form-control" formControlName="phone" maxlength=10 placeholder="Phone Number" class="form-control" required />
+            <label [ngClass]=" regForm.controls['phone'].hasError('required') ||
+            regForm.controls['phone'].hasError('pattern') ? 'error-label text-danger' :
+'error-label text-success'">
+          <i class="material-icons">
+            {{ regForm.controls['phone'].hasError('required') ||
+            regForm.controls['phone'].hasError('pattern') ? 'cancel' :
+            'check_circle' }}
+          </i>
+          Enter Valid Mobile Number.
+        </label>
+          </div>
+          <!---Address-->
+          <div class="form-group col-sm-12">
+            <label for="inputAddress">Address
+            </label>
+          </div>
+            <div class="form-group col-sm-12 col-md-6">
+
+            <input type="text" class="form-control" formControlName="houseNo" placeholder="House/Plot/Flat number" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.houseNo.touched && f.houseNo.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="street" placeholder="Street" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.street.touched && f.street.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="city" placeholder="City/Village" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.city.touched && f.city.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="district" placeholder="District" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.district.touched && f.district.invalid">[required]
+            </span>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+            <input type="text" class="form-control" formControlName="state" placeholder="State" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.state.touched && f.state.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="pincode" placeholder="PIN Code" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.pincode.touched && f.pincode.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="landmark" placeholder="Landmark" class="form-control" />&nbsp;
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputQuestions">Security Questions</label>
+        <select id="questions" formControlName="security_questions" placeholder="Select Your Question" name="questions">
+          <option value="What primary school did you attend?">What primary school did you attend?</option>
+          <option value="What is your favorite color?">What is your favorite color?</option>
+          <option value="In which city were you born?">In which city were you born?</option>
+          <option value="What is your grandmother's name?">What is your grandmother's name?</option>
+        </select>
+        <span class="error" *ngIf="f.security_questions.touched &&f.security_questions.invalid">[required]
+        </span>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="security_answer" placeholder="Enter Security Answer" class="form-control" required />&nbsp;
+          <span class="error" *ngIf="f.security_answer.touched && f.security_answer.invalid">[required]
+          </span>
+        </div>
+        <button type="submit" class="btn m-auto col-sm-3 col-md-3" [disabled]="!regForm.valid">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+</div>

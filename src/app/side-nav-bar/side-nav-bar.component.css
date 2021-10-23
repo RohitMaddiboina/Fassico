@@ -1,0 +1,14 @@
+.side-bar{
+ 
+  width: 15%;
+  height: 100vh;
+  padding-top: 15px;
+  border-right: 1px solid #ccc;
+  display: inline-block;
+}
+a{
+  color:rgb(66, 69, 83);
+}
+p{
+  padding: 5px;
+}

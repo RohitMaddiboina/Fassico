@@ -1,0 +1,97 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="aside-bar col-md-2">
+            <section>
+                <form >
+
+                    <div class="categories">
+                        <span class="vertical-filter-head">CATEGORIES</span>
+                        <ul class="categories-list">
+                            <div *ngFor="let itemType of itemTypes">
+                                <li class="category-item">
+                                    <label class="category-label">
+                                        <input type="checkbox" class="category-check"  (change)="onChange(itemType,$event)">
+                                        {{itemType}}
+                                    </label>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </form>
+                <div class="price-slider-div">
+                    <span class="vertical-filter-head">Price Range</span>
+                    <div class="custom-ngx-slider">
+                        <ngx-slider [(value)]="value"  (userChange)="OnSliderChange(value,highValue)" [(highValue)]="highValue" [options]="options"></ngx-slider>  
+                      </div>
+                </div>
+            </section>
+        </div>
+        <div class="container col-md-10">
+            <div class="row cards-row">
+
+                <div *ngFor="let item of items">
+                    <div class="col-md-2" >
+                        <div class="card" (click)="onClick(item.itemId)">
+                            <img src={{item.itemImage}} class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <h5 class="card-title">{{item.brand}} <span class="badge badge-success badge-pill">{{item.rating}}<i
+                                        class="material-icons review-bar md-18">star</i></span></h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+
+                                        <span class="card-text">
+                                            <h5 class="text">Rs.{{item.price}} <span
+                                                    style="text-decoration-line: line-through; font-size: 0.6rem">
+                                                    Rs.{{2*item.price}} </span></h5>
+                                                    
+                                        </span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn" (click)="addToCart(item.itemId)"> <mat-icon>add_shopping_cart</mat-icon></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                     
+                    <div class="card col-md-2">
+                        <div class="card-content">
+                            <img src="assets/img/jeans2.webp">
+                        </div>
+                    </div>
+                    <div class="card col-md-2">
+                        <div class="card-content">
+                            <img src="assets/img/jeans3.webp">
+                        </div>
+                    </div>
+                    <div class="card col-md-2">
+                        <div class="card-content">
+                            <img src="assets/img/jeans4.webp">
+                        </div>
+                    </div>
+                    <div class="card col-md-2">
+                        <div class="card-content">
+                            <img src="assets/img/jeans5.webp">
+                        </div>
+                    </div>
+                    <div class="card col-md-2">
+                        <div class="card-content">
+                            <img src="assets/img/jeans6.webp">
+                        </div>
+                    </div>
+                  -->
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.img-banner{
+  width: 1380px;
+    
+}
+.card{
+  border:none
+}
+.card-content{
+  padding-left: 50px
+}
+.container-fluid{
+  border: 1px solid #ccc;
+}

@@ -1,0 +1,39 @@
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h3>Login</h3>
+            </div>
+            <div class="card-content">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> 
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-12">
+                            <label for="inputUsername">Username <div style="display: inline;"  *ngIf="f.username.errors && (f.username.dirty || f.username.touched)">
+                                <span [hidden]="!f.username.errors.required"  class="error">[required]</span>
+                            </div></label>
+                            <input type="email" id="inputUsername" formControlName="username" class="form-control" required />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputPassword">Password  <div style="display: inline;"  *ngIf="f.password.errors && (f.password.dirty || f.password.touched)">
+                                <span [hidden]="!f.password.errors.required"  class="error">[required]</span>
+                            </div></label>
+                            <input type="password" id="inputPassword" formControlName="password" class="form-control" required />
+                        </div>
+                        <button type="submit"[disabled]="!loginForm.valid" class="btn col-md-12">Login</button>
+                        <div class="d-flex justify-content-center links">
+                            <a href="http://localhost:4200/forgot" class="ml-2">Forgot password?</a>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="d-flex justify-content-center links">
+                          Don't have an account? <a href="http://localhost:4200/signup" class="ml-2">Sign Up</a>
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

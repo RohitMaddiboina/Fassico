@@ -1,0 +1,281 @@
+
+<div class="container regForm">
+  <div class="card  col-sm-6 col-md-12">
+    <div class="card-title m-auto">
+
+      <h3>Edit Form</h3>
+    </div>
+    <div class="card-content">
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-row">
+
+          <!-- First Name -->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputFirstName">First Name
+              <!-- <div style="display: inline;" *ngIf="f.firstName.errors && (f.firstName.dirty || f.firstName.touched)">
+                <span [hidden]="!f.firstName.errors.required" class="error"> [required]</span>
+                <span [hidden]="!f.firstName.errors.minlength" class="error"> [atleast 3 characters]</span>
+              </div> -->
+            </label>
+            <input type="text" class="form-control" placeholder="first name" formControlName="firstName" required />
+            <label [ngClass]="regForm.controls['firstName'].hasError('required') ||regForm.controls['firstName'].hasError('minlength') ? 'error-label text-danger' : 'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['firstName'].hasError('required') ||
+                regForm.controls['firstName'].hasError('minlength') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              Must be atleast 3 characters long!!
+            </label>
+            <label [ngClass]=" regForm.controls['firstName'].hasError('required') ||
+                regForm.controls['firstName'].hasError('pattern') ? 'error-label text-danger' :
+  'error-label text-success'">
+              <i class="material-icons">
+                {{ regForm.controls['firstName'].hasError('required') ||
+                regForm.controls['firstName'].hasError('pattern') ? 'cancel' :
+                'check_circle' }}
+              </i>
+              Enter only alphabets.
+            </label>
+
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputLastName">Last Name</label>
+            <input type="text" class="form-control" placeholder="last name" formControlName="lastName" required />
+          </div>
+          <!--Gender-->
+          <div class="form-group col-sm-12 col-md-12">
+          <label for="gender">Gender</label>
+          <span class="error" *ngIf="f.gender.invalid">[required]
+          </span>
+            <div>
+              <input id="male" type="radio" value="male" name="gender" formControlName="gender" (change)="changeGender($event)">
+              <label for="male">Male</label>&nbsp;&nbsp;
+
+
+              <input id="female" type="radio" value="female" name="gender" formControlName="gender" (change)="changeGender($event)">
+              <label for="female">Female</label>
+           </div>
+
+            <div *ngIf="f.gender.touched && f.gender.invalid" class="alert alert-danger">
+                <div *ngIf="f.gender.errors &&f.gender.errors.required">Name is required.</div>
+            </div>
+            </div>
+          <!-- <div class="form-group col-sm-12 col-md-6">
+            <label for="inputLastName">Gender</label>
+            <input type="text" class="form-control" placeholder="last name" formControlName="lastName" required />
+          </div> -->
+          <!-- Email Field -->
+          <div class="form-group col-sm-12 col-md-12">
+            <label for="inputEmail4">Email
+              <!-- <div style="display: inline;"
+                *ngIf="f.email.errors && (f.email.dirty || f.email.touched)">
+                <span [hidden]="!f.email.errors.required" class="error"> [required]</span>
+              </div> -->
+            </label>
+            <input type="email" class="form-control" placeholder="Email address" formControlName="email" required readonly />
+            
+          </div>
+
+         
+
+
+
+
+          <!-- Date Of Birth Field-->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputDOB">Date of Birth
+              <!-- <div style="display: inline;"
+                *ngIf="f.dob.errors && (f.dob.dirty || f.dob.touched)">
+                <span [hidden]="!f.dob.errors.required" class="error"> [required]</span>
+                <span [hidden]="!f.dob.errors.minlength" class="error"> [should contain 10 digits]</span>
+              </div> -->
+            </label>
+            <input type="date" class="form-control" formControlName="dob"  required />
+            <label [ngClass]=" regForm.controls['dob'].hasError('required') ||
+            regForm.controls['dob'].hasError('invalidAge') ? 'error-label text-danger' :
+'error-label text-success'">
+          <i class="material-icons">
+            {{ regForm.controls['dob'].hasError('required') ||
+            regForm.controls['dob'].hasError('invalidAge') ? 'cancel' :
+            'check_circle' }}
+          </i>
+          Must be atleast 18 years old and valid date of birth.
+        </label>
+          </div>
+
+          <!-- Phone Number Field -->
+          <div class="form-group col-sm-12 col-md-6">
+            <label for="inputPhone">Phone Number
+              <!-- <div style="display: inline;"
+                *ngIf="f.phone.errors && (f.phone.dirty || f.phone.touched)">
+                <span [hidden]="!f.phone.errors.required" class="error"> [required]</span>
+                <span [hidden]="!f.phone.errors.minlength" class="error"> [should contain 10 digits]</span>
+              </div> -->
+            </label>
+            <input type="text" class="form-control" formControlName="phone" maxlength=10 placeholder="Phone Number" class="form-control" required />
+            <label [ngClass]=" regForm.controls['phone'].hasError('required') ||
+            regForm.controls['phone'].hasError('pattern') ? 'error-label text-danger' :
+'error-label text-success'">
+          <i class="material-icons">
+            {{ regForm.controls['phone'].hasError('required') ||
+            regForm.controls['phone'].hasError('pattern') ? 'cancel' :
+            'check_circle' }}
+          </i>
+          Enter Valid Mobile Number.
+        </label>
+          </div>
+          <!---Address-->
+          <div class="form-group col-sm-12">
+            <label for="inputAddress">Address
+            </label>
+          </div>
+            <div class="form-group col-sm-12 col-md-6">
+
+            <input type="text" class="form-control" formControlName="houseNo" placeholder="House/Plot/Flat number" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.houseNo.touched && f.houseNo.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="street" placeholder="Street" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.street.touched && f.street.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="city" placeholder="City/Village" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.city.touched && f.city.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="district" placeholder="District" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.district.touched && f.district.invalid">[required]
+            </span>
+            </div>
+            <div class="form-group col-sm-12 col-md-6">
+            <input type="text" class="form-control" formControlName="state" placeholder="State" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.state.touched && f.state.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="pincode" placeholder="PIN Code" class="form-control" required />&nbsp;
+            <span class="error" *ngIf="f.pincode.touched && f.pincode.invalid">[required]
+            </span>
+            <input type="text" class="form-control" formControlName="landmark" placeholder="Landmark" class="form-control" />&nbsp;
+
+          </div>
+        </div>
+
+       
+        <button type="submit" class="btn m-auto col-sm-3 col-md-3" [disabled]="!regForm.valid">Save Details</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="container regForm">
+    <div class="card  col-sm-6 col-md-12">
+      <div class="card-title m-auto">
+  
+        <h1 *ngIf="isAddMode">Add User</h1>
+<h1 *ngIf="!isAddMode">Edit User</h1>
+      </div>
+      <div class="card-content">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    
+    <div class="form-group col-5">
+      <label>First Name</label>
+      <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+        <div *ngIf="f.firstName.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="form-group col-5">
+      <label>Last Name</label>
+      <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+        <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+      </div>
+    </div>
+  
+
+    <div class="form-group col-7">
+      <label>Email</label>
+      <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" readonly/>
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Email is required</div>
+        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+      </div>
+    </div>
+
+
+ 
+    <div class="form-group col-6">
+      <label>Contact Number</label>
+      <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.contactno.errors }" required />
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.phone.errors.required">phone is required</div>
+      </div>
+    </div>
+
+
+  
+    <div class="form-group col-6">
+      <label>Street Number</label>
+      <input type="text" formControlName="street" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.streetno.errors }" />
+      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+
+      </div>
+    </div>
+
+  
+    <div class="form-group col-5">
+      <label>City</label>
+      <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" required />
+      <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+
+      </div>
+    </div>
+ 
+    <div class="form-group col-5">
+      <label>District</label>
+      <input type="text" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" required />
+      <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+        <div *ngIf="f.district.errors.required">District is required</div>
+      </div>
+    </div>
+
+  
+    <div class="form-group col-5">
+      <label>State</label>
+      <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" required />
+      <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+        <div *ngIf="f.state.errors.required">State is required</div>
+      </div>
+    </div>
+
+  
+  <div class="form-group col-5">
+    <label>Pin Code</label>
+    <input type="text" formControlName="pincode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" required />
+    <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
+      <div *ngIf="f.state.errors.required">Pin Code is required</div>
+    </div>
+  </div>
+    </div>
+
+
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Save
+    </button>
+    <a routerLink="/users" class="btn btn-link">Cancel</a>
+  </div>
+
+</form> 
+</div> -->
