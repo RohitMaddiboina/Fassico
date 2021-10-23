@@ -1,6 +1,6 @@
 import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from '../cart/cart.component';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
@@ -9,7 +9,7 @@ export class Item{
 
 
   constructor(public itemId:number, public itemName:string, public category:string, public itemType:string,public brand:string,
-    public model:string,public quanitity:number,public rating:number,public active:boolean,public description:string,public price:number,public itemImage:string){}
+    public model:string,public quanitity:number,public rating:number,public active:boolean,public discription:string,public price:number,public itemImage:string){}
 }
 
 @Component({
@@ -33,7 +33,7 @@ export class ItemsComponent implements OnInit {
  
   };
   constructor(private activatedRoute: ActivatedRoute,public restClientService:RestClientService, public dataShare:DataShareToastService
-    ,public toastr: ToastrService) {
+    ,public toastr: ToastrService,private router:Router) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
     this.itemTypes = new Array<string>();
@@ -96,9 +96,15 @@ export class ItemsComponent implements OnInit {
    
    
   // }
+  // onClick(itemId: number){
+  //   this.restClientService.getItem(itemId).subscribe(
+  //     data=>console.log(data)
+  //   )
+  // }
   onClick(itemId: number){
+    this.router.navigate(['item/'+itemId],{skipLocationChange:false});
     this.restClientService.getItem(itemId).subscribe(
-      data=>console.log(data)
+      data=>console.log(data.discription)
     )
   }
   addToCart(itemId:number){ 

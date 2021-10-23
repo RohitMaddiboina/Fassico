@@ -1,27 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router, RouterEvent } from '@angular/router';
-import { Items } from './items.module'; 
-import { RestClientService } from '../service/rest-client.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Item } from '../items/items.component';
+import { RestClientService } from '../service/rest-client.service';
+
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.css'],
-  
+  styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  itemId:String="";
-  itemData={} as Items;
-  itemDetails:any={};
-  tableContent:string='<table >'
 
-  constructor(private activatedRoute:ActivatedRoute,private restClientService:RestClientService,private router:Router) { 
-  }
-  addToCart(itemData:Items){
-    // this.cartService.addToCart(itemData.itemId).subscribe(data=>{
-    // });
-  }
-  
+  itemId:number=0;
+  itemData={} as Item;
+  itemDetails:any={};
+  // tableContent:string='<table >'
+
+  constructor(private activatedRoute:ActivatedRoute,private restClientService:RestClientService,private router:Router) { }
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params:Params)=>{
       this.itemId=params['itemId'];
@@ -29,7 +24,7 @@ export class ItemComponent implements OnInit {
       this.restClientService.getItem(this.itemId).subscribe(data=>{
         
         this.itemData=data;
-        let r:Items;
+        let r:Item;
         r=data;
         
         this.itemDetails=JSON.parse(this.itemData.discription)
@@ -41,7 +36,11 @@ export class ItemComponent implements OnInit {
       },err=>{
         this.router.navigate(['**'],{skipLocationChange:true})
       });
-      this.tableContent=this.tableContent+'</table>';
+      // this.tableContent=this.tableContent+'</table>';
     });
+  }
+  addToCart(itemData:Item){
+    // this.cartService.addToCart(itemData.itemId).subscribe(data=>{
+    // });
   }
 }

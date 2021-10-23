@@ -33,7 +33,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 
 import { EditSampleComponent } from './edit-sample/edit-sample.component';
 import { CartComponent } from './cart/cart.component';
-
+import { ItemComponent } from './item/item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,8 @@ import { CartComponent } from './cart/cart.component';
     ResetpasswordComponent,
     MyAccountComponent,
     EditSampleComponent,
-    CartComponent
+    CartComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,

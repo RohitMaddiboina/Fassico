@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cart, CartDetails } from '../cart/cart.component';
+// import { Items } from '../item/items.module';
 import { Item } from '../items/items.component';
 import { AuthReq } from '../login/login.component';
 import { User } from '../registration/registration.component';
@@ -38,6 +39,9 @@ export class RestClientService {
   }
 
   //Items
+  // getItem(itemId: number){
+  //   return this.http.get<Item>(`http://localhost:8082/getItem/${itemId}`);
+  // }
   getItem(itemId: number){
     return this.http.get<Item>(`http://localhost:8082/getItem/${itemId}`);
   }
