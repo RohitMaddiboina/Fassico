@@ -1,10 +1,16 @@
 import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Cart } from '../cart/cart.component';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { RestClientService } from '../service/rest-client.service';
-import { Item } from '../models/items.model';
+export class Item{
+
+
+  constructor(public itemId:number, public itemName:string, public category:string, public itemType:string,public brand:string,
+    public model:string,public quanitity:number,public rating:number,public active:boolean,public discription:string,public price:number,public itemImage:string){}
+}
 
 @Component({
   selector: 'app-items',
@@ -12,7 +18,7 @@ import { Item } from '../models/items.model';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
-  
+  cart =  new Cart(0,"",0);
   items:Item[];
   itemTypes:string[];
   checkedItemTypes: Map<string,string>;
@@ -27,7 +33,7 @@ export class ItemsComponent implements OnInit {
  
   };
   constructor(private activatedRoute: ActivatedRoute,public restClientService:RestClientService, public dataShare:DataShareToastService
-    ,public toastr: ToastrService) {
+    ,public toastr: ToastrService,private router:Router) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
     this.itemTypes = new Array<string>();
@@ -90,17 +96,26 @@ export class ItemsComponent implements OnInit {
    
    
   // }
+  // onClick(itemId: number){
+  //   this.restClientService.getItem(itemId).subscribe(
+  //     data=>console.log(data)
+  //   )
+  // }
   onClick(itemId: number){
+    this.router.navigate(['item/'+itemId],{skipLocationChange:false});
     this.restClientService.getItem(itemId).subscribe(
-      data=>console.log(data)
+      data=>console.log(data.discription)
     )
   }
   addToCart(itemId:number){ 
     let username = sessionStorage.getItem('token');
     if(username!=null){
-     
       
-      this.restClientService.addToCart(itemId,username).subscribe(
+      this.cart.itemId=itemId;
+      this.cart.username= username;
+      this.cart.quantity=1;
+      
+      this.restClientService.addToCart(this.cart.itemId,this.cart.username).subscribe(
         data=>{
          
           this.toastr.success("Added to Cart");

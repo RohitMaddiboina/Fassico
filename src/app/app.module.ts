@@ -32,6 +32,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { ItemsComponent } from './items/items.component';
 import { EditSampleComponent } from './edit-sample/edit-sample.component';
 import { CartComponent } from './cart/cart.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CartComponent } from './cart/cart.component';
     MyAccountComponent,
     EditSampleComponent,
     CartComponent,
+    ItemComponent,
   
   ],
   imports: [

@@ -12,6 +12,7 @@ import { EditSampleComponent } from './edit-sample/edit-sample.component';
 import { CartComponent } from './cart/cart.component';
 import { GaurdService } from './service/GuardService/gaurd.service';
 import { ItemsComponent } from './items/items.component';
+import { ItemComponent } from './item/item.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
   {path:'cart',component:CartComponent,canActivate:[GaurdService]},
   {path:'forgot',component:ForgotpasswordComponent},
   {path:'reset',component:ResetpasswordComponent},
-  {path:'item/:itemId',component:ItemsComponent},
+  {path:'item/:itemId',component:ItemComponent},
   {path:'**',component:ErrorComponent},
   
 ];
