@@ -24,13 +24,12 @@ import { SampleComponent } from './sample/sample.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { SideNavBarComponent } from './side-nav-bar/side-nav-bar.component';
-import { ItemsComponent } from './items/items.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { MyAccountComponent } from './my-account/my-account.component';
-
+import { ItemsComponent } from './items/items.component';
 import { EditSampleComponent } from './edit-sample/edit-sample.component';
 import { CartComponent } from './cart/cart.component';
 
@@ -50,7 +49,8 @@ import { CartComponent } from './cart/cart.component';
     ResetpasswordComponent,
     MyAccountComponent,
     EditSampleComponent,
-    CartComponent
+    CartComponent,
+  
   ],
   imports: [
     BrowserModule,
