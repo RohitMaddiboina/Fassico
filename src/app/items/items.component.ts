@@ -115,7 +115,7 @@ export class ItemsComponent implements OnInit {
       this.cart.username= username;
       this.cart.quantity=1;
       
-      this.restClientService.addToCart(this.cart).subscribe(
+      this.restClientService.addToCart(this.cart.itemId,this.cart.username).subscribe(
         data=>{
          
           this.toastr.success("Added to Cart");

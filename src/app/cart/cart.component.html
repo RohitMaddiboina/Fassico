@@ -1,12 +1,112 @@
-<div class="">
-    <div class="" *ngFor="let item of cartDetails.item">
+
+<div *ngIf="numberOfItemsInCart==0">
+    <h1>No Item Added To The Cart, Please Add some Item to the Cart and Visit......</h1>
+</div>
+<div class="col-lg-12 col-md-12">
+    <div  *ngFor="let cart of cartDetails" >
+        <div class="row" *ngIf="cart.quantity>0">
+        <img class="col-lg-3 col-md-3 p-5"  src="{{cart.item.itemImage}}" width="auto">
+        <div class="col-lg-9 col-md-9 p-5">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>{{cart.item.itemName}}</h2>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 ">
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Brand</td>
+                            <td>{{cart.item.brand}}</td>
+                        </tr>
+                        <tr>
+                            <td>Model</td>
+                            <td>{{cart.item.model}}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>{{cart.item.price}}</td>
+                        </tr>
+                    </table>
+                    <table class="table table-striped">
+                        <tr>
+                            <td><button class="btn btn-outline-warning pl-5 pr-5" (click)="removeOneFromCart(cart)"><i class="material-icons">remove_circle_outline</i></button></td>
+                            <td><button class="btn btn-default">{{cart.quantity}}</button></td>
+                            <td><button class="btn btn-outline-success pl-5 pr-5" (click)="addToCart(cart)"><i class="material-icons">add_circle_outline</i></button></td>
+                        </tr>                        
+                    </table>
+                    <table class="table table-striped">
+                        <tr>
+                            <td align="center"><button class="btn btn-outline-danger pl-5 pr-5" (click)="remove(cart)">Delete From Cart</button></td>
+                        </tr>                        
+                    </table>
+                  
+                </div>
+                
+            </div>
+           
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- <div class="">
+    <div class="" *ngFor="let cart of cartDetails">
+        <div *ngIf="cart.quantity>0" class="row p-5">
+    <div class="col-lg-3 col-md-1" >
+
+        <img src="{{cart.item.itemImage}}" width="300px">
+        
+    </div>
+    <div class="col-lg-9 col-md-9" >
+       <table class="table table-striped">
+        <tr>
+            <td><h2>{{cart.item.itemName}}</h2></td></tr>
+           <tr>
+               <td><table  class="table table-striped">
+                <tr>
+                    <td style="border:0px solid black">Brand</td>
+                    <td style="border:0px solid black;padding:5px">{{cart.item.brand}}</td>
+                </tr>
+                <tr>
+                    <td style="border:0px solid black">Model</td>
+                    <td style="border:0px solid black;padding:5px">{{cart.item.model}}</td>
+                </tr>
+                   <tr>
+                       <td style="border:0px solid black;padding:5px">Price</td>
+                       <td style="border:0px solid black;padding:5px">{{cart.item.price}}</td>
+                   </tr>
+                   
+               </table></td>
+           </tr>
+           <tr>
+               <td align="center"><table style="border:1px solid rgb(197, 195, 195)"><tr>
+                   <td><button class="btn" (click)="addToCart(cart)"><mat-icon>add_box</mat-icon></button></td>
+                   <td>{{cart.quantity}}</td>
+                   <td><button class="btn" (click)="removeOneFromCart(cart)"><mat-icon>remove</mat-icon></button></td>
+               </tr></table></td>
+           </tr>
+           <tr><td><button class="btn btn-danger" (click)="remove(cart)">Remove From Cart</button></td></tr>
+       </table>
+        
+    </div>
+</div>
+</div>
+ -->
+
+
+
+<!-- <div class="">
+    <div class="" *ngFor="let item of cartDetails.item"> -->
       
         <!-- <div *ngIf="cart.quantity>0" class="row p-5"> -->
+
+<!--             
     <div class="col-lg-3 col-md-1" >
 
         <img src="{{item.itemImage}}" width="300px">
         
-    </div>
+    </div> -->
+
+
     <!--<div class="col-lg-9 col-md-9" >
        <table>
         <tr>
@@ -40,4 +140,5 @@
         
     </div>
 </div> -->
-</div>
+<!-- </div>
+</div> -->

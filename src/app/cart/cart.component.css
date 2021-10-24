@@ -1,0 +1,6 @@
+img {
+    float: center;
+    max-width: 100%;
+    min-width: 5%;
+    /* border: 1px solid red; */
+}

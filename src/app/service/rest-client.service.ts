@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cart, CartDetails } from '../cart/cart.component';
+// import { Cart } from '../cart/cart.model';
+import { Cart } from '../cart/cart.component';
+import { Carts } from '../cart/cart.model';
 // import { Items } from '../item/items.module';
 import { Item } from '../items/items.component';
 import { AuthReq } from '../login/login.component';
@@ -57,13 +59,24 @@ export class RestClientService {
   }
 
   //Carts
-  addToCart(cart: Cart){
-    return this.http.post<Cart>(`http://localhost:8081/fasscio/cart/add`,cart);
-  }
+  
 
   getCartItems(username:string){ 
-    return this.http.get<CartDetails>(`http://localhost:8081/fasscio/cart/get`,{
-      headers: {'token': username}
-    });
+    // return this.http.get<CartDetails>(`http://localhost:8081/fasscio/cart/get`,{
+    //   headers: {'token': username}
+    // });
+    return this.http.get<Carts[]>('http://localhost:3001/cart/settykranthi1@gmail.com/')
+  }
+
+  addToCart(itemId: number,userName:string){
+    // number,userName:string|null
+    // return this.http.post<Cart>(`http://localhost:8081/fasscio/cart/add`,null);
+    return this.http.post<Cart>(`http://localhost:3001/cart/${userName}/${itemId}`,null);
+  }
+  removeOneFromCart(itemId: number,userName:string){
+    return this.http.delete<Cart>(`http://localhost:3001/cart/${userName}/${itemId}/-`);
+  }
+  removeFromCart(itemId: number,userName:string){
+    return this.http.delete<Cart>(`http://localhost:3001/cart/${userName}/${itemId}`);
   }
 }
