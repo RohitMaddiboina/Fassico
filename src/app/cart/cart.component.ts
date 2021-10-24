@@ -57,11 +57,14 @@ export class CartComponent implements OnInit {
         this.restClientService.getCartItems(this.userName).subscribe(data=>{
           this.cartDetails=data;
         })
-        for(let c of this.cartDetails){
-          if(c.quantity<=0){
-            this.numberOfItemsInCart=this.numberOfItemsInCart+c.quantity.valueOf();
-          }
-        }
+        this.restClientService.getUSerCartCount(this.userName).subscribe(data=>{
+          this.numberOfItemsInCart=data;
+        })
+        // for(let c of this.cartDetails){
+        //   if(c.quantity<=0){
+        //     this.numberOfItemsInCart=this.numberOfItemsInCart+c.quantity.valueOf();
+        //   }
+        // }
       }
     }
 

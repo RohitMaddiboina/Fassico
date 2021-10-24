@@ -5,8 +5,8 @@
 <div class="col-lg-12 col-md-12">
     <div  *ngFor="let cart of cartDetails" >
         <div class="row" *ngIf="cart.quantity>0">
-        <img class="col-lg-3 col-md-3 p-5"  src="{{cart.item.itemImage}}" width="auto">
-        <div class="col-lg-9 col-md-9 p-5">
+        <img class="col-lg-3 col-md-5 p-5"  src="{{cart.item.itemImage}}" width="auto">
+        <div class="col-lg-9 col-md-7 p-5">
             <div class="row">
                 <div class="col-lg-12">
                     <h2>{{cart.item.itemName}}</h2>

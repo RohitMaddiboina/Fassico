@@ -79,4 +79,7 @@ export class RestClientService {
   removeFromCart(itemId: number,userName:string){
     return this.http.delete<Cart>(`http://localhost:3001/cart/${userName}/${itemId}`);
   }
+  getUSerCartCount(userName:string){
+    return this.http.get<number>(`http://localhost:3001/cart/${userName}/count`);
+  }
 }
