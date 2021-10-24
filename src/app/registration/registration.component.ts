@@ -7,34 +7,9 @@ import { DataShareToastService } from '../service/dataShareToast/data-share-toas
 import { MustMatch } from 'src/must-match.validator';
 import { LoginComponent } from '../login/login.component';
 import * as CryptoJS from 'crypto-js';
+import { User } from '../models/user.model';
 
-export class User {
-  constructor(
-   
 
-    public firstName: string,
-    public lastName: string,
-
-    public email: string,
-    public gender:string,
-    public dob: Date,
-    public password: string,
-    public phone: string,
-
-    public houseNo:string,
-    public street:string,
-    public city:string,
-    public district:string,
-    public state:string,
-    public pincode:number,
-    public landmark:string,
-
-    public security_questions:string,
-    public security_answer:string
-  ) {
-
-  }
-}
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',

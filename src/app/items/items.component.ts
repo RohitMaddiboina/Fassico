@@ -2,15 +2,9 @@ import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Cart } from '../cart/cart.component';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { RestClientService } from '../service/rest-client.service';
-export class Item{
-
-
-  constructor(public itemId:number, public itemName:string, public category:string, public itemType:string,public brand:string,
-    public model:string,public quanitity:number,public rating:number,public active:boolean,public description:string,public price:number,public itemImage:string){}
-}
+import { Item } from '../models/items.model';
 
 @Component({
   selector: 'app-items',
@@ -18,7 +12,7 @@ export class Item{
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
-  cart =  new Cart(0,"",0);
+  
   items:Item[];
   itemTypes:string[];
   checkedItemTypes: Map<string,string>;
@@ -104,12 +98,9 @@ export class ItemsComponent implements OnInit {
   addToCart(itemId:number){ 
     let username = sessionStorage.getItem('token');
     if(username!=null){
+     
       
-      this.cart.itemId=itemId;
-      this.cart.username= username;
-      this.cart.quantity=1;
-      
-      this.restClientService.addToCart(this.cart).subscribe(
+      this.restClientService.addToCart(itemId,username).subscribe(
         data=>{
          
           this.toastr.success("Added to Cart");

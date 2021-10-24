@@ -4,13 +4,9 @@ import { Router } from '@angular/router';
 import { RestClientService } from '../service/rest-client.service';
 import {ToastrService} from 'ngx-toastr';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
+import { AuthReq } from '../models/AuthReq.model';
 
-export class AuthReq{
-  
-  constructor(public username:string,public password:string){
 
-  }
-}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

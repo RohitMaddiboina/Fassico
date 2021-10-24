@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RestClientService } from '../service/rest-client.service';
 import { Router } from '@angular/router';
-import { User } from '../registration/registration.component';
+import { User } from '../models/user.model';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { ToastrService } from 'ngx-toastr';
 

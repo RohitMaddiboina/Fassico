@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cart, CartDetails } from '../cart/cart.component';
-import { Item } from '../items/items.component';
-import { AuthReq } from '../login/login.component';
-import { User } from '../registration/registration.component';
+import { Carts } from '../models/cart.model';
+import { Item } from '../models/items.model';
+import { AuthReq } from '../models/AuthReq.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class RestClientService {
 
   updateUser(email:String,user:User){
     return this.http.put<User>(`http://localhost:8082/fasscio/update/${email}`,user);
-    ///fasscio/update/{email}
+   
   }
   updateAccountDetails(email: String, user: User) {
 
@@ -53,13 +53,32 @@ export class RestClientService {
   }
 
   //Carts
-  addToCart(cart: Cart){
-    return this.http.post<Cart>(`http://localhost:8081/fasscio/cart/add`,cart);
+  addToCart(itemId:number,username:string,){
+    return this.http.post<Carts>(`http://localhost:8081/cart/${itemId}`,"",{
+      headers: {'token':username}
+    });
   }
-
   getCartItems(username:string){ 
-    return this.http.get<CartDetails>(`http://localhost:8081/fasscio/cart/get`,{
+    
+    return this.http.get<Carts[]>('http://localhost:8081/cart/',{
       headers: {'token': username}
+    });
+  }
+ 
+
+  removeOneFromCart(itemId: number,userName:string){
+    return this.http.delete<Carts>(`http://localhost:8081/cart/${itemId}/-`,{
+      headers: {'token': userName}
+    });
+  }
+  removeFromCart(itemId: number,userName:string){
+    return this.http.delete<Carts>(`http://localhost:8081/cart/${itemId}`,{
+      headers: {'token': userName}
+    });
+  }
+  getUSerCartCount(userName:string){
+    return this.http.get<number>(`http://localhost:8081/cart/count`,{
+      headers: {'token': userName}
     });
   }
 }
