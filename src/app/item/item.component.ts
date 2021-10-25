@@ -40,8 +40,8 @@ export class ItemComponent implements OnInit {
     // this.cartService.addToCart(itemData.itemId).subscribe(data=>{
     // });
     let userName=this.checkAuthService.getToken();;
-    if(userName!=null){
-      
+    if(userName.length>1){
+      console.log(userName);
       this.cartService.addToCart(itemData.itemId,userName).subscribe(
         data=>{
          
@@ -52,6 +52,8 @@ export class ItemComponent implements OnInit {
           this.toastr.error("Sorry, Please try again!!");
         }
       );
+    }else{
+      this.toastr.warning("Thank you, please login!!");
     }
     
   }

@@ -6,6 +6,8 @@ import {ToastrService} from 'ngx-toastr';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { AuthReq } from '../models/AuthReq.model';
 import { UserService } from '../service/userService/user.service';
+import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
+import { AuthResponse } from '../models/AuthResponse.model';
 
 
 @Component({
@@ -16,9 +18,11 @@ import { UserService } from '../service/userService/user.service';
 export class LoginComponent implements OnInit {
 
   authReq : AuthReq;
+  authRes : AuthResponse;
   invalid: boolean;
-  constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,private userService:UserService) { 
+  constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,private userService:UserService,public checkAuthService: CheckAuthService) { 
     this.authReq = new AuthReq("","");
+    this.authRes = new AuthResponse("");
     this.invalid = false;
   }
   loginForm = new FormGroup({
@@ -31,7 +35,9 @@ export class LoginComponent implements OnInit {
     this.userService.validateUser(this.authReq).subscribe(
       data => {
         this.router.navigate(['']);
-        sessionStorage.setItem('token', this.authReq.username);
+        this.authRes = data;
+        console.log()
+        this.checkAuthService.setToken(this.authRes.token);
         this.dataShare.changeMessage("Welcome "+this.authReq.username);
         this.invalid = false;
       },

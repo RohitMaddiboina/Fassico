@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MustMatch } from 'src/must-match.validator';
 import { User } from '../models/user.model';
+import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { RestClientService } from '../service/rest-client.service';
 import { UserService } from '../service/userService/user.service';
@@ -17,7 +18,7 @@ export class ResetpasswordComponent implements OnInit {
   email: any;
   user1: User;
   constructor(private fb: FormBuilder, 
-    public data: DataShareToastService, public toastr: ToastrService,private userService:UserService) 
+    public data: DataShareToastService, public toastr: ToastrService,private userService:UserService,public checkAuthService: CheckAuthService) 
     { this.user1 = new User("", "", "", "", new Date(), "", "", "", "", "", "", "", 0, "", "", ""); }
   strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   ngOnInit(): void {

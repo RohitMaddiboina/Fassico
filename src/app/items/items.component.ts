@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from '../cart/cart.component';
 import { CartService } from '../service/cartService/cart.service';
+import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { ItemService } from '../service/itemService/item.service';
 import { RestClientService } from '../service/rest-client.service';
@@ -35,7 +36,7 @@ export class ItemsComponent implements OnInit {
  
   };
   constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:DataShareToastService
-    ,public toastr: ToastrService,private router:Router) {
+    ,public toastr: ToastrService,private router:Router,private checkAuthService:CheckAuthService) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
     this.itemTypes = new Array<string>();
@@ -102,8 +103,8 @@ export class ItemsComponent implements OnInit {
     )
   }
   addToCart(itemId:number){ 
-    let username = sessionStorage.getItem('token');
-    if(username!=null){
+    let username = this.checkAuthService.getToken();
+    if(username.length > 1){
       
       this.cart.itemId=itemId;
       this.cart.username= username;

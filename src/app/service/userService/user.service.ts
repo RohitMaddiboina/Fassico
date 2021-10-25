@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthReq } from 'src/app/models/AuthReq.model';
+import { AuthResponse } from 'src/app/models/AuthResponse.model';
 import { User } from 'src/app/models/user.model';
 
 @Injectable({
@@ -15,15 +16,22 @@ export class UserService {
     return this.http.post("http://localhost:8080/fasscio/save", user);
   }
   validateUser(authReq: AuthReq) {
-    return this.http.post("http://localhost:8080/fasscio/user-validate/", authReq);
+    return this.http.post<AuthResponse>("http://localhost:8080/fasscio/user-validate/", authReq);
   }
-  getUser(email: String | null) {
-    return this.http.get<User>(`http://localhost:8080/fasscio/get/${email}`);
+  getUser(userName: string) {
+ 
+    return this.http.get<User>(`http://localhost:8080/fasscio/get`,{
+      headers: {'Authorization':userName}
+    });
   }
-  updateUser(email: String, user: User) {
-    return this.http.put<User>(`http://localhost:8080/fasscio/update/${email}`, user);
+  updateUser(userName: string, user: User) {
+    return this.http.put<User>(`http://localhost:8080/fasscio/update`, user,{
+      headers: {'Authorization': userName}
+    });
   }
-  updateAccountDetails(email: String, user: User) {
-    return this.http.put<User>(`http://localhost:8080/fasscio/updateAccount/${email}`, user);
+  updateAccountDetails(userName: string, user: User) {
+    return this.http.put<User>(`http://localhost:8080/fasscio/updateAccount`, user,{
+      headers: {'Authorization': userName}
+    });
   }
 }

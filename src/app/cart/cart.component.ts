@@ -80,7 +80,7 @@ export class CartComponent implements OnInit {
 
     addToCart(cart:Carts){
       
-      if(this.userName!=null){
+      if(this.userName===null){
         this.cartService.addToCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
         })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidationErrors, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { RestClientService } from '../service/rest-client.service';
 import { UserService } from '../service/userService/user.service';
 
@@ -45,6 +46,7 @@ regex = new RegExp("^[1-9][0-9]{5}$");
       private router: Router,
       private userService:UserService,
       private toast: ToastrService,
+      private checkAuthService:CheckAuthService
       
       
   ) {
@@ -78,7 +80,7 @@ regex = new RegExp("^[1-9][0-9]{5}$");
 
      
     if (!this.isAddMode) {
-      this.userService.getUser(sessionStorage.getItem("token")).subscribe(
+      this.userService.getUser(this.checkAuthService.getToken()).subscribe(
         data => {
           this.userRepo.firstName = data.firstName;
           this.userRepo.lastName = data.lastName;
@@ -130,7 +132,7 @@ regex = new RegExp("^[1-9][0-9]{5}$");
    private updateUser() {
     //  console.log(this.form.value());
 
-     this.userService.updateAccountDetails(this.userRepo.email, this.regForm.value).subscribe({
+     this.userService.updateAccountDetails(this.checkAuthService.getToken(), this.regForm.value).subscribe({
       next: () => {
          
          

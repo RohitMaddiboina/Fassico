@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model'; 
+import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { RestClientService } from '../service/rest-client.service';
 import { UserService } from '../service/userService/user.service';
 
@@ -11,42 +12,15 @@ import { UserService } from '../service/userService/user.service';
 export class MyAccountComponent implements OnInit {
 
   user : User;
-  email:String | null;
-  constructor(private userService:UserService) {
+  email: string;
+  constructor(private userService:UserService,public checkAuthService: CheckAuthService) {
     this.user = new User("","","","",new Date(),"","", "","","","","",0,"","","");
     this.email="";
   }
 
   ngOnInit() {
-    this.email = sessionStorage.getItem("token");
-    this.userService.getUser(this.email).subscribe(data => this.user = data);
-    console.log(this.user);
-
-      
+    this.email = this.checkAuthService.getToken();
+    this.userService.getUser(this.email).subscribe(data => this.user = data,
+      error=> JSON.parse(error).message);
   }
-headers = ["OrderId", "Name", "Date", "Cost", "Wallet Balance"];
-
-rows = [
-  {
-    "OrderId": "210",
-    "Name": "Watch",
-    "Date": "21/09/2021",
-    "Cost": "Rs 5000",
-    "Wallet Balance": "5000"
-  },
-  {
-    "OrderId": "121",
-    "Name": "Shoes",
-    "Date": "12/08/2021",
-    "Cost": "Rs 700",
-    "Wallet Balance": "4300"
-  },
-  {
-    "OrderId": "110",
-    "Name": "Denim Jacket",
-    "Date": "02/08/2021",
-    "Cost": "Rs 1000",
-    "Wallet Balance": "3300"
-  },
-  ]
 }

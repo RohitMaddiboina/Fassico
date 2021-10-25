@@ -10,30 +10,30 @@ export class CartService {
   constructor(public http: HttpClient) { }
   addToCart(itemId:number,username:string,){
     return this.http.post<Carts>(`http://localhost:8081/cart/${itemId}`,"",{
-      headers: {'token':username}
+      headers: {'Authorization':username}
     });
   }
   getCartItems(username:string){ 
     
     return this.http.get<Carts[]>('http://localhost:8081/cart/',{
-      headers: {'token': username}
+      headers: {'Authorization': username}
     });
   }
  
 
   removeOneFromCart(itemId: number,userName:string){
     return this.http.delete<Carts>(`http://localhost:8081/cart/${itemId}/-`,{
-      headers: {'token': userName}
+      headers: {'Authorization': userName}
     });
   }
   removeFromCart(itemId: number,userName:string){
     return this.http.delete<Carts>(`http://localhost:8081/cart/${itemId}`,{
-      headers: {'token': userName}
+      headers: {'Authorization': userName}
     });
   }
   getUSerCartCount(userName:string){
     return this.http.get<number>(`http://localhost:8081/cart/count`,{
-      headers: {'token': userName}
+      headers: {'Authorization': userName}
     });
   }
 }

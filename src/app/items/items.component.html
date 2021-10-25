@@ -31,8 +31,8 @@
 
                 <div *ngFor="let item of items">
                     <div class="col-md-2" >
-                        <div class="card" (click)="onClick(item.itemId)">
-                            <img src={{item.itemImage}} class="card-img-top" alt="...">
+                        <div class="card">
+                            <img src={{item.itemImage}} class="card-img-top"  (click)="onClick(item.itemId)" alt="...">
                             <div class="card-body">
                                 <div class="row">
 
