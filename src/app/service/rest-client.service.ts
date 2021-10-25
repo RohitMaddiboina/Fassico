@@ -23,21 +23,21 @@ export class RestClientService {
     return this.http.get<User>(`http://localhost:8080/fasscio/get/${email}`);
   }
 
-  getSearchedItems(keyword:string){
-     return this.http.get<Item[]>(`http://localhost:8080/getItemsKeyword/${keyword}`);
-  }
-
+  
   updateUser(email:String,user:User){
     return this.http.put<User>(`http://localhost:8080/fasscio/update/${email}`,user);
-   
+    
   }
   updateAccountDetails(email: String, user: User) {
-
+    
     return this.http.put<User>(`http://localhost:8080/fasscio/updateAccount/${email}`, user);
     
   }
-
+  
   //Items
+  getSearchedItems(keyword:string){
+     return this.http.get<Item[]>(`http://localhost:8082/getItemsKeyword/${keyword}`);
+  }
   getItem(itemId: number){
     return this.http.get<Item>(`http://localhost:8082/getItem/${itemId}`);
   }
