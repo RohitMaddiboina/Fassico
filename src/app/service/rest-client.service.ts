@@ -12,28 +12,28 @@ export class RestClientService {
 
   constructor(public http: HttpClient) { }
 
-  //userw
+  //users
   saveUser(user:User){
-    return this.http.post("http://localhost:8082/fasscio/save",user);
+    return this.http.post("http://localhost:8080/fasscio/save",user);
   }
   validateUser(authReq:AuthReq){
-    return this.http.post("http://localhost:8082/fasscio/user-validate/",authReq);
+    return this.http.post("http://localhost:8080/fasscio/user-validate/",authReq);
   }
   getUser(email:String|null){
-    return this.http.get<User>(`http://localhost:8082/fasscio/get/${email}`);
+    return this.http.get<User>(`http://localhost:8080/fasscio/get/${email}`);
   }
 
   getSearchedItems(keyword:string){
-     return this.http.get<Item[]>(`http://localhost:8082/getItemsKeyword/${keyword}`);
+     return this.http.get<Item[]>(`http://localhost:8080/getItemsKeyword/${keyword}`);
   }
 
   updateUser(email:String,user:User){
-    return this.http.put<User>(`http://localhost:8082/fasscio/update/${email}`,user);
+    return this.http.put<User>(`http://localhost:8080/fasscio/update/${email}`,user);
    
   }
   updateAccountDetails(email: String, user: User) {
 
-    return this.http.put<User>(`http://localhost:8082/fasscio/updateAccount/${email}`, user);
+    return this.http.put<User>(`http://localhost:8080/fasscio/updateAccount/${email}`, user);
     
   }
 

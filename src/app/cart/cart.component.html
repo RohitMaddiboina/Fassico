@@ -11,7 +11,7 @@
                     <h2>{{cart.item.itemName}}</h2>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 ">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <tr>
                             <td>Brand</td>
                             <td>{{cart.item.brand}}</td>
@@ -27,9 +27,9 @@
                     </table>
                     <table class="table table-striped">
                         <tr>
-                            <td><button class="btn btn-outline-warning pl-5 pr-5" (click)="removeOneFromCart(cart)"><i class="material-icons">remove_circle_outline</i></button></td>
+                            <td><button class="btn btn-ctrl btn-ctrl-minus btn-outline-warning pl-5 pr-5" (click)="removeOneFromCart(cart)"><i class="material-icons minus">remove_circle_outline</i></button></td>
                             <td><button class="btn btn-default">{{cart.quantity}}</button></td>
-                            <td><button class="btn btn-outline-success pl-5 pr-5" (click)="addToCart(cart)"><i class="material-icons">add_circle_outline</i></button></td>
+                            <td><button class="btn btn-ctrl btn-ctrl-plus btn-outline-success pl-5 pr-5" (click)="addToCart(cart)"><i class="material-icons">add_circle_outline</i></button></td>
                         </tr>                        
                     </table>
                     <table class="table table-striped">

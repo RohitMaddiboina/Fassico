@@ -92,15 +92,7 @@ export class ItemsComponent implements OnInit {
    
     
   }
-  // onSearch(keyword:string){ 
-   
-   
-  // }
-  // onClick(itemId: number){
-  //   this.restClientService.getItem(itemId).subscribe(
-  //     data=>console.log(data)
-  //   )
-  // }
+
   onClick(itemId: number){
     this.router.navigate(['item/'+itemId],{skipLocationChange:false});
     this.restClientService.getItem(itemId).subscribe(

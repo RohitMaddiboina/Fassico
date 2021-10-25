@@ -1,12 +1,17 @@
 .img-banner{
-  width: 1380px;
+  max-width: 100%;
+  min-width: 100%;
     
 }
 .card{
   border:none
 }
 .card-content{
-  padding-left: 50px
+  padding-left: 40px
+}
+.img-card{
+  max-width: 100%;
+  min-width: 50%;
 }
 .container-fluid{
   border: 1px solid #ccc;
