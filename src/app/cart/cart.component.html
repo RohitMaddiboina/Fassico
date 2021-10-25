@@ -1,6 +1,14 @@
 <div *ngIf="numberOfItemsInCart==0">
     <h1>No Item Added To The Cart, Please Add some Item to the Cart and Visit......</h1>
 </div>
+<div class="offset-lg-9 col-lg-3 fixed-bottom " *ngIf="numberOfItemsInCart!=0">
+    <div class="card  m-lg-5">
+        <div class="card ">
+            <button class="btn btn-outline-success">Check Out Here <br>
+                <i class="material-icons"></i>Total Price - {{totalPrice}}</button>
+        </div>
+    </div>
+</div>
 <div class="col-lg-12 col-md-12">
     <div  *ngFor="let cart of cartDetails" >
         <div class="row" *ngIf="cart.quantity>0">

@@ -5,6 +5,7 @@ import { MustMatch } from 'src/must-match.validator';
 import { User } from '../models/user.model';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { RestClientService } from '../service/rest-client.service';
+import { UserService } from '../service/userService/user.service';
 
 @Component({
   selector: 'app-resetpassword',
@@ -15,8 +16,8 @@ export class ResetpasswordComponent implements OnInit {
   regForm: any;
   email: any;
   user1: User;
-  constructor(private fb: FormBuilder, public restClienService: RestClientService,
-    public data: DataShareToastService, public toastr: ToastrService) 
+  constructor(private fb: FormBuilder, 
+    public data: DataShareToastService, public toastr: ToastrService,private userService:UserService) 
     { this.user1 = new User("", "", "", "", new Date(), "", "", "", "", "", "", "", 0, "", "", ""); }
   strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class ResetpasswordComponent implements OnInit {
   onSubmit() {
     this.email = sessionStorage.getItem('emailId');
 
-    this.restClienService.getUser(this.email).subscribe(res => this.user1 = res);
+    this.userService.getUser(this.email).subscribe(res => this.user1 = res);
 
     
 
@@ -50,7 +51,7 @@ export class ResetpasswordComponent implements OnInit {
 
     // console.log("--------nullllllll------email----"+this.user1.email+" ---city -----"+this.user1.city+"password----d"+this.user1.password+" email ");
    
-    this.restClienService.updateUser(this.email, this.user1).subscribe(res => {
+    this.userService.updateUser(this.email, this.user1).subscribe(res => {
       this.data.changeMessage("reset Completed");
     } )
 

@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from '../cart/cart.component';
+import { CartService } from '../service/cartService/cart.service';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
+import { ItemService } from '../service/itemService/item.service';
 import { RestClientService } from '../service/rest-client.service';
 export class Item{
 
@@ -32,7 +34,7 @@ export class ItemsComponent implements OnInit {
     step: 5,
  
   };
-  constructor(private activatedRoute: ActivatedRoute,public restClientService:RestClientService, public dataShare:DataShareToastService
+  constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:DataShareToastService
     ,public toastr: ToastrService,private router:Router) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
@@ -44,10 +46,10 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void {
     this.navItem = this.activatedRoute.snapshot.params['navItem'];
     this.category = this.activatedRoute.snapshot.params['category'];
-    this.restClientService.getItemType(this.navItem, this.category).subscribe(
+    this.itemService.getItemType(this.navItem, this.category).subscribe(
       data=> this.itemTypes = data
     )
-    this.restClientService.getAllItems(this.category).subscribe(
+    this.itemService.getAllItems(this.category).subscribe(
       data => {
         this.items = data;
         this.options = new Options();
@@ -61,7 +63,7 @@ export class ItemsComponent implements OnInit {
     )
     this.dataShare.currentMessage.subscribe(message => {
       if(!message.includes("default message")){
-        this.restClientService.getSearchedItems(message).subscribe(data=>{
+        this.itemService.getSearchedItems(message).subscribe(data=>{
   
           this.items = data
           
@@ -75,7 +77,7 @@ export class ItemsComponent implements OnInit {
     if (ischecked){
       this.checkedItemTypes.set(itemType,itemType);
      
-      this.restClientService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
+      this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
         data=>{
           this.items = data
         }
@@ -83,7 +85,7 @@ export class ItemsComponent implements OnInit {
     }
       else{
         this.checkedItemTypes.delete(itemType);
-        this.restClientService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
+        this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
           data=>this.items = data
         );
       
@@ -95,7 +97,7 @@ export class ItemsComponent implements OnInit {
 
   onClick(itemId: number){
     this.router.navigate(['item/'+itemId],{skipLocationChange:false});
-    this.restClientService.getItem(itemId).subscribe(
+    this.itemService.getItem(itemId).subscribe(
       data=>console.log(data.discription)
     )
   }
@@ -107,7 +109,7 @@ export class ItemsComponent implements OnInit {
       this.cart.username= username;
       this.cart.quantity=1;
       
-      this.restClientService.addToCart(this.cart.itemId,this.cart.username).subscribe(
+      this.cartService.addToCart(this.cart.itemId,this.cart.username).subscribe(
         data=>{
          
           this.toastr.success("Added to Cart");
@@ -123,7 +125,7 @@ export class ItemsComponent implements OnInit {
   }
   OnSliderChange(low:number, high:number){
    
-    this.restClientService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
+    this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
       data=>this.items = data
     );
     

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../service/userService/user.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class ForgotpasswordComponent implements OnInit {
   isSubmit = false;
   data: any;
   user: User;
-  constructor(public toastr: ToastrService, public dataShare: DataShareToastService, private fb: FormBuilder, public restClienService: RestClientService, public router: Router) {
+  constructor(public toastr: ToastrService, public dataShare: DataShareToastService, private fb: FormBuilder,
+    private userService:UserService, public router: Router) {
     this.user = new User("", "", "", "", new Date(), "", "", "", "", "", "", "", 0, "", "", "");
   }
 
@@ -36,7 +38,7 @@ export class ForgotpasswordComponent implements OnInit {
   onSubmit() {
     sessionStorage.setItem('emailId', this.regForm.get('email').value);
     this.email = sessionStorage.getItem('emailId');
-    this.restClienService.getUser(this.email).subscribe(res => {
+    this.userService.getUser(this.email).subscribe(res => {
 
       const q1 = res.security_questions;
       const q2 = res.security_answer;

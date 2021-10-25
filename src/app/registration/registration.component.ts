@@ -8,6 +8,7 @@ import { MustMatch } from 'src/must-match.validator';
 import { LoginComponent } from '../login/login.component';
 import * as CryptoJS from 'crypto-js';
 import { User } from '../models/user.model';
+import { UserService } from '../service/userService/user.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ show=false;
   invalid: boolean;
 
   regForm: any;
-  constructor(public toastrService:ToastrService,private fb: FormBuilder,public data:DataShareToastService, public restClienService: RestClientService, public router: Router) {
+  constructor(public toastrService:ToastrService,private fb: FormBuilder,public data:DataShareToastService,  public router: Router,private  userService:UserService) {
 
     this.user = new User("","","","",new Date(),"","", "","","","","",0,"","","");
     this.invalid = false;
@@ -81,7 +82,7 @@ show=false;
     this.user.password=CryptoJS.SHA1(this.user.password).toString();
 
 
-    this.restClienService.saveUser(this.user).subscribe(
+    this.userService.saveUser(this.user).subscribe(
       data => {
         this.invalid = false;
         sessionStorage.setItem('token', this.user.email);

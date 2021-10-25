@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder, ValidationErrors, Abst
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RestClientService } from '../service/rest-client.service';
+import { UserService } from '../service/userService/user.service';
 
 export class UserEdit{
   constructor(
@@ -42,7 +43,7 @@ regex = new RegExp("^[1-9][0-9]{5}$");
     private fb: FormBuilder, public restClienService: RestClientService,
       private route: ActivatedRoute,
       private router: Router,
-      private restClientService: RestClientService,
+      private userService:UserService,
       private toast: ToastrService,
       
       
@@ -77,7 +78,7 @@ regex = new RegExp("^[1-9][0-9]{5}$");
 
      
     if (!this.isAddMode) {
-      this.restClientService.getUser(sessionStorage.getItem("token")).subscribe(
+      this.userService.getUser(sessionStorage.getItem("token")).subscribe(
         data => {
           this.userRepo.firstName = data.firstName;
           this.userRepo.lastName = data.lastName;
@@ -129,7 +130,7 @@ regex = new RegExp("^[1-9][0-9]{5}$");
    private updateUser() {
     //  console.log(this.form.value());
 
-     this.restClientService.updateAccountDetails(this.userRepo.email, this.regForm.value).subscribe({
+     this.userService.updateAccountDetails(this.userRepo.email, this.regForm.value).subscribe({
       next: () => {
          
          

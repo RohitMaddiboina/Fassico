@@ -4,6 +4,7 @@ import { Item } from '../models/items.model';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { RestClientService } from '../service/rest-client.service';
 import { Carts } from '../models/cart.model';
+import { CartService } from '../service/cartService/cart.service';
 export class Cart{
   constructor(public itemId:number,public username:string,public quantity:number) { }
 }
@@ -38,25 +39,35 @@ export class CartComponent implements OnInit {
     cartDetails:Carts[]=[]
     numberOfItemsInCart:number=0;
     userName=this.checkAuthService.getToken();
-    constructor(private restClientService:RestClientService, private router:Router, public checkAuthService: CheckAuthService) {
+    totalPrice=Number();
+    constructor(private cartService:CartService, private router:Router, public checkAuthService: CheckAuthService) {
       // cartService.getCartByUserid().subscribe(data=>{
       //   this.cartDetails=data;
       // })
       // restClientService.getCartItems()
 
       if(this.userName!=null){
-        this.restClientService.getCartItems(this.userName).subscribe(data=>{
+        this.cartService.getCartItems(this.userName).subscribe(data=>{
           this.cartDetails=data;
         })
       }
       
     }
     ngOnInit(): void {
+
+      this.totalPrice=0;
       if(this.userName!=null){
-        this.restClientService.getCartItems(this.userName).subscribe(data=>{
+        this.cartService.getCartItems(this.userName).subscribe(data=>{
           this.cartDetails=data;
+          for(let c of this.cartDetails){
+            if(c.quantity>=0){
+              // this.totalPrice=Number(this.totalPrice)
+              this.totalPrice=this.totalPrice+(Number(Number(c.item.price)*Number(c.quantity)))
+              console.log(this.totalPrice)
+            }
+          }
         })
-        this.restClientService.getUSerCartCount(this.userName).subscribe(data=>{
+        this.cartService.getUSerCartCount(this.userName).subscribe(data=>{
           this.numberOfItemsInCart=data;
         })
         // for(let c of this.cartDetails){
@@ -70,7 +81,7 @@ export class CartComponent implements OnInit {
     addToCart(cart:Carts){
       
       if(this.userName!=null){
-        this.restClientService.addToCart(cart.item.itemId,this.userName).subscribe(data=>{
+        this.cartService.addToCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
         })
       }
@@ -78,14 +89,14 @@ export class CartComponent implements OnInit {
     }
     removeOneFromCart(cart:Carts){
       if(this.userName!=null){
-        this.restClientService.removeOneFromCart(cart.item.itemId,this.userName).subscribe(data=>{
+        this.cartService.removeOneFromCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
         })
       }
     }
     remove(cart:Carts){
       if(this.userName!=null){
-        this.restClientService.removeFromCart(cart.item.itemId,this.userName).subscribe(data=>{
+        this.cartService.removeFromCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
         })
       }

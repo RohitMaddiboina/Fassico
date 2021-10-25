@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model'; 
 import { RestClientService } from '../service/rest-client.service';
+import { UserService } from '../service/userService/user.service';
 
 @Component({
   selector: 'app-my-account',
@@ -11,14 +12,14 @@ export class MyAccountComponent implements OnInit {
 
   user : User;
   email:String | null;
-  constructor(private restClientService: RestClientService) {
+  constructor(private userService:UserService) {
     this.user = new User("","","","",new Date(),"","", "","","","","",0,"","","");
     this.email="";
   }
 
   ngOnInit() {
     this.email = sessionStorage.getItem("token");
-    this.restClientService.getUser(this.email).subscribe(data => this.user = data);
+    this.userService.getUser(this.email).subscribe(data => this.user = data);
     console.log(this.user);
 
       

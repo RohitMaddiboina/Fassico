@@ -5,6 +5,7 @@ import { RestClientService } from '../service/rest-client.service';
 import {ToastrService} from 'ngx-toastr';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { AuthReq } from '../models/AuthReq.model';
+import { UserService } from '../service/userService/user.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   authReq : AuthReq;
   invalid: boolean;
-  constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,public restClienService:RestClientService) { 
+  constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,private userService:UserService) { 
     this.authReq = new AuthReq("","");
     this.invalid = false;
   }
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.authReq = this.loginForm.value;
     this.authReq.password=CryptoJS.SHA1(this.authReq.password).toString();
-    this.restClienService.validateUser(this.authReq).subscribe(
+    this.userService.validateUser(this.authReq).subscribe(
       data => {
         this.router.navigate(['']);
         sessionStorage.setItem('token', this.authReq.username);
