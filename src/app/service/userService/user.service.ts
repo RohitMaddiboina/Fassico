@@ -18,6 +18,9 @@ export class UserService {
   validateUser(authReq: AuthReq) {
     return this.http.post<AuthResponse>("http://localhost:8080/fasscio/user-validate/", authReq);
   }
+  validateHint(email:string,question:string,ans:string){
+    return this.http.get(`http://localhost:8080/fasscio/hint/${email}/${question}/${ans}`);
+  }
   getUser(userName: string) {
  
     return this.http.get<User>(`http://localhost:8080/fasscio/get`,{

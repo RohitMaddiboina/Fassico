@@ -37,24 +37,18 @@ export class ForgotpasswordComponent implements OnInit {
 
   }
   onSubmit() {
-    sessionStorage.setItem('emailId', this.regForm.get('email').value);
-    this.email = this.checkAuthService.getToken();
-    this.userService.getUser(this.email).subscribe(res => {
-
-      const q1 = res.security_questions;
-      const q2 = res.security_answer;
-
-      if (q1 === this.regForm.get('security_questions').value && q2 === this.regForm.get('security_answer').value) {
-        this.isSubmit = true;
-      }
-      if (this.isSubmit === true) {
+    
+    this.email = this.regForm.get('email').value;
+    const q1 = this.regForm.get('security_questions').value;
+    const q2 = this.regForm.get('security_answer').value;
+    this.userService.validateHint(this.email, q1, q2).subscribe(
+      data=>{
+        sessionStorage.setItem('emailId', this.email);
         this.router.navigateByUrl('/reset');
-      }
-
-    },
-      error => {
-
-      });
+      },
+      
+    )
+   
   }
 
 }
