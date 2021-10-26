@@ -36,7 +36,7 @@ show=false;
     this.regForm = this.fb.group(
       {
       firstName: ['', [Validators.required, Validators.minLength(3),Validators.pattern('^[a-zA-Z \-\']+')]],
-      lastName: ['',  [Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]],
+      lastName: [''],
       gender:['',[Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(16), Validators.pattern(this.strongRegex)]],
