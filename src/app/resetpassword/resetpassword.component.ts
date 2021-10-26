@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MustMatch } from 'src/must-match.validator';
+import { PasswordEntity } from '../models/PasswordEntity.model';
 import { User } from '../models/user.model';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
@@ -17,6 +18,7 @@ export class ResetpasswordComponent implements OnInit {
   regForm: any;
   email: any;
   user1: User;
+  passwordEntity = new PasswordEntity("","");
   constructor(private fb: FormBuilder, 
     public data: DataShareToastService, public toastr: ToastrService,private userService:UserService,public checkAuthService: CheckAuthService) 
     { this.user1 = new User("", "", "", "", new Date(), "", "", "", "", "", "", "", 0, "", "", ""); }
@@ -41,18 +43,17 @@ export class ResetpasswordComponent implements OnInit {
 
 
   onSubmit() {
-    this.email = sessionStorage.getItem('emailId');
+    this.passwordEntity.email = sessionStorage.getItem('emailId');
 
-    this.userService.getUser(this.email).subscribe(res => this.user1 = res);
 
     
 
-    this.user1.password = CryptoJS.SHA1(this.regForm.get('password').value).toString(); 
+    this.passwordEntity.password = CryptoJS.SHA1(this.regForm.get('password').value).toString(); 
    // this.user1.email=this.email;
 
     // console.log("--------nullllllll------email----"+this.user1.email+" ---city -----"+this.user1.city+"password----d"+this.user1.password+" email ");
    
-    this.userService.updateUser(this.email, this.user1).subscribe(res => {
+    this.userService.updateUser(this.passwordEntity).subscribe(res => {
       this.data.changeMessage("reset Completed");
     } )
 

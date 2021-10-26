@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthReq } from 'src/app/models/AuthReq.model';
 import { AuthResponse } from 'src/app/models/AuthResponse.model';
+import { PasswordEntity } from 'src/app/models/PasswordEntity.model';
 import { User } from 'src/app/models/user.model';
 
 @Injectable({
@@ -27,10 +28,8 @@ export class UserService {
       headers: {'Authorization':userName}
     });
   }
-  updateUser(userName: string, user: User) {
-    return this.http.put<User>(`http://localhost:8080/fasscio/update`, user,{
-      headers: {'Authorization': userName}
-    });
+  updateUser(passwordEntity:PasswordEntity) {
+    return this.http.put<User>(`http://localhost:8080/fasscio/update`, passwordEntity);
   }
   updateAccountDetails(userName: string, user: User) {
     return this.http.put<User>(`http://localhost:8080/fasscio/updateAccount`, user,{

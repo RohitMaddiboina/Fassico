@@ -59,6 +59,7 @@ export class CartComponent implements OnInit {
       if(this.userName!=null){
         this.cartService.getCartItems(this.userName).subscribe(data=>{
           this.cartDetails=data;
+       
           for(let c of this.cartDetails){
             if(c.quantity>=0){
               // this.totalPrice=Number(this.totalPrice)
@@ -79,8 +80,8 @@ export class CartComponent implements OnInit {
     }
 
     addToCart(cart:Carts){
-      
-      if(this.userName===null){
+      if(this.userName!=null){
+        
         this.cartService.addToCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
         })

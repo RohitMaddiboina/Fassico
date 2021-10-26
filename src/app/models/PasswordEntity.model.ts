@@ -1,5 +1,5 @@
 export class PasswordEntity{
-    constructor(public password:string){
-        
+    constructor(public email: string|null, public password: string){
+
     }
 }
