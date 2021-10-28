@@ -84,12 +84,14 @@ export class CartComponent implements OnInit {
         
         this.cartService.addToCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
-        })
+        }
+        )
       }
       
     }
     removeOneFromCart(cart:Carts){
       if(this.userName!=null){
+        console.log("pressed remove one from carrt")
         this.cartService.removeOneFromCart(cart.item.itemId,this.userName).subscribe(data=>{
           this.ngOnInit();
         })
@@ -97,7 +99,9 @@ export class CartComponent implements OnInit {
     }
     remove(cart:Carts){
       if(this.userName!=null){
+        
         this.cartService.removeFromCart(cart.item.itemId,this.userName).subscribe(data=>{
+          console.log(data)
           this.ngOnInit();
         })
       }
@@ -111,40 +115,3 @@ export class CartComponent implements OnInit {
       // })
     }
 }
-// import { Component, OnInit } from '@angular/core';
-// import { Item } from '../items/items.component';
-// import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
-// import { RestClientService } from '../service/rest-client.service';
-// export class Cart{
-//   constructor(public itemId:number,public username:string,public quantity:number) { }
-// }
-// export class CartDetails{
-//   constructor(public items:Item[]){}
-// }
-// @Component({
-//   selector: 'app-cart',
-//   templateUrl: './cart.component.html',
-//   styleUrls: ['./cart.component.css']
-// })
-// export class CartComponent implements OnInit {
-
-//  username = this.checkAuthService.getToken();
-//  items = new Array<Item>();
-//  cartDetails:CartDetails;
-//   constructor(public restClientService:RestClientService,public checkAuthService:CheckAuthService) { 
-//     this.cartDetails = new CartDetails(new Array<Item>());
-   
-//   }
-
-//   ngOnInit(): void {
-//     if(this.username!==null){
-//       this.restClientService.getCartItems(this.username).subscribe(
-//         data => {
-//             this.cartDetails = data;
-//            console.log( this.cartDetails.items );
-//         }
-//       )
-//     }
-//   }
-
-// }

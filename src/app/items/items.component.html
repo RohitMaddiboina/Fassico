@@ -59,39 +59,25 @@
                     </div>
                 </div>
 
-                <!--                     
-                    <div class="card col-md-2">
-                        <div class="card-content">
-                            <img src="assets/img/jeans2.webp">
+            </div>
+            <div class="row">
+                <div class="page-div-count col-md-2 col-sm-2">
+                        
+                    <p style="display: inline">Page {{selectedPage+1}} of {{pageSize}}</p>
+                </div>
+                <div class="container col-md-10 col-sm-10 page-container">
+                   
+                    <ul class="pages-list">
+                        <div class="page-div-item" *ngFor="let item of [].constructor(pageSize); let i = index">
+                            
+                            <li class="page-item"><a class="btn btn-link" (click)="page(i)">{{i+1}}</a></li>
+                            
                         </div>
-                    </div>
-                    <div class="card col-md-2">
-                        <div class="card-content">
-                            <img src="assets/img/jeans3.webp">
-                        </div>
-                    </div>
-                    <div class="card col-md-2">
-                        <div class="card-content">
-                            <img src="assets/img/jeans4.webp">
-                        </div>
-                    </div>
-                    <div class="card col-md-2">
-                        <div class="card-content">
-                            <img src="assets/img/jeans5.webp">
-                        </div>
-                    </div>
-                    <div class="card col-md-2">
-                        <div class="card-content">
-                            <img src="assets/img/jeans6.webp">
-                        </div>
-                    </div>
-                  -->
-
-
-
-
-
+                    </ul>
+                </div>
             </div>
         </div>
+        
     </div>
+       
 </div>

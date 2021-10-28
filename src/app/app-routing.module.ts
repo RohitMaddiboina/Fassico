@@ -16,7 +16,8 @@ import { ItemComponent } from './item/item.component';
 
 
 const routes: Routes = [
-  {path: '',component:HomeComponent},
+  {path:'',redirectTo:'/home',pathMatch:'full'},
+  {path: 'home',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'signup',component:RegistrationComponent},
   {path:'item/:navItem/:category',component:ItemsComponent},

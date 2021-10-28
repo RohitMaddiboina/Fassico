@@ -16,6 +16,7 @@ export class CheckAuthService {
 
   setToken(token:string){
     sessionStorage.setItem(this.TOKEN_STRING,'Bearer '+token);
+    
   }
   getToken(): string{
     let token = sessionStorage.getItem(this.TOKEN_STRING);

@@ -8,6 +8,8 @@ import { CheckAuthService } from '../service/checkAuthService/check-auth.service
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
 import { ItemService } from '../service/itemService/item.service';
 import { RestClientService } from '../service/rest-client.service';
+import {ListOfItemsList} from '../models/ListOfItemsList.model';
+import { SearchDataShareServiceService } from '../service/searchDataShare/search-data-share-service.service';
 export class Item{
 
 
@@ -33,18 +35,23 @@ export class ItemsComponent implements OnInit {
     floor: 0,
     ceil: 1000,
     step: 5,
- 
   };
-  constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:DataShareToastService
+  list:ListOfItemsList;
+  pageSize:number;
+  selectedPage=0;
+  constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:SearchDataShareServiceService
     ,public toastr: ToastrService,private router:Router,private checkAuthService:CheckAuthService) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
     this.itemTypes = new Array<string>();
     this.category ="";
     this.navItem ="";
+    this.list = new ListOfItemsList(new Array<Array<Item>>());
+    this.pageSize = 0;
    }
   
   ngOnInit(): void {
+    
     this.navItem = this.activatedRoute.snapshot.params['navItem'];
     this.category = this.activatedRoute.snapshot.params['category'];
     this.itemService.getItemType(this.navItem, this.category).subscribe(
@@ -52,21 +59,26 @@ export class ItemsComponent implements OnInit {
     )
     this.itemService.getAllItems(this.category).subscribe(
       data => {
-        this.items = data;
+        this.list = data;
+        this.pageSize = this.list.list.length;
+        this.items = this.list.list[0];
         this.options = new Options();
-        this.options.floor = this.items[0].price;
-        this.options.ceil = this.items[this.items.length-1].price;
+        this.options.floor = this.list.list[0][0].price;
+        this.options.ceil =  this.list.list[this.list.list.length - 1][this.list.list[this.list.list.length - 1].length-1].price;
         this.options.step = 5;
-        this.value = this.items[0].price;;
-        this.highValue = this.items[this.items.length-1].price;
+        this.value = this.options.floor;
+        this.highValue = this.options.ceil;
+
+        // this.items = data;
       }
-     
     )
     this.dataShare.currentMessage.subscribe(message => {
       if(!message.includes("default message")){
         this.itemService.getSearchedItems(message).subscribe(data=>{
   
-          this.items = data
+          this.list = data;
+          this.pageSize = this.list.list.length;
+          this.items = this.list.list[0];
           
         })
       }
@@ -80,24 +92,26 @@ export class ItemsComponent implements OnInit {
      
       this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
         data=>{
-          this.items = data
+          this.list = data;
+        this.pageSize = this.list.list.length;
+        this.items = this.list.list[0];
         }
       );
     }
       else{
         this.checkedItemTypes.delete(itemType);
         this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
-          data=>this.items = data
-        );
-      
-    }
-   
-   
-    
+          data=>{
+            this.list = data;
+        this.pageSize = this.list.list.length;
+        this.items = this.list.list[0];
+          }
+        );  
+    }    
   }
 
   onClick(itemId: number){
-    this.router.navigate(['item/'+itemId],{skipLocationChange:false});
+    this.router.navigate(['item/'+itemId]);
     this.itemService.getItem(itemId).subscribe(
       data=>console.log(data.discription)
     )
@@ -127,9 +141,17 @@ export class ItemsComponent implements OnInit {
   OnSliderChange(low:number, high:number){
    
     this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
-      data=>this.items = data
+      data=>{
+        this.list = data;
+        this.pageSize = this.list.list.length;
+        this.items = this.list.list[0];
+      }
     );
     
+  }
+  page(i:number){
+    this.selectedPage = i;
+    this.items = this.list.list[i];
   }
   
 

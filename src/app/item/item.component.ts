@@ -48,7 +48,10 @@ export class ItemComponent implements OnInit {
           this.toastr.success("Added to Cart");
         },
         err =>{
-          console.log(err);
+          if(err.status==401){
+            this.checkAuthService.logout();
+            this.toastr.warning("Thank you, please login!!");
+          }
           this.toastr.error("Sorry, Please try again!!");
         }
       );

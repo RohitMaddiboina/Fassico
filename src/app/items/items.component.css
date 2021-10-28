@@ -84,7 +84,7 @@ img {
     width: 170px;
     height: 250px;
 } */
-ul{
+.categories-list{
     list-style: none;
     align-items:left!important;
     padding:10px;
@@ -92,7 +92,37 @@ ul{
 }
 
 
+.page-div-item{
+   
+    display: inline;
+}
+.pages-list{
+    padding-left: 20%;
+}
+.pages-list .page-item{
+    display:inline;
+}
+.page-item{
+   padding :5px
+}
+.btn-link{
 
+    border-radius: 0px;
+    background-color:rgb(146, 143, 143);
+    text-decoration:none;
+    color: white!important;
+
+}
+
+.btn-link:hover{
+
+    font-weight:1000;
+    background-color:rgb(146, 143, 143);
+    text-decoration:none;
+    color: white!important;
+    border-radius: 3px;
+
+}
 
 
 

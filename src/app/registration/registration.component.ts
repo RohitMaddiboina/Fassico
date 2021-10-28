@@ -85,8 +85,7 @@ show=false;
     this.userService.saveUser(this.user).subscribe(
       data => {
         this.invalid = false;
-        sessionStorage.setItem('token', this.user.email);
-        this.router.navigate(['']);
+        this.router.navigate(['login']);
         this.data.changeMessage("Account created!!")
       },
       error => {
