@@ -51,7 +51,7 @@ export class ItemsComponent implements OnInit {
    }
   
   ngOnInit(): void {
-    
+    console.log(this.activatedRoute.snapshot.params);
     this.navItem = this.activatedRoute.snapshot.params['navItem'];
     this.category = this.activatedRoute.snapshot.params['category'];
     this.itemService.getItemType(this.navItem, this.category).subscribe(

@@ -66,7 +66,7 @@ import { ItemComponent } from './item/item.component';
     MatIconModule,
     MatSidenavModule,
     ToastrModule.forRoot({
-      preventDuplicates:false,
+      preventDuplicates:true,
       positionClass:'toast-bottom-right',
     }),NgxSliderModule,
     MatInputModule,
