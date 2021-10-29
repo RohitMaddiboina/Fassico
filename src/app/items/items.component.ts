@@ -10,6 +10,7 @@ import { ItemService } from '../service/itemService/item.service';
 import { RestClientService } from '../service/rest-client.service';
 import {ListOfItemsList} from '../models/ListOfItemsList.model';
 import { SearchDataShareServiceService } from '../service/searchDataShare/search-data-share-service.service';
+import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
 export class Item{
 
 
@@ -40,7 +41,7 @@ export class ItemsComponent implements OnInit {
   pageSize:number;
   selectedPage=0;
   constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:SearchDataShareServiceService
-    ,public toastr: ToastrService,private router:Router,private checkAuthService:CheckAuthService) {
+    ,public toastr: ToastrService,private router:Router,private checkAuthService:CheckAuthService,public cartCountService:CartCountService) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
     this.itemTypes = new Array<string>();
@@ -126,8 +127,12 @@ export class ItemsComponent implements OnInit {
       
       this.cartService.addToCart(this.cart.itemId,this.cart.username).subscribe(
         data=>{
+          this.cartService.getUSerCartCount(this.cart.username).subscribe(data=>{
+            this.cartCountService.changeMessage(data.toString());
+          })
          
           this.toastr.success("Added to Cart");
+          
         },
         err =>{
           console.log(err);

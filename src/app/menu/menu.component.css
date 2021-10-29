@@ -54,6 +54,12 @@ ul{
 }
 
 
+.badge {
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+
+}
 
 
 
