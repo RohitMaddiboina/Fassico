@@ -30,8 +30,8 @@ export class ForgotpasswordComponent implements OnInit {
       {
 
         email: ['', [Validators.required, Validators.email]],
-        security_questions: ['', [Validators.required]],
-        security_answer: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]]
+        securityQuestions: ['', [Validators.required]],
+        securityAnswer: ['', [Validators.required, Validators.pattern('^[a-zA-Z \-\']+')]]
 
       });
 
@@ -39,8 +39,8 @@ export class ForgotpasswordComponent implements OnInit {
   onSubmit() {
     
     this.email = this.regForm.get('email').value;
-    const q1 = this.regForm.get('security_questions').value;
-    const q2 = this.regForm.get('security_answer').value;
+    const q1 = this.regForm.get('securityQuestions').value;
+    const q2 = this.regForm.get('securityAnswer').value;
     this.userService.validateHint(this.email, q1, q2).subscribe(
       data=>{
         sessionStorage.setItem('emailId', this.email);

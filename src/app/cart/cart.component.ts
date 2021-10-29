@@ -114,4 +114,7 @@ export class CartComponent implements OnInit {
       //   this.ngOnInit();
       // })
     }
+    checkOut(){
+      this.router.navigate(['placeOrders'])
+    }
 }

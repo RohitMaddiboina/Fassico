@@ -35,6 +35,8 @@ import { ItemsComponent } from './items/items.component';
 import { EditSampleComponent } from './edit-sample/edit-sample.component';
 import { CartComponent } from './cart/cart.component';
 import { ItemComponent } from './item/item.component';
+import { PlaceOrdersComponent } from './place-orders/place-orders.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { ItemComponent } from './item/item.component';
     EditSampleComponent,
     CartComponent,
     ItemComponent,
+    PlaceOrdersComponent,
+    OrdersComponent
   
   ],
   imports: [

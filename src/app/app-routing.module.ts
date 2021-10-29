@@ -13,6 +13,8 @@ import { CartComponent } from './cart/cart.component';
 import { GaurdService } from './service/GuardService/gaurd.service';
 import { ItemsComponent } from './items/items.component';
 import { ItemComponent } from './item/item.component';
+import { PlaceOrdersComponent } from './place-orders/place-orders.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 const routes: Routes = [
@@ -27,6 +29,8 @@ const routes: Routes = [
   {path:'forgot',component:ForgotpasswordComponent},
   {path:'reset',component:ResetpasswordComponent},
   {path:'item/:itemId',component:ItemComponent},
+  {path:'placeOrders',component:PlaceOrdersComponent},
+  {path:'orders',component:OrdersComponent},
   {path:'**',component:ErrorComponent},
   
 ];

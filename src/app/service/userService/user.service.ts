@@ -36,4 +36,9 @@ export class UserService {
       headers: {'Authorization': userName}
     });
   }
+  getUserWalletAmount(userName:string) {
+    return this.http.get(`http://localhost:8080/fasscio/wallet`,{
+      headers: {'Authorization': userName}
+    });
+  }
 }

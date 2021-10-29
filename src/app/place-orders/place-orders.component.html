@@ -1,0 +1,294 @@
+<div class="col-lg-12 col-md-12">
+    
+    <div class="row" *ngIf="cartCount>0">
+        <div class="offset-lg-3 col-lg-6">
+            <div class="col-lg-12" style="border-top:1px solid black;">
+                <h1>
+                    1. Select a delivery address</h1>
+                <table class="col-lg-12">
+                    <tr>
+                        <td>
+                            <form [formGroup]="regForm" (ngSubmit)="onSubmit()" class="border pl-5">
+                                <table class="table" class="col-lg-12 ">
+                                    <tr>
+                                        <td>
+                                            <p style="font-size: 20px;"><input type="radio" name="address"
+                                                    id="acceptTerms" class="form-check-input" value="sameadd"
+                                                    [checked]="selectedOnSameAddress"
+                                                    (change)="sameAddress($event)" />Current Address</p><b
+                                                style="margin-left: 20px;">{{address}}</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="address" id="acceptTerms" class="form-check-input"
+                                                value="newadd" (change)="newAddress($event)" />
+                                            <p style="font-size: 20px;">Add New Address</p><b *ngIf="newAddressAdded"
+                                                style="margin-left: 20px;">{{addNewAddress}}</b>
+                                            <table *ngIf="selectedNewAddress" class="col-lg-12">
+                                                <tr>
+                                                    <td>
+                                                        <table class="col-lg-12 col-md-12"
+                                                            style="border-top: 1px solid #c0bdbd;">
+
+                                                            <tr>
+                                                                <!-- <td>
+                                                                <input type="radio" name="address"  id="acceptTerms" class="form-check-input"  />
+                                                                <label for="acceptTerms" class="form-check-label">Look up a new Pick-up location</label>
+                                                            </td> -->
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="houseNo"
+                                                                        placeholder="House/Plot/Flat number"
+                                                                        class="form-control" required />&nbsp;
+                                                                    <span class="error"
+                                                                        *ngIf="f.houseNo.touched && f.houseNo.invalid">[required]
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="street" placeholder="Street"
+                                                                        class="form-control" required />&nbsp;
+                                                                    <span class="error"
+                                                                        *ngIf="f.street.touched && f.street.invalid">[required]
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="city"
+                                                                        placeholder="City/Village" class="form-control"
+                                                                        required />&nbsp;
+                                                                    <span class="error"
+                                                                        *ngIf="f.city.touched && f.city.invalid">[required]
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="district"
+                                                                        placeholder="District" class="form-control"
+                                                                        required />&nbsp;
+                                                                    <span class="error"
+                                                                        *ngIf="f.district.touched && f.district.invalid">[required]
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="state" placeholder="State"
+                                                                        class="form-control" required />&nbsp;
+                                                                    <span class="error"
+                                                                        *ngIf="f.state.touched && f.state.invalid">[required]
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="pincode" placeholder="PIN Code"
+                                                                        class="form-control" required />&nbsp;
+                                                                    <span class="error"
+                                                                        *ngIf="f.pincode.touched && f.pincode.invalid">[required]
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="landmark"
+                                                                        placeholder="Landmark"
+                                                                        class="form-control" />&nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="right">
+                                                                    <button type="submit"
+                                                                        class="btn btn-warning m-auto col-sm-3 col-md-3"
+                                                                        style="margin-top: 25px;"
+                                                                        [disabled]="!regForm.valid">Use this
+                                                                        Address</button>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                    <td>Table For Address</td><td></td>
+                                </tr> -->
+                                </table>
+                            </form>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Table For Payment</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Table For Review</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr> -->
+                </table>
+            </div>
+            <div class="col-lg-12 mb-5 mt-2" style="border-top:1px solid black">
+
+                <h1>2. Payment method</h1>
+                <div class="col-lg-12">
+                    <table class="pl-5" *ngIf="showPayment" class="col-lg-12">
+                        <tr>
+                            <td>
+                                <div class="col-lg-12">
+                                    <form [formGroup]="paymentMethodForm" (ngSubmit)="makePaymentMethod()">
+
+                                        <div class="row">
+                                            <div class="form-group" class="col-lg-5">
+                                                <select formControlName="paymentMethod" class="custom-select mb-2"
+                                                    (change)="changePaymentMethod($event)">
+                                                    <option value="">------Select Payment Method------</option>
+                                                    <option *ngFor="let method of paymentList"
+                                                        (ngValue)="method.methodKey">{{method.methodValue}}</option>
+                                                </select>
+                                                <div *ngIf="ff.paymentMethod.touched && ff.paymentMethod.invalid"
+                                                    class="error">
+                                                    <p style="color:red">
+                                                        Please Select Any of the Payment Method to Procees.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-7" *ngIf="showWallet&&!viewReview">
+                                            <div *ngIf="walletAmount>totalPrice" class="col-lg-12 border border-success rounded shadow-lg">
+                                                <div class="col-lg-12">
+                                                    <h2>Wallet </h2>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>Available Amount: </td>
+                                                            <td align="right">{{walletAmount| currency:"&#8377;"}} Rs
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div *ngIf="showWallet" class="col-lg-12">
+                                                    <h2>Order Summary</h2>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>Items Price: </td>
+                                                            <td align="right">{{totalPrice| currency:"&#8377;"}} Rs</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <button class="btn btn-outline-success" type="submit">Use Wallet Amount</button>
+                                                <p class="text-success" >*Sufficent Amount Available In The Wallet To Place Order.</p>
+                                            </div>
+
+                                            <div *ngIf="walletAmount<totalPrice" class="col-lg-12 border border-danger rounded shadow-lg">
+                                                <div class="col-lg-12">
+                                                    <h2>Wallet </h2>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>Available Amount: </td>
+                                                            <td align="right">{{walletAmount| currency:"&#8377;"}} Rs
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div *ngIf="showWallet" class="col-lg-12">
+                                                    <h2>Order Summary</h2>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>Items Price: </td>
+                                                            <td align="right">{{totalPrice| currency:"&#8377;"}} Rs</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <p class="text-danger" >*No Sufficent Amount Available In The Wallet To Place Order.</p>
+                                            </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <button class="btn btn-primary" type="submit" [disabled]="!paymentMethodForm.valid">Submit</button>   -->
+                                    </form>
+                                </div>
+                            <td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-5 mt-1" style="border-top:1px solid black">
+                <h1>3. Review Item And Delivery</h1>
+                <div class="col-lg-12 col-md-12 border rounded" *ngIf="viewReview">
+                    <div class="row" *ngFor="let c of cart">
+                        <img src="{{c.item.itemImage}}" class="col-lg-3 img p-2"/>
+                        <!-- <h2 class="col-lg-6">{{c.item.itemName}}</h2> -->
+                        <table class="table col-lg-6" >
+                            <tr>
+                                <td>Item Name: </td>
+                                <td >{{c.item.itemName}} Rs</td>
+                            </tr>
+                            <tr>
+                                <td>Item Amount: </td>
+                                <td >{{c.item.price| currency:"&#8377;"}} Rs</td>
+                            </tr>
+                        </table>
+                        <div class="col-lg-3 ">
+                            
+                        <button class="btn btn-secondary col-lg-12 mt-3">Quantity {{c.quantity}}</button></div>
+                        
+                    </div>
+                    <table class="table" >
+                        <tr>
+                            <td>
+                                Delivery Addresss
+                            </td>
+                            <td>
+                                <span *ngIf="selectedOnSameAddress"><b>{{address}}</b></span>
+                                <span *ngIf="!selectedOnSameAddress"><b>{{addNewAddress}}</b></span>
+                            </td>
+                        </tr><tr>
+                            <td>
+                                Payment Method
+                            </td>
+                            <td>
+                                <span *ngIf="showWallet"><b>Wallet</b></span>
+                                <span *ngIf="!showWallet"><b>Pay on Delivery</b></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total Price
+                            </td>
+                            <td>
+                                <span *ngIf="showWallet"><b class="text-danger">{{totalPrice| currency:"&#8377;"}}</b></span>
+                                <span *ngIf="!showWallet"><b>{{totalPrice| currency:"&#8377;"}}</b></span><button class="ml-5 btn btn-warning" (click)="placeOrder()">Place Order</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="cartCount<=0"><h1>{{errorMessage}}</h1></div>
+</div>

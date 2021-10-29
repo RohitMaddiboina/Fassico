@@ -50,8 +50,8 @@ show=false;
       state:['',[Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]],
       pincode:['',[Validators.required,Validators.pattern(this.regex)]],
       landmark:[''],
-      security_questions:['',[Validators.required]],
-      security_answer:['',[Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]]
+      securityQuestions:['',[Validators.required]],
+      securityAnswer:['',[Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]]
 
     },{
       validator: MustMatch('password', 'confirmPassword')
