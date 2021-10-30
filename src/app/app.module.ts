@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 // import {MatSelectModule} from '@angular/material/select'
@@ -76,6 +77,7 @@ import { OrdersComponent } from './orders/orders.component';
       easing: 'ease-out'
     }), NgxSliderModule,
     MatInputModule,
+    MatTabsModule,
     MatFormFieldModule,
     MatAutocompleteModule,
     // MatButtonModule,
