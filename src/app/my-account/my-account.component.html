@@ -1,43 +1,75 @@
-<h1>My Account</h1>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h1>My Account</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
             <th style="width: 30%">Name</th>
             <th style="width: 30%">Email</th>
             <th style="width: 30%">Contact Number</th>
             <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td> {{user.firstName}} {{user.lastName}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.phone}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ user.firstName }} {{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
             <td style="white-space: nowrap">
-                <a href="edit" class="btn btn-sm btn-primary mr-1">Edit</a>
-                
+              <a href="edit" class="btn btn-sm btn-primary mr-1">Edit</a>
             </td>
-        </tr>
-        <!-- <tr *ngIf="!users">
+          </tr>
+          <!-- <tr *ngIf="!users">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
         </tr> -->
-    </tbody>
-</table>
-<!-- <table id="users" class="table table-striped">
-  <tr>
-    <th *ngFor="let column of headers">
-      {{column}}
-    </th>
-  </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h3>
+        <span style="font-weight: 500"> Orders History </span>
+      </h3>
+    </div>
+  </div>
 
-  <tr *ngFor="let row of rows">
-    <td *ngFor="let column of headers">
-      {{row[column]}}
-    </td>
-  </tr>
-  
+  <div class="row orders">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <table id="orders-table" class="table table-striped">
+        <thead>
+          <th>OrderID</th>
+          <th>Order Name</th>
+          <th>Order Amount</th>
+          <th>Order Date</th>
+          <th>Delivery Status</th>
+        </thead>
 
-</table> -->
+        <tr *ngFor="let order of orders">
+          <td>
+            {{ order.orderId }}
+          </td>
+          <td>
+            {{ order.item.itemName }}
+          </td>
+          <td>Rs.{{ order.amount }}</td>
+          <td>
+            {{ order.orderedDate | date }}
+          </td>
+          <td>
+            {{ order.deliveryStatus }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
