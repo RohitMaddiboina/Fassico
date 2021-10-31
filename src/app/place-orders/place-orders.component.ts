@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Carts } from '../models/cart.model';
+import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
 import { CartService } from '../service/cartService/cart.service';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { OrdersService } from '../service/orders/orders.service';
@@ -13,7 +14,8 @@ import { UserService } from '../service/userService/user.service';
 })
 export class PlaceOrdersComponent implements OnInit {
 
-  constructor(private router:Router,private userService:UserService,public checkAuthService: CheckAuthService,private fb: FormBuilder,private cartService:CartService, private orderService:OrdersService) { }
+  constructor(private router:Router,private userService:UserService,public checkAuthService: CheckAuthService,private fb: FormBuilder,private cartService:CartService, private orderService:OrdersService
+    ,public cartCountService:CartCountService,) { }
   errorMessage="Loading......"
   useSameAddress:boolean=false
   user:any
@@ -31,6 +33,7 @@ export class PlaceOrdersComponent implements OnInit {
   showWallet:boolean=false
   viewReview:boolean=false;
   ngOnInit(): void {
+    
     this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data=>{
       data.forEach(da=>{
         this.cartCount=Number(this.cartCount)+Number(da.quantity);
@@ -118,6 +121,7 @@ export class PlaceOrdersComponent implements OnInit {
             this.showWallet=true;
             
           })
+          this.totalPrice=this.totalPrice+1
         })
         return data;
       })
@@ -132,10 +136,12 @@ export class PlaceOrdersComponent implements OnInit {
           this.totalPrice+=(Number(d.quantity)*d.item.price)
           
         })
+        this.totalPrice=this.totalPrice+1
       })
     }
   }
   placeOrder(){
+   
     let orderRequest:RequestOrder
     let finalAddress=""
     let finalPaymentMethod:String="";
@@ -156,6 +162,9 @@ export class PlaceOrdersComponent implements OnInit {
     }
     console.log(orderRequest)
     this.orderService.placeOrder(orderRequest,this.checkAuthService.getToken()).subscribe(data=>{
+      this.cartService.getUSerCartCount(this.checkAuthService.getToken()).subscribe(data=>{
+        this.cartCountService.changeMessage(data.toString());
+      })
       this.router.navigate(['orders']);
     })
 

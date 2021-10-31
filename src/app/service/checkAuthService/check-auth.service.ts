@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CartCountService } from '../CartCountShareServiec/cart-count.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class CheckAuthService {
 
   TOKEN_STRING  = "Authorization";
-  constructor() { }
+  constructor(public cartCountService:CartCountService) { }
   isUserLoggedIn(): boolean{
     if(sessionStorage.getItem(this.TOKEN_STRING)!=null){
       return true;
@@ -27,6 +28,8 @@ export class CheckAuthService {
     return '';
   }
   logout(): void{
+    this.cartCountService.changeMessage('0');
     sessionStorage.removeItem(this.TOKEN_STRING);
+
   }
 }

@@ -17,10 +17,11 @@ export class ItemComponent implements OnInit {
   itemId:number=0;
   itemData={} as Item;
   itemDetails:any={};
-
+  
   constructor(private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService ) { }
 
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe((params:Params)=>{
       this.itemId=params['itemId'];
       console.log(this.itemId);

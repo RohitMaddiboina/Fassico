@@ -100,6 +100,7 @@ export class CartComponent implements OnInit {
       // })
     }
     checkOut(){
+      
       this.router.navigate(['placeOrders'])
     }
 }

@@ -135,8 +135,13 @@ export class ItemsComponent implements OnInit {
           
         },
         err =>{
-          console.log(err);
-          this.toastr.error("Sorry, Please try again!!");
+          if(err.error.includes("Token Expired")){
+            this.checkAuthService.logout();
+            this.toastr.warning("Thank you please login again!!");
+          }else{
+            this.toastr.error("Sorry, Please try again after some time!!");
+          }
+         
         }
       );
     }else{

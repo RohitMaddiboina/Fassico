@@ -28,6 +28,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideNavBarComponent } from './side-nav-bar/side-nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { MyAccountComponent } from './my-account/my-account.component';
@@ -82,7 +83,8 @@ import { OrdersComponent } from './orders/orders.component';
     // MatSelectModule,
     // MatCheckboxModule,
     // MatChipsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgHttpLoaderModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
