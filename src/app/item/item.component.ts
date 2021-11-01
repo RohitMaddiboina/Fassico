@@ -6,7 +6,7 @@ import { CartService } from '../service/cartService/cart.service';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { ItemService } from '../service/itemService/item.service';
 import { RestClientService } from '../service/rest-client.service';
-
+import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -18,7 +18,7 @@ export class ItemComponent implements OnInit {
   itemData={} as Item;
   itemDetails:any={};
   
-  constructor(private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService ) { }
+  constructor(public cartCountService:CartCountService,private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService ) { }
 
   ngOnInit(): void {
     
@@ -45,7 +45,9 @@ export class ItemComponent implements OnInit {
       console.log(userName);
       this.cartService.addToCart(itemData.itemId,userName).subscribe(
         data=>{
-         
+          this.cartService.getUSerCartCount(userName).subscribe(data=>{
+            this.cartCountService.changeMessage(data.toString());
+          })
           this.toastr.success("Added to Cart");
         },
         err =>{

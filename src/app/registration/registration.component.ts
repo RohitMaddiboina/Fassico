@@ -79,6 +79,7 @@ show=false;
 
   onSubmit() {
     this.user = this.regForm.value;
+    console.log(this.user)
     this.user.password=CryptoJS.SHA1(this.user.password).toString();
 
 

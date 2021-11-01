@@ -4,7 +4,7 @@
         <p class="pl-3 pr-3 " style="font-size: 3vh;">Available Fassico Wallet Amount</p>
     </div>
     <br>
-    <div class="offset-lg-2 col-lg-8 rounded border ">
+    <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="orders.length>0">
         <mat-tab-group animationDuration="1000ms" mat-align-tabs="start">
             <mat-tab label="Debited Transaction">
                 <div class="col-md-12 col-lg-12">
@@ -57,5 +57,8 @@
             <!-- <mat-tab label="All Transactions">
             </mat-tab> -->
         </mat-tab-group>
+    </div>
+    <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="orders.length<=0">
+        No Previous Transaction Found...
     </div>
     </div>
