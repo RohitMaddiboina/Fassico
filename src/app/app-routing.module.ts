@@ -29,7 +29,7 @@ const routes: Routes = [
   {path:'forgot',component:ForgotpasswordComponent},
   {path:'reset',component:ResetpasswordComponent},
   {path:'item/:itemId',component:ItemComponent},
-  {path:'placeOrders',component:PlaceOrdersComponent,canActivate:[PlaceOrdersComponent]},
+  {path:'placeOrders',component:PlaceOrdersComponent,canActivate:[GaurdService]},
   {path:'orders',component:OrdersComponent,canActivate:[GaurdService]},
   {path:'wallet',component:WalletComponent},
   {path:'**',component:ErrorComponent},

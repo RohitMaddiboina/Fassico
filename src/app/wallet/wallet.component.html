@@ -18,11 +18,11 @@
                             <td class="th th-last" align="center"><b>Amount</b></td>
                         </tr>
                         <tr *ngFor="let order of orders">
-                            <td align="center">{{order.orderId}}</td>
-                            <td align="center">{{order.orderedDate | date:'dd MMMM yyyy'}}</td>
-                            <td align="center">{{order.paymentMethod}}</td>
-                            <td align="center" class="text-danger"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
-                            <td align="center" class="text-danger"><b>-{{order.amount}}</b></td>
+                            <td align="center"  *ngIf="order.paymentStatus">{{order.orderId}}</td>
+                            <td align="center" *ngIf="order.paymentStatus">{{order.orderedDate | date:'dd MMMM yyyy'}}</td>
+                            <td align="center" *ngIf="order.paymentStatus">{{order.paymentMethod}}</td>
+                            <td align="center" *ngIf="order.paymentStatus" class="text-danger"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
+                            <td align="center" *ngIf="order.paymentStatus" class="text-danger"><b>-{{order.amount}}</b></td>
                             
                             <!-- <td *ngIf=""></td> -->
                         </tr>
