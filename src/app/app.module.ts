@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorComponent } from './error/error.component';
 import { SampleComponent } from './sample/sample.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideNavBarComponent } from './side-nav-bar/side-nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -79,6 +80,7 @@ import { OrdersComponent } from './orders/orders.component';
     MatInputModule,
     MatFormFieldModule,
     MatAutocompleteModule,
+    MatTabsModule,
     // MatButtonModule,
     // MatSelectModule,
     // MatCheckboxModule,

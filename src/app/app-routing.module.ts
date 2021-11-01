@@ -29,8 +29,8 @@ const routes: Routes = [
   {path:'forgot',component:ForgotpasswordComponent},
   {path:'reset',component:ResetpasswordComponent},
   {path:'item/:itemId',component:ItemComponent},
-  {path:'placeOrders',component:PlaceOrdersComponent},
-  {path:'orders',component:OrdersComponent},
+  {path:'placeOrders',component:PlaceOrdersComponent,canActivate:[PlaceOrdersComponent]},
+  {path:'orders',component:OrdersComponent,canActivate:[OrdersComponent]},
   {path:'**',component:ErrorComponent},
   
 ];

@@ -13,10 +13,12 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService:OrdersService,private checkAuth:CheckAuthService) { }
 
   orders:Orders[]=[]
+  cancelledOrders:Orders[]=[]
   ngOnInit(): void {
     this.orderService.getOrder(this.checkAuth.getToken()).subscribe(data=>{
       this.orders=data;
       console.log(data);
+      this.cancelledOrders=data.filter(d=>d.orderCancellationStatus)
     })
   }
 

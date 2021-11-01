@@ -68,7 +68,7 @@ img {
 .cards-row {
     display:flex;
     align-items: center;
-    /* margin-top:3%; */
+    margin-top:3%;
 
 }
 

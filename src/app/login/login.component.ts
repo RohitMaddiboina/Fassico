@@ -8,6 +8,8 @@ import { AuthReq } from '../models/AuthReq.model';
 import { UserService } from '../service/userService/user.service';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { AuthResponse } from '../models/AuthResponse.model';
+import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
+import { CartService } from '../service/cartService/cart.service';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
   authReq : AuthReq;
   authRes : AuthResponse;
   invalid: boolean;
-  constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,private userService:UserService,public checkAuthService: CheckAuthService) { 
+  constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,private userService:UserService,
+    public checkAuthService: CheckAuthService,public cartCountService:CartCountService,public cartService:CartService) { 
     this.authReq = new AuthReq("","");
     this.authRes = new AuthResponse("");
     this.invalid = false;
@@ -36,9 +39,13 @@ export class LoginComponent implements OnInit {
       data => {
         this.router.navigate(['']);
         this.authRes = data;
-        console.log()
+      
+        
         this.checkAuthService.setToken(this.authRes.token);
         this.dataShare.changeMessage("Welcome "+this.authReq.username);
+        this.cartService.getUSerCartCount(this.checkAuthService.getToken()).subscribe(data => {
+         this.cartCountService.changeMessage(data.toString());
+        });
         this.invalid = false;
       },
       error =>{
