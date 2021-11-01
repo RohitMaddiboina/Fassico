@@ -4,6 +4,7 @@ import { AuthReq } from 'src/app/models/AuthReq.model';
 import { AuthResponse } from 'src/app/models/AuthResponse.model';
 import { PasswordEntity } from 'src/app/models/PasswordEntity.model';
 import { User } from 'src/app/models/user.model';
+import { Users } from 'users.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ export class UserService {
   getUser(userName: string) {
  
     return this.http.get<User>(`http://localhost:8080/fasscio/get`,{
+      headers: {'Authorization':userName}
+    });
+  }
+  getUserDetails(userName:string){
+    return this.http.get<Users>(`http://localhost:8080/fasscio/get`,{
       headers: {'Authorization':userName}
     });
   }

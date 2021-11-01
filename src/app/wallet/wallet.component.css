@@ -1,0 +1,24 @@
+.bgcolor{
+    background-color: #fef5e5
+    ;
+    color: #f59f00
+    ;
+}
+.img{
+    min-width: 05%;
+    max-width: 05%;
+}
+.th{
+    background-color: #6f7191;
+    color:white;
+}
+.th-first{
+    background-color: #6f7191;
+    border-radius: 15px 0px 0px 0px;
+    color:white;
+}   
+.th-last{
+    background-color: #6f7191;
+    border-radius: 0px 15px 0px 0px;
+    color:white;
+}   

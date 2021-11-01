@@ -13,9 +13,11 @@ export interface Orders{
     "deliveryStatus": String,
     "orderCancellationStatus": boolean,
     "orderCancellationReason": boolean,
-    "orderCancellationDate": boolean,
+    "orderCancellationDate": Date,
     "refundStatus": boolean,
     "refundDate": boolean,
     "user":User,
-    "item":Item
+    "item":Item,
+    "enableToCancelOrder":boolean,
+    "canCancelOrderTill":Date
 }

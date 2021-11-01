@@ -1,6 +1,7 @@
-<mat-tab-group  animationDuration="1000ms" mat-align-tabs="start">
+<div class="offset-lg-1 col-lg-10 offset-md-1 col-md-10">
+<mat-tab-group  animationDuration="1000ms" mat-align-tabs="start" *ngIf="checkAuth.isUserLoggedIn()"  >
     <mat-tab label="Active Orders">
-        <div class="active-orders col-lg-12 col-md-12 mt-2 ">
+        <div class="col-lg-12 col-md-12 mt-2 ">
             <div class="col-lg-12 col-md-12" *ngIf="orders.length>0">
                 <div class="row" *ngFor="let order of orders">
                     <div class="col-lg-3 border">
@@ -32,6 +33,7 @@
                                 <td><b>DPayment Method</b></td>
                                 <td><b>{{order.paymentMethod}}</b></td>
                             </tr>
+                            <tr><td colspan="2" ><div *ngIf="order.enableToCancelOrder"><button class="btn btn-danger" (click)="openDialog(order)">Cancel Order</button><p class="text-info">You can Cancel this order before <b> {{order.canCancelOrderTill | date:'dd MMMM yyyy'}}</b></p></div></td></tr>
                         </table>
                     </div>
                 </div>
@@ -84,3 +86,4 @@
         </div>
     </mat-tab>
 </mat-tab-group>
+</div>

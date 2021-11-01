@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Orders } from '../models/Order.model';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { OrdersService } from '../service/orders/orders.service';
+import { Constants } from 'src/constants'; 
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCancellationComponent } from './confirm-cancellation/confirm-cancellation.component';
 
 @Component({
   selector: 'app-orders',
@@ -10,16 +14,78 @@ import { OrdersService } from '../service/orders/orders.service';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private orderService:OrdersService,private checkAuth:CheckAuthService) { }
+  constructor(private orderService:OrdersService,public checkAuth:CheckAuthService,private router: Router,public dialog: MatDialog) {
+    if(!checkAuth.isUserLoggedIn()){
+      router.navigate(['login'])
+    }
+   }
 
+
+  paymentList:PaymentMethods[]=[]
   orders:Orders[]=[]
   cancelledOrders:Orders[]=[]
   ngOnInit(): void {
+
+    this.paymentList=[{
+      'methodKey':'WALLET',
+      'methodValue':'Wallet'
+    },{
+      'methodKey':'PAY_ON_DELIVERY',
+      'methodValue':'Pay on Delivery'
+    }]
+
     this.orderService.getOrder(this.checkAuth.getToken()).subscribe(data=>{
-      this.orders=data;
-      console.log(data);
+      data.map((d)=>{
+        d.orderedDate=new Date(d.orderedDate.toString())
+        d.canCancelOrderTill=new Date(d.orderedDate.getTime()+((Constants.order.orderCancellationDateLimit-1)* 24 * 60 * 60 * 1000))
+        if(d.canCancelOrderTill>=new Date()){          
+          d.enableToCancelOrder=true
+        }
+        if(d.paymentMethod===this.paymentList[0].methodKey){
+          d.paymentMethod=this.paymentList[0].methodValue
+        }else{
+          d.paymentMethod=this.paymentList[1].methodValue
+        }
+      })
+      this.orders=data.filter(d=>!d.orderCancellationStatus)  
       this.cancelledOrders=data.filter(d=>d.orderCancellationStatus)
     })
   }
 
+  cancellationRequest:any={}
+
+  openDialog(order:Orders): void {
+    const dialogRef = this.dialog.open(ConfirmCancellationComponent, {
+      // width: '250px',
+      maxWidth:'90%',
+      minWidth:'30%',
+      data:{orderId:order.orderId,cancel:false}
+      // data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.cancel){
+        cancellationRequest:this.cancellationRequest
+        this.cancellationRequest={
+        'orderId':result.orderId,
+        'reason':""
+        }
+        this.orderService.cancelOrder(this.checkAuth.getToken(), this.cancellationRequest).subscribe(data=>{
+          this.ngOnInit();
+        })
+      }
+      
+      // console.log(this.cancellationRequest);
+      // this.confirmCancellation=result
+      // this.animal = result;
+    });
+  }
+}
+export interface ConfirmCancellation{
+  'orderId':string,
+  'cancel':boolean
+} 
+export interface PaymentMethods{
+  methodKey:String,
+  methodValue:String
 }

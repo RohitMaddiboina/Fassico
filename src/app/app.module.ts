@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
+import {MatDialogModule} from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 // import {MatSelectModule} from '@angular/material/select'
@@ -39,7 +40,8 @@ import { CartComponent } from './cart/cart.component';
 import { ItemComponent } from './item/item.component';
 import { PlaceOrdersComponent } from './place-orders/place-orders.component';
 import { OrdersComponent } from './orders/orders.component';
-
+import { ConfirmCancellationComponent } from './orders/confirm-cancellation/confirm-cancellation.component';
+import { WalletComponent } from './wallet/wallet.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +61,9 @@ import { OrdersComponent } from './orders/orders.component';
     CartComponent,
     ItemComponent,
     PlaceOrdersComponent,
-    OrdersComponent
+    OrdersComponent,
+    ConfirmCancellationComponent,
+    WalletComponent
 
   ],
   imports: [
@@ -70,6 +74,7 @@ import { OrdersComponent } from './orders/orders.component';
     ReactiveFormsModule,
     AppRoutingModule,
     MatIconModule,
+    MatDialogModule,
     MatSidenavModule,
     ToastrModule.forRoot({
       preventDuplicates: true,

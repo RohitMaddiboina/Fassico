@@ -15,7 +15,7 @@ import { ItemsComponent } from './items/items.component';
 import { ItemComponent } from './item/item.component';
 import { PlaceOrdersComponent } from './place-orders/place-orders.component';
 import { OrdersComponent } from './orders/orders.component';
-
+import { WalletComponent } from './wallet/wallet.component';
 
 const routes: Routes = [
   
@@ -30,7 +30,8 @@ const routes: Routes = [
   {path:'reset',component:ResetpasswordComponent},
   {path:'item/:itemId',component:ItemComponent},
   {path:'placeOrders',component:PlaceOrdersComponent,canActivate:[PlaceOrdersComponent]},
-  {path:'orders',component:OrdersComponent,canActivate:[OrdersComponent]},
+  {path:'orders',component:OrdersComponent,canActivate:[GaurdService]},
+  {path:'wallet',component:WalletComponent},
   {path:'**',component:ErrorComponent},
   
 ];

@@ -1,0 +1,61 @@
+<div class="col-lg-12 col-md-12" *ngIf="checkAuth.isUserLoggedIn()">
+    <div class="offset-lg-2 col-lg-8 rounded border bgcolor">
+        <h1 class="pb-2 pt-3 pl-3 pr-3" style="font-size: 07vh;"> {{userDetails.walletAmount | currency:"&#8377;"}}</h1>
+        <p class="pl-3 pr-3 " style="font-size: 3vh;">Available Fassico Wallet Amount</p>
+    </div>
+    <br>
+    <div class="offset-lg-2 col-lg-8 rounded border ">
+        <mat-tab-group animationDuration="1000ms" mat-align-tabs="start">
+            <mat-tab label="Debited Transaction">
+                <div class="col-md-12 col-lg-12">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td align="center" class="th th-first"><b>Order Id</b></td>
+                            <td align="center" class="th"><b>Date Of Transaction</b></td>
+                            <td align="center" class="th"><b>Payment Method</b></td>
+                            <td align="center" class="th"></td>
+                            <td class="th th-last" align="center"><b>Amount</b></td>
+                        </tr>
+                        <tr *ngFor="let order of orders">
+                            <td align="center">{{order.orderId}}</td>
+                            <td align="center">{{order.orderedDate | date:'dd MMMM yyyy'}}</td>
+                            <td align="center">{{order.paymentMethod}}</td>
+                            <td align="center" class="text-danger"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
+                            <td align="center" class="text-danger"><b>-{{order.amount}}</b></td>
+                            
+                            <!-- <td *ngIf=""></td> -->
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Credit Transaction">
+                <div class="col-md-12 col-lg-12">
+                    <div class="row">
+                        <table class="table">
+                            <tr>
+                                <td align="center" class="th th-first"><b>Order Id</b></td>
+                                <td align="center" class="th"><b>Date Of Transaction</b></td>
+                                <td align="center" class="th"><b>Payment Method</b></td>
+                                <td align="center" class="th"></td>
+                                <td class="th th-last" align="center"><b>Amount</b></td>
+                            </tr>
+                            <tr *ngFor="let order of inActiveOrders">
+                                <td align="center">{{order.orderId}}</td>
+                                <td align="center">{{order.orderedDate | date:'dd MMMM yyyy'}}</td>
+                                <td align="center">{{order.paymentMethod}}</td>
+                                <td align="center" class="text-success"><mat-icon style="transform: scale(2);"> call_missed</mat-icon></td>
+                                <td align="center" class="text-success"><b>+{{order.amount}}</b></td>
+                                
+                                <!-- <td *ngIf=""></td> -->
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+            </mat-tab>
+            <!-- <mat-tab label="All Transactions">
+            </mat-tab> -->
+        </mat-tab-group>
+    </div>
+    </div>
