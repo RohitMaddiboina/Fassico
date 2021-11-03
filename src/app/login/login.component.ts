@@ -34,10 +34,18 @@ export class LoginComponent implements OnInit {
   });
   onSubmit(){
     this.authReq = this.loginForm.value;
+    let url:string|null;
     this.authReq.password=CryptoJS.SHA1(this.authReq.password).toString();
     this.userService.validateUser(this.authReq).subscribe(
       data => {
-        this.router.navigate(['']);
+        if(sessionStorage.getItem("url")!=null){
+
+          url = sessionStorage.getItem("url");
+        }else{
+          url = "";
+        }
+
+        this.router.navigate([url]);
         this.authRes = data;
       
         

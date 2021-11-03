@@ -18,7 +18,8 @@ export class ItemComponent implements OnInit {
   itemData={} as Item;
   itemDetails:any={};
   
-  constructor(public cartCountService:CartCountService,private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService ) { }
+  constructor(public cartCountService:CartCountService,private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService
+    ) { }
 
   ngOnInit(): void {
     
@@ -53,12 +54,16 @@ export class ItemComponent implements OnInit {
         err =>{
           if(err.status==401){
             this.checkAuthService.logout();
+            sessionStorage.setItem("url",this.router.routerState.snapshot['url']);
+            this.router.navigate(['/login']);
             this.toastr.warning("Thank you, please login!!");
           }
           this.toastr.error("Sorry, Please try again!!");
         }
       );
     }else{
+     sessionStorage.setItem("url",this.router.routerState.snapshot['url']);
+     this.router.navigate(['/login']);
       this.toastr.warning("Thank you, please login!!");
     }
     

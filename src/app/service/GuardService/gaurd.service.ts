@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { CheckAuthService } from '../checkAuthService/check-auth.service';
 
 
@@ -8,12 +8,13 @@ import { CheckAuthService } from '../checkAuthService/check-auth.service';
 })
 export class GaurdService  implements CanActivate{
 
-  constructor(private router: Router,public checkAuthService: CheckAuthService ) { }
+  constructor(private router: Router,public checkAuthService: CheckAuthService) { }
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if(this.checkAuthService.isUserLoggedIn()){
       return true;
     }
+    sessionStorage.setItem("url",state.url);
     this.router.navigate(['/login'])
     return false;
   }

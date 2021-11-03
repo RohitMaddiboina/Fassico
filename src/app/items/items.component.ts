@@ -137,6 +137,8 @@ export class ItemsComponent implements OnInit {
         err =>{
           if(err.error.includes("Token Expired")){
             this.checkAuthService.logout();
+            sessionStorage.setItem("url",this.router.routerState.snapshot['url']);
+            this.router.navigate(['/login']);
             this.toastr.warning("Thank you please login again!!");
           }else{
             this.toastr.error("Sorry, Please try again after some time!!");
@@ -145,6 +147,8 @@ export class ItemsComponent implements OnInit {
         }
       );
     }else{
+      sessionStorage.setItem("url",this.router.routerState.snapshot['url']);
+      this.router.navigate(['/login']);
       this.toastr.warning("Thank you, please login");
     }
   }

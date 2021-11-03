@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartCountService } from '../CartCountShareServiec/cart-count.service';
+import { DataShareToastService } from '../dataShareToast/data-share-toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { CartCountService } from '../CartCountShareServiec/cart-count.service';
 export class CheckAuthService {
 
   TOKEN_STRING  = "Authorization";
-  constructor(public cartCountService:CartCountService) { }
+  constructor(public cartCountService:CartCountService,public dataShare:DataShareToastService) { }
   isUserLoggedIn(): boolean{
     if(sessionStorage.getItem(this.TOKEN_STRING)!=null){
       return true;
@@ -30,6 +31,7 @@ export class CheckAuthService {
   logout(): void{
     this.cartCountService.changeMessage('0');
     sessionStorage.removeItem(this.TOKEN_STRING);
+    this.dataShare.changeMessage("Logged out");
 
   }
 }
