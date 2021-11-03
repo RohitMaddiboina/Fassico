@@ -65,8 +65,11 @@
           <td>
             {{ order.orderedDate | date }}
           </td>
-          <td>
+          <td *ngIf="!order.orderCancellationStatus">
             {{ order.deliveryStatus }}
+          </td>
+          <td *ngIf="order.orderCancellationStatus">
+            Order Cancelled
           </td>
         </tr>
       </table>

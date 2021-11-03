@@ -42,16 +42,15 @@
                     <div class="top-wear">
                          <ul class="top-wear-list">
                              <li ><a class="nav-head-link" href="item/women/Indian Ethinic Wear">Indian Wear</a></li>
-                             <li ><a class="nav-other-link" routerLink="">Sarees</a></li>
-                             <li><a class="nav-other-link" routerLink="">Lehenga Cholis</a></li>
+                             <li ><a class="nav-other-link" href="item/women/Indian Ethinic Wear">Sarees</a></li>
+                             <li><a class="nav-other-link" href="item/women/Indian Ethinic Wear">Lehenga Cholis</a></li>
                          </ul>
                     </div>
                     <div class="bottom-wear">
                         <ul class="bottom-wear-list">
-                        <li><a class="nav-head-link" routerLink="">Western wear</a></li>
-                        <li><a class="nav-other-link" routerLink="">Jeans</a></li>
-                        <li><a class="nav-other-link" routerLink="">Jackets</a></li>
-                        <li><a class="nav-other-link" routerLink="">Trousers</a></li>
+                        <li><a class="nav-head-link" href="item/women/Western Wear">Western wear</a></li>
+                        <li><a class="nav-other-link" href="item/women/Western Wear">Jeans</a></li>
+                        <li><a class="nav-other-link" href="item/women/Western Wear">Jackets</a></li>
                         </ul>
                     </div>
                    
@@ -133,6 +132,8 @@
                         (click)="checkLogin.logout()"><span>Logout</span></a>
                     <a class="dropdown-item" routerLink="login"
                         *ngIf="!checkLogin.isUserLoggedIn()"><span>login</span></a>
+                    <a class="dropdown-item" routerLink="signup"
+                        *ngIf="!checkLogin.isUserLoggedIn()"><span>signup</span></a>
                 </div>
             </li>
         </ul>

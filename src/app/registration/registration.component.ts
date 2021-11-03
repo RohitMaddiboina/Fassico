@@ -82,7 +82,7 @@ show=false;
     console.log(this.user)
     this.user.password=CryptoJS.SHA1(this.user.password).toString();
 
-
+    console.log(this.regForm);
     this.userService.saveUser(this.user).subscribe(
       data => {
         this.invalid = false;

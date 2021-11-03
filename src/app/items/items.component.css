@@ -55,7 +55,9 @@ img {
     align-items: center;
 
 }
-
+.card-img-overlay{
+    background-color:#ccc;
+}
 .material-icons.review-bar {
     font-size: 10px;
 }

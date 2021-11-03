@@ -78,7 +78,7 @@ import { WalletComponent } from './wallet/wallet.component';
     MatSidenavModule,
     ToastrModule.forRoot({
       preventDuplicates: true,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       timeOut: 700,
       easing: 'ease-out'
     }), NgxSliderModule,
