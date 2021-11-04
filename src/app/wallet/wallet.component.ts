@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Orders } from '../models/Order.model';
 import { User } from '../models/user.model';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
@@ -12,7 +13,7 @@ import { UserService } from '../service/userService/user.service';
 })
 export class WalletComponent implements OnInit {
 
-  constructor(public checkAuth: CheckAuthService, public user: UserService, private orderService: OrdersService) { }
+  constructor(public checkAuth: CheckAuthService, public user: UserService, private orderService: OrdersService,private router:Router) { }
 
   userDetails: any=null
   orders: Orders[] = []
@@ -20,6 +21,9 @@ export class WalletComponent implements OnInit {
   allOrders: Orders[] = []
   paymentList:PaymentMethods[]=[]
   ngOnInit(): void {
+    // if(!this.checkAuth.isUserLoggedIn()){
+    //   this.router.navigate(['login'])
+    // }
     this.userDetails=this.user.getUserDetails(this.checkAuth.getToken()).subscribe(data => {
       this.userDetails=data
       console.log(this.userDetails)
