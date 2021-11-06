@@ -23,3 +23,6 @@ border-radius: 75px;
     border-color:black;
 }
 
+.image-container{
+    opacity:0.3;
+}

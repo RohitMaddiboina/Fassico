@@ -41,7 +41,7 @@ export class CartComponent implements OnInit {
           this.cartDetails=data;
        
           for(let c of this.cartDetails){
-            if(c.quantity>=0){
+            if(c.quantity>=0 && c.item.quanitity>0){
               // this.totalPrice=Number(this.totalPrice)
               this.totalPrice=this.totalPrice+(Number(Number(c.item.price)*Number(c.quantity)))
               console.log(this.totalPrice)

@@ -117,7 +117,10 @@ export class PlaceOrdersComponent implements OnInit {
           this.cart=data1;
           this.cart[0].item.itemImage
           data1.forEach(d=>{
-            this.totalPrice+=(Number(d.quantity)*d.item.price)
+            if(d.item.quanitity>0){
+            
+              this.totalPrice+=(Number(d.quantity)*d.item.price)
+            }
             this.showWallet=true;
             
           })
@@ -133,7 +136,10 @@ export class PlaceOrdersComponent implements OnInit {
       this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data1=>{
         this.cart=data1;
         data1.forEach(d=>{
-          this.totalPrice+=(Number(d.quantity)*d.item.price)
+          if(d.item.quanitity>0){
+            
+            this.totalPrice+=(Number(d.quantity)*d.item.price)
+          }
           
         })
         this.totalPrice=this.totalPrice+1

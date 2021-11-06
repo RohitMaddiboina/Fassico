@@ -42,10 +42,16 @@
                 <div *ngFor="let item of items">
                     <div class="col-md-2" >
                         <div class="card">
-                            <img src={{item.itemImage}} class="card-img-top"  (click)="onClick(item.itemId)" alt="...">
-                            <!-- <div class="card-img-overlay" *ngIf="item.quanitity >= 0">
-                                Out of Stock
-                            </div> -->
+                            <div class="image-container">
+                                <img src={{item.itemImage}} [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="...">
+                                <div class="ribbon" *ngIf="item.quanitity<=0" (click)="onClick(item.itemId)">
+                                    <span class="ribbon-text">Out of Stock</span>
+                                  </div>
+                            </div>
+                            
+
+
+                            
                             <div class="card-body">
                                 <div class="row">
 

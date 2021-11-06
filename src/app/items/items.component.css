@@ -2,6 +2,7 @@
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px !important;
     background-color: white;
 }
+
 .aside-bar{
     float: left;
     background-color: white !important;
@@ -27,7 +28,57 @@ input[type="checkbox"]{
 }
 .price-slide .ngx-slider .ngx-slider-tick.ngx-slider-selected {
     background: rgb(0, 110, 255);
-  }
+}
+img {
+    width: 200px;
+    height: 250px;
+    transition: 0.4s;
+}
+.image-container {
+    position: relative;
+}
+/* ---------------------------------------- */
+.image-container .ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 250px;
+    display: none;
+    color: #FFF;
+    display: block;
+    transition: 0.4s;
+}
+/* .ribbon:hover{
+    transform: scale(1.1);
+} */
+
+.ribbon-text{
+    position:absolute;
+    left: 0; bottom: 5px;
+    padding-left: 10px;
+    padding-right:5px;
+    color:orange;
+    background-color:white;
+    border-top-right-radius:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------- */
+
+
 .card {
     width: 200px;
     height:400px;
@@ -37,12 +88,14 @@ input[type="checkbox"]{
     padding-bottom: 20px;
     overflow: hidden; /* this hides the image overflow when it zooms */
 }
-
-img {
-    width: 200px;
-    height: 250px;
-    transition: 0.4s;
+ /* .card-img{
+    position: relative;
+} */
+.card-img-top{
+    opacity: 0.4;
+   
 }
+
 .material-icons {
     vertical-align: middle;
 

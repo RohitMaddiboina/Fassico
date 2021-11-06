@@ -241,9 +241,11 @@
                 <h1>3. Review Item And Delivery</h1>
                 <div class="col-lg-12 col-md-12 border rounded" *ngIf="viewReview">
                     <div class="row" *ngFor="let c of cart">
-                        <img src="{{c.item.itemImage}}" class="col-lg-3 img p-2"/>
+                      
+
+                            <img src="{{c.item.itemImage}}" *ngIf="c.item.quanitity>0" class="col-lg-3 img p-2"/>
                         <!-- <h2 class="col-lg-6">{{c.item.itemName}}</h2> -->
-                        <table class="table col-lg-6" >
+                        <table class="table col-lg-6" *ngIf="c.item.quanitity>0">
                             <tr>
                                 <td>Item Name: </td>
                                 <td >{{c.item.itemName}} Rs</td>
@@ -253,9 +255,10 @@
                                 <td >{{c.item.price| currency:"&#8377;"}} Rs</td>
                             </tr>
                         </table>
-                        <div class="col-lg-3 ">
+                        <div class="col-lg-3 "*ngIf="c.item.quanitity>0">
                             
-                        <button class="btn btn-secondary col-lg-12 mt-3">Quantity {{c.quantity}}</button></div>
+                            <button class="btn btn-secondary col-lg-12 mt-3">Quantity {{c.quantity}}</button></div>
+                        
                         
                     </div>
                     <table class="table" >

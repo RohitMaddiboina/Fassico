@@ -12,7 +12,7 @@
 <div class="col-lg-12 col-md-12">
     <div  *ngFor="let cart of cartDetails" >
         <div class="row" *ngIf="cart.quantity>0">
-        <img class="col-lg-3 col-md-5 p-5"  src="{{cart.item.itemImage}}" width="auto">
+        <img class="col-lg-3 col-md-5 p-5" [ngClass]="{'image-container':cart.item.quanitity<=0}" src="{{cart.item.itemImage}}" width="auto">
         <div class="col-lg-9 col-md-7 p-5">
             <div class="row">
                 <div class="col-lg-12">
@@ -32,12 +32,17 @@
                             <td>Price</td>
                             <td>{{cart.item.price}}</td>
                         </tr>
+                        <tr>
+                            <td>Stock</td>
+                            <td *ngIf="cart.item.quanitity<=0" style="color:crimson; text-decoration:underline;">Out of Stock</td>
+                            <td *ngIf="cart.item.quanitity>0" style="color:green">In Stock</td>
+                        </tr>
                     </table>
                     <table class="table table-striped">
                         <tr>
-                            <td><button class="btn btn-ctrl btn-ctrl-minus btn-outline-warning pl-5 pr-5" (click)="removeOneFromCart(cart)"><i class="material-icons minus">remove_circle_outline</i></button></td>
+                            <td><button class="btn btn-ctrl btn-ctrl-minus btn-outline-warning pl-5 pr-5" [disabled]="cart.item.quanitity<=0"   (click)="removeOneFromCart(cart)"><i class="material-icons minus">remove_circle_outline</i></button></td>
                             <td><button class="btn btn-default">{{cart.quantity}}</button></td>
-                            <td><button class="btn btn-ctrl btn-ctrl-plus btn-outline-success pl-5 pr-5" (click)="addToCart(cart)"><i class="material-icons">add_circle_outline</i></button></td>
+                            <td><button class="btn btn-ctrl btn-ctrl-plus btn-outline-success pl-5 pr-5" [disabled]="cart.item.quanitity<=0" (click)="addToCart(cart)"><i class="material-icons">add_circle_outline</i></button></td>
                         </tr>                        
                     </table>
                     <table class="table table-striped">
