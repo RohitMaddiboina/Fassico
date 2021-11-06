@@ -36,6 +36,10 @@ export class PlaceOrdersComponent implements OnInit {
     
     this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data=>{
       data.forEach(da=>{
+        if(da.item.quanitity<da.quantity){
+          this.router.navigate(['cart'])
+        }
+
         this.cartCount=Number(this.cartCount)+Number(da.quantity);
       })
       if(this.cartCount<=0){

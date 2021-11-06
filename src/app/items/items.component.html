@@ -42,15 +42,11 @@
                 <div *ngFor="let item of items">
                     <div class="col-md-2" >
                         <div class="card">
-                            <img src={{item.itemImage}} class="card-img-top"  (click)="onClick(item.itemId)" alt="...">
-                            <!-- <div class="card-img-overlay" *ngIf="item.quanitity >= 0">
-                                Out of Stock
-                            </div> -->
+                            <img src={{item.itemImage}} class="card-img"  (click)="onClick(item.itemId)" alt="...">
+                            <img src="assets/img/4.png" class="text-over-img"  (click)="onClick(item.itemId)" alt="..." *ngIf="item.quanitity<=0">
                             <div class="card-body">
                                 <div class="row">
-
-                                    <h5 class="card-title">{{item.brand}} <span class="badge badge-success badge-pill">{{item.rating}}<i
-                                        class="material-icons review-bar md-18">star</i></span></h5>
+                                    <h5 class="card-title">{{item.brand}} <span class="badge badge-success badge-pill">{{item.rating}}<i class="material-icons review-bar md-18">star</i></span></h5>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -62,7 +58,7 @@
                                                     
                                         </span>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2" *ngIf="item.quanitity>0">
                                         <button class="btn" (click)="addToCart(item.itemId)"> <mat-icon>add_shopping_cart</mat-icon></button>
                                     </div>
 

@@ -65,7 +65,14 @@ img {
     background-color:rgb(255, 63, 108);
     color: white;
     height: 2em;
-    width: 3em;
+    /* width: 3em; */
+}
+.nostockbtn{
+    background-color:rgb(255, 63, 108);
+    color: white;
+    height: 2em;
+    min-width: 100;
+    max-width: 100;
 }
 .cards-row {
     display:flex;
@@ -159,3 +166,13 @@ ul.breadcrumb {
     color: #01447e;
     text-decoration: underline;
   }
+
+.text-over-img{
+     position: absolute;
+     min-width: 20%;
+     margin-left: 25%;
+     max-width: 50%;
+     margin-top: 30%;
+     max-height: 30%;
+  z-index: 999999;
+}
