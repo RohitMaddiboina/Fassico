@@ -59,7 +59,7 @@ export class OrdersComponent implements OnInit {
       // width: '250px',
       maxWidth:'90%',
       minWidth:'30%',
-      data:{orderId:order.orderId,cancel:false}
+      data:{orderId:order.orderId,quantity:order.quantity,cancel:false}
       // data: {name: this.name, animal: this.animal}
     });
 
@@ -68,14 +68,16 @@ export class OrdersComponent implements OnInit {
         cancellationRequest:this.cancellationRequest
         this.cancellationRequest={
         'orderId':result.orderId,
-        'reason':""
+        'quantity':result.quantity,
+        'reason':result.reason
         }
+        console.log(this.cancellationRequest)
         this.orderService.cancelOrder(this.checkAuth.getToken(), this.cancellationRequest).subscribe(data=>{
           this.ngOnInit();
         })
       }
       
-      // console.log(this.cancellationRequest);
+      console.log(this.cancellationRequest);
       // this.confirmCancellation=result
       // this.animal = result;
     });
@@ -83,6 +85,8 @@ export class OrdersComponent implements OnInit {
 }
 export interface ConfirmCancellation{
   'orderId':string,
+  'quantity':number,
+  'reason':string,
   'cancel':boolean
 } 
 export interface PaymentMethods{

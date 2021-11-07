@@ -1,11 +1,30 @@
 <!-- <p>{{data.orderId}} confirm-cancellation works!</p> -->
 <div class="col-lg-12">
-    <h1 mat-dialog-title>Message From Fassico </h1>
-    <div mat-dialog-content>
-        <p>Do you really want to cancel the Order With OrderId : <b>{{data.orderId}}</b></p>
-    </div>
-    <div mat-dialog-actions>
-        <button class="btn btn-info mr-5" (click)="onNoClick()">No Thanks</button>
-        <button class="ml-5 btn btn-danger" (click)="cancelOrder(data)" cdkFocusInitial>Yes, Cancel Order</button>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="cancelOrder(data)">
+        <h1 mat-dialog-title>Message From Fassico </h1>
+        <div mat-dialog-content>
+            <p>Do you really want to cancel the Order With OrderId : <b>{{data.orderId}}</b></p>
+            <label for="quantity">*Quantity
+            </label>
+            <select formControlName="quantity" class="form-control"  >
+                <option value="">------Please Select The Quantity To Cancel The Order------</option>
+                <option *ngFor="let in of counter(data) ; let i = index">{{i+1}}</option>
+            </select>
+            <div *ngIf="f.quantity.touched && f.quantity.invalid"
+                                                    class="error">
+                                                    <p style="color:red">
+                                                        Please Select The quantity to Cancel The Order
+                                                    </p>
+                                                </div>
+            <label for="reason" class="mt-3">*Reason
+            </label>
+            <textarea placeholder="Optional : Please Enter Reason Of Cancellation, This may improve out product"  formControlName="reason" class="form-control" ></textarea>
+            
+        </div>
+        <div mat-dialog-actions>
+            <p class="btn btn-info mr-5" (click)="onNoClick()">No Thanks</p>
+            <button class="ml-5 btn btn-danger" (click)="cancelOrder(data)" [disabled]="!form.valid" >Yes, Cancel Order</button>
+        </div>
+    </form>
+    
 </div>

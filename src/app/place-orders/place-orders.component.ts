@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Carts } from '../models/cart.model';
 import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
 import { CartService } from '../service/cartService/cart.service';
@@ -15,7 +16,7 @@ import { UserService } from '../service/userService/user.service';
 export class PlaceOrdersComponent implements OnInit {
 
   constructor(private router:Router,private userService:UserService,public checkAuthService: CheckAuthService,private fb: FormBuilder,private cartService:CartService, private orderService:OrdersService
-    ,public cartCountService:CartCountService,) { }
+    ,public cartCountService:CartCountService,public toastr: ToastrService) { }
   errorMessage="Loading......"
   useSameAddress:boolean=false
   user:any
@@ -34,18 +35,7 @@ export class PlaceOrdersComponent implements OnInit {
   viewReview:boolean=false;
   ngOnInit(): void {
     
-    this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data=>{
-      data.forEach(da=>{
-        if(da.item.quanitity<da.quantity){
-          this.router.navigate(['cart'])
-        }
-
-        this.cartCount=Number(this.cartCount)+Number(da.quantity);
-      })
-      if(this.cartCount<=0){
-        this.errorMessage="Please Add Items To The Cart And Place For Order....";
-      }
-    })
+    this.checkItemsAvailability()
     this.showPayment=true;
     this.showWallet=false
     this.viewReview=false;
@@ -70,44 +60,39 @@ export class PlaceOrdersComponent implements OnInit {
       this.paymentMethodForm=this.fb.group({
         paymentMethod:['',[Validators.required]]
       })
+  } 
+  sameAddress(event:Event){
+    this.checkItemsAvailability()
+    this.ngOnInit();
+    this.selectedOnSameAddress=(<HTMLInputElement>event.target).value=="sameadd"
+    this.selectedNewAddress=false;
+    this.showPayment=true;
+  }
+  newAddress(event:Event){
+    this.checkItemsAvailability()
+    this.ngOnInit();
+    this.selectedNewAddress=(<HTMLInputElement>event.target).value=="newadd"
+    this.selectedOnSameAddress=false;
+    this.showPayment=false;
   }
   onSubmit(){
+    this.checkItemsAvailability()
     let data=this.regForm.value;
     this.addNewAddress=data.houseNo+", "+data.street+", "+data.city+", "+data.district+", "+data.state+", "+data.pincode;
     this.selectedNewAddress=false;
     this.newAddressAdded=true;
     this.showPayment=true;
-    console.log(this.addNewAddress)
   }
-  sameAddress(event:Event){
-    this.ngOnInit();
-    this.selectedOnSameAddress=(<HTMLInputElement>event.target).value=="sameadd"
-    this.selectedNewAddress=false;
-    this.showPayment=true;
-    console.log((<HTMLInputElement>event.target).value=="sameadd")
-  }
-  newAddress(event:Event){
-    this.ngOnInit();
-    this.selectedNewAddress=(<HTMLInputElement>event.target).value=="newadd"
-    this.selectedOnSameAddress=false;
-    this.showPayment=false;
-    console.log((<HTMLInputElement>event.target).value=="sameadd")
-  }
-  get f() {
-    return this.regForm.controls;
-  }
+  
 
-  makePaymentMethod(){
-    this.viewReview=true
-  }
-  get ff(){
-    return this.paymentMethodForm.controls;
-  }
+ 
   walletAmount:any=0
   totalPrice:any=0
   cart:Carts[]=[]
   selectedWalletPaymentMethod:boolean=false
+
   changePaymentMethod(event:Event){
+    this.checkItemsAvailability()
     this.selectedWalletPaymentMethod=false
     this.viewReview=false;
     this.walletAmount=-1;
@@ -130,7 +115,6 @@ export class PlaceOrdersComponent implements OnInit {
         return data;
       })
       
-      console.log(this.userService.getUserWalletAmount(this.checkAuthService.getToken()).subscribe(data=>{return data;}))
     }else{
       this.showWallet=false;
       this.viewReview=true;
@@ -144,8 +128,12 @@ export class PlaceOrdersComponent implements OnInit {
       })
     }
   }
+  makePaymentMethod(){
+    this.checkItemsAvailability()
+    this.viewReview=true
+  }
   placeOrder(){
-   
+    // this.checkItemsAvailability()   
     let orderRequest:RequestOrder
     let finalAddress=""
     let finalPaymentMethod:String="";
@@ -164,15 +152,47 @@ export class PlaceOrdersComponent implements OnInit {
       'paymentMethod':finalPaymentMethod,
       'deliveryAddress':finalAddress
     }
-    console.log(orderRequest)
     this.orderService.placeOrder(orderRequest,this.checkAuthService.getToken()).subscribe(data=>{
       this.cartService.getUSerCartCount(this.checkAuthService.getToken()).subscribe(data=>{
         this.cartCountService.changeMessage(data.toString());
       })
       this.router.navigate(['orders']);
+    },error=>{
+      this.toastr.error("Error Orrcured While Placing Order","Try Again",{ progressBar: true,
+        timeOut:3*1000 })
+      this.router.navigate(['cart']);
     })
 
+  } 
+  
+  checkItemsAvailability(){
+    this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data=>{
+      let itemsAvailable=true
+      data.forEach(da=>{
+        if(da.item.quanitity<da.quantity){
+          itemsAvailable=false
+          this.toastr.warning(da.item.itemName+" : Selected Quantity is Not Available For This Item, Please Try Again By Reducing The Quantity","Out Of Stock",
+          { progressBar: true,
+        timeOut:5*1000 }) 
+        }
+
+        this.cartCount=Number(this.cartCount)+Number(da.quantity);
+      })
+      if(!itemsAvailable){
+        this.router.navigate(['cart'])
+      }
+      if(this.cartCount<=0){
+        this.errorMessage="Please Add Items To The Cart And Place For Order....";
+      }
+    })
   }
+  get f() {
+    return this.regForm.controls;
+  }
+  get ff(){
+    return this.paymentMethodForm.controls;
+  }
+
   paymentList:PaymentMethods[]=[{
     'methodKey':'WALLET',
     'methodValue':'Wallet'
@@ -182,6 +202,7 @@ export class PlaceOrdersComponent implements OnInit {
   }]
 
 }
+
 export interface PaymentMethods{
   methodKey:String,
   methodValue:String
