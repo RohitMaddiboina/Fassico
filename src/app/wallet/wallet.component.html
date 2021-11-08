@@ -4,7 +4,7 @@
         <p class="pl-3 pr-3 " style="font-size: 3vh;">Available Fassico Wallet Amount</p>
     </div>
     <br>
-    <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="orders.length>0">
+    <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="transaction.length>0">
         <mat-tab-group animationDuration="1000ms" mat-align-tabs="start">
             <mat-tab label="All Transaction">
                 <div class="col-md-12 col-lg-12">
@@ -24,8 +24,7 @@
                             <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
                             <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><b>-{{transaction.amount}}</b></td>
                             <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><mat-icon style="transform: scale(2);"> call_missed</mat-icon></td>
-                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><b>-{{transaction.amount}}</b></td>
-                            <!-- <td *ngIf=""></td> -->
+                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><b>+{{transaction.amount}}</b></td>
                         </tr>
                     </table>
                 </div>
@@ -47,8 +46,7 @@
                             <td align="center" *ngIf="transaction.displaytransactionType===credit">{{transaction.dateOfTransaction | date:'dd MMMM yyyy'}}</td>
                             <td align="center" *ngIf="transaction.displaytransactionType===credit">{{transaction.displayPaymentMethod}}</td>
                             <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><mat-icon style="transform: scale(2);"> call_missed</mat-icon></td>
-                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><b>-{{transaction.amount}}</b></td>
-                            <!-- <td *ngIf=""></td> -->
+                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><b>+{{transaction.amount}}</b></td>
                         </tr>
                     </table>
                 </div>
@@ -71,17 +69,14 @@
                             <td align="center" *ngIf="transaction.displaytransactionType===debit">{{transaction.displayPaymentMethod}}</td>
                             <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
                             <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><b>-{{transaction.amount}}</b></td>
-                            <!-- <td *ngIf=""></td> -->
                         </tr>
                     </table>
                 </div>
                 </div>
             </mat-tab>
-            <!-- <mat-tab label="All Transactions">
-            </mat-tab> -->
         </mat-tab-group>
     </div>
-    <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="orders.length<=0">
+    <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="transaction.length<=0">
         No Previous Transaction Found...
     </div>
     </div>
