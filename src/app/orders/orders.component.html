@@ -30,7 +30,7 @@
                                 <td><b>{{order.deliveryAddress}}</b></td>
                             </tr>
                             <tr>
-                                <td><b>DPayment Method</b></td>
+                                <td><b> Payment Method</b></td>
                                 <td><b>{{order.paymentMethod}}</b></td>
                             </tr>
                             <tr><td colspan="2" ><div *ngIf="order.enableToCancelOrder"><button class="btn btn-danger" (click)="openDialog(order)">Cancel Order</button><p class="text-info">You can Cancel this order before <b> {{order.canCancelOrderTill | date:'dd MMMM yyyy'}}</b></p></div></td></tr>
@@ -61,8 +61,8 @@
                                 <td><b>{{order.item.itemName}}</b></td>
                             </tr>
                             <tr>
-                                <td><b>Quantity</b></td>
-                                <td><b>{{order.quantity}}</b></td>
+                                <td><b>Cancelled Quantity </b></td>
+                                <td><b>{{order.cancallationQuatity}}</b></td>
                             </tr>
                             <tr>
                                 <td><b>Delivery Status</b></td>
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-12" *ngIf="orders.length<=0">
+            <div class="col-lg-12 col-md-12" *ngIf="cancelledOrders.length<=0">
                 <h1>No Orders Found...</h1>
             </div>
         </div>

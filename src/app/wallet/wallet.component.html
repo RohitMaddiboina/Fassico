@@ -6,6 +6,54 @@
     <br>
     <div class="offset-lg-2 col-lg-8 rounded border " *ngIf="orders.length>0">
         <mat-tab-group animationDuration="1000ms" mat-align-tabs="start">
+            <mat-tab label="All Transaction">
+                <div class="col-md-12 col-lg-12">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td align="center" class="th th-first"><b>Order Id</b></td>
+                            <td align="center" class="th"><b>Date Of Transaction</b></td>
+                            <td align="center" class="th"><b>Payment Method</b></td>
+                            <td align="center" class="th"></td>
+                            <td class="th th-last" align="center"><b>Amount</b></td>
+                        </tr>
+                        <tr *ngFor="let transaction of transaction">
+                            <td align="center"  >{{transaction.order.orderId}}</td>
+                            <td align="center" >{{transaction.dateOfTransaction | date:'dd MMMM yyyy'}}</td>
+                            <td align="center">{{transaction.displayPaymentMethod}}</td>
+                            <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
+                            <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><b>-{{transaction.amount}}</b></td>
+                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><mat-icon style="transform: scale(2);"> call_missed</mat-icon></td>
+                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><b>-{{transaction.amount}}</b></td>
+                            <!-- <td *ngIf=""></td> -->
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Credited Transaction">
+                <div class="col-md-12 col-lg-12">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td align="center" class="th th-first"><b>Order Id</b></td>
+                            <td align="center" class="th"><b>Date Of Transaction</b></td>
+                            <td align="center" class="th"><b>Payment Method</b></td>
+                            <td align="center" class="th"></td>
+                            <td class="th th-last" align="center"><b>Amount</b></td>
+                        </tr>
+                        <tr *ngFor="let transaction of transaction">
+                            <td align="center" *ngIf="transaction.displaytransactionType===credit">{{transaction.order.orderId}}</td>
+                            <td align="center" *ngIf="transaction.displaytransactionType===credit">{{transaction.dateOfTransaction | date:'dd MMMM yyyy'}}</td>
+                            <td align="center" *ngIf="transaction.displaytransactionType===credit">{{transaction.displayPaymentMethod}}</td>
+                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><mat-icon style="transform: scale(2);"> call_missed</mat-icon></td>
+                            <td align="center" class="text-success" *ngIf="transaction.displaytransactionType===credit"><b>-{{transaction.amount}}</b></td>
+                            <!-- <td *ngIf=""></td> -->
+                        </tr>
+                    </table>
+                </div>
+                </div>
+            </mat-tab>
             <mat-tab label="Debited Transaction">
                 <div class="col-md-12 col-lg-12">
                 <div class="row">
@@ -17,42 +65,17 @@
                             <td align="center" class="th"></td>
                             <td class="th th-last" align="center"><b>Amount</b></td>
                         </tr>
-                        <tr *ngFor="let order of orders">
-                            <td align="center"  *ngIf="order.paymentStatus">{{order.orderId}}</td>
-                            <td align="center" *ngIf="order.paymentStatus">{{order.orderedDate | date:'dd MMMM yyyy'}}</td>
-                            <td align="center" *ngIf="order.paymentStatus">{{order.paymentMethod}}</td>
-                            <td align="center" *ngIf="order.paymentStatus" class="text-danger"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
-                            <td align="center" *ngIf="order.paymentStatus" class="text-danger"><b>-{{order.amount}}</b></td>
-                            
+                        <tr *ngFor="let transaction of transaction">
+                            <td align="center" *ngIf="transaction.displaytransactionType===debit">{{transaction.order.orderId}}</td>
+                            <td align="center" *ngIf="transaction.displaytransactionType===debit">{{transaction.dateOfTransaction | date:'dd MMMM yyyy'}}</td>
+                            <td align="center" *ngIf="transaction.displaytransactionType===debit">{{transaction.displayPaymentMethod}}</td>
+                            <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><mat-icon style="transform: scale(2);"> call_missed_outgoing</mat-icon></td>
+                            <td align="center" class="text-danger" *ngIf="transaction.displaytransactionType===debit"><b>-{{transaction.amount}}</b></td>
                             <!-- <td *ngIf=""></td> -->
                         </tr>
                     </table>
                 </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="Credit Transaction">
-                <div class="col-md-12 col-lg-12">
-                    <div class="row">
-                        <table class="table">
-                            <tr>
-                                <td align="center" class="th th-first"><b>Order Id</b></td>
-                                <td align="center" class="th"><b>Date Of Transaction</b></td>
-                                <td align="center" class="th"><b>Payment Method</b></td>
-                                <td align="center" class="th"></td>
-                                <td class="th th-last" align="center"><b>Amount</b></td>
-                            </tr>
-                            <tr *ngFor="let order of inActiveOrders">
-                                <td align="center">{{order.orderId}}</td>
-                                <td align="center">{{order.orderedDate | date:'dd MMMM yyyy'}}</td>
-                                <td align="center">{{order.paymentMethod}}</td>
-                                <td align="center" class="text-success"><mat-icon style="transform: scale(2);"> call_missed</mat-icon></td>
-                                <td align="center" class="text-success"><b>+{{order.amount}}</b></td>
-                                
-                                <!-- <td *ngIf=""></td> -->
-                            </tr>
-                        </table>
-                    </div>
-                    </div>
             </mat-tab>
             <!-- <mat-tab label="All Transactions">
             </mat-tab> -->

@@ -1,16 +1,23 @@
 <!-- <p>{{data.orderId}} confirm-cancellation works!</p> -->
-<div class="col-lg-12">
-    <form [formGroup]="form" (ngSubmit)="cancelOrder(data)">
+<div class="col-lg-12" >
+    <form [formGroup]="form" (ngSubmit)="cancelOrder(data)" >
         <h1 mat-dialog-title>Message From Fassico </h1>
         <div mat-dialog-content>
             <p>Do you really want to cancel the Order With OrderId : <b>{{data.orderId}}</b></p>
-            <label for="quantity">*Quantity
+            <label for="quantity" *ngIf="data.quantity>1" >*Quantity
             </label>
-            <select formControlName="quantity" class="form-control"  >
-                <option value="">------Please Select The Quantity To Cancel The Order------</option>
+            <select formControlName="quantity" class="form-control" *ngIf="data.quantity>1"  >
+                <option value="" [disabled]="true">------Please Select The Quantity To Cancel The Order------</option>
                 <option *ngFor="let in of counter(data) ; let i = index">{{i+1}}</option>
             </select>
-            <div *ngIf="f.quantity.touched && f.quantity.invalid"
+            <label for="quantity" *ngIf="data.quantity==1" >*Quantity
+            </label>
+            <select formControlName="quantity" class="form-control" *ngIf="data.quantity==1" value="data.quantity">
+                
+                <!-- <option value="" [disabled]="true">------Please Select The Quantity To Cancel The Order------</option> -->
+                <option selected>{{1}}</option>
+            </select>
+            <div *ngIf="f.quantity.touched && f.quantity.invalid && data.quantity>1"
                                                     class="error">
                                                     <p style="color:red">
                                                         Please Select The quantity to Cancel The Order
@@ -22,8 +29,8 @@
             
         </div>
         <div mat-dialog-actions>
-            <p class="btn btn-info mr-5" (click)="onNoClick()">No Thanks</p>
-            <button class="ml-5 btn btn-danger" (click)="cancelOrder(data)" [disabled]="!form.valid" >Yes, Cancel Order</button>
+            <p class="btn btn-info mr-5" (click)="onNoClick()" >No Thanks</p>
+            <button class="ml-5 btn btn-danger" (click)="cancelOrder(data)" [disabled]="!form.valid && data.quantity>1" >Yes, Cancel Order</button>
         </div>
     </form>
     

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Orders } from '../models/Order.model';
+import { Transactions } from '../models/transactions.model';
 import { User } from '../models/user.model';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { OrdersService } from '../service/orders/orders.service';
@@ -19,14 +20,41 @@ export class WalletComponent implements OnInit {
   orders: Orders[] = []
   inActiveOrders: Orders[] = []
   allOrders: Orders[] = []
-  paymentList:PaymentMethods[]=[]
+  paymentList:PaymentMethod[]=[]
+  transaction:Transactions[]=[]
+  paymentMethods=PaymentMethods
+  transactionType=TransactionType
+  credit="credit"
+  debit="debit"
   ngOnInit(): void {
+    this.orderService.getUserTransactions(this.checkAuth.getToken()).subscribe(data=>{
+      data.map((d)=>{
+        d.dateOfTransaction=new Date(d.dateOfTransaction.toString())
+        if(d.paymentMethod==this.paymentMethods[0]){
+          d.displayPaymentMethod="Wallet"
+        }else if(d.paymentMethod==this.paymentMethods[1]){
+          d.displayPaymentMethod="Pay on Delivery"
+        }
+        if(d.transactionType==this.transactionType[1]){
+          d.displaytransactionType=this.credit
+        }else if(d.transactionType==this.transactionType[0]){
+          d.displaytransactionType=this.debit
+        }
+        // if()
+        // d.paymentMethod=d.paymentMethod.valueOf(d.paymentMethod)
+        // if(PaymentMethods.PAY_ON_DELIVERY==d.paymentMethod){
+        //   d.paymentMethod="Pay On Delivery"
+        // }
+      })
+      this.transaction=data
+      console.log(data);
+    })
     // if(!this.checkAuth.isUserLoggedIn()){
     //   this.router.navigate(['login'])
     // }
     this.userDetails=this.user.getUserDetails(this.checkAuth.getToken()).subscribe(data => {
       this.userDetails=data
-      console.log(this.userDetails)
+      // console.log(this.userDetails)
       return data;
     })
     
@@ -66,7 +94,15 @@ export class WalletComponent implements OnInit {
   }
   
 }
-export interface PaymentMethods{
+export interface PaymentMethod{
   methodKey:String,
   methodValue:String
+}
+enum PaymentMethods{
+  'WALLET',
+  'PAY_ON_DELIVERY'
+}
+enum TransactionType{
+  'DEBIT',
+  'CREDIT'
 }

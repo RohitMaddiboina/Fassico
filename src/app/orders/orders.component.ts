@@ -47,8 +47,9 @@ export class OrdersComponent implements OnInit {
           d.paymentMethod=this.paymentList[1].methodValue
         }
       })
-      this.orders=data.filter(d=>!d.orderCancellationStatus)  
-      this.cancelledOrders=data.filter(d=>d.orderCancellationStatus)
+      this.orders=data.filter(d=>d.quantity>=d.cancallationQuatity)  
+      console.log(this.orders)
+      this.cancelledOrders=data.filter(d=>d.cancallationQuatity>0)
     })
   }
 
