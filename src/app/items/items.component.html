@@ -42,7 +42,8 @@
                 <div *ngFor="let item of items">
                     <div class="col-md-2" >
                         <div class="card">
-                            <img src={{item.itemImage}} class="card-img"  (click)="onClick(item.itemId)" alt="...">
+                            <!-- <img src={{item.itemImage}} class="card-img"  (click)="onClick(item.itemId)" alt="..."> -->
+                            <img [src]="item.primaryImage" class="card-img"  (click)="onClick(item.itemId)" alt="...">
                             <img src="assets/img/4.png" class="text-over-img"  (click)="onClick(item.itemId)" alt="..." *ngIf="item.quanitity<=0">
                             <div class="card-body">
                                 <div class="row">
