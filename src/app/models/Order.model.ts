@@ -19,5 +19,6 @@ export interface Orders{
     "user":User,
     "item":Item,
     "enableToCancelOrder":boolean,
-    "canCancelOrderTill":Date
+    "canCancelOrderTill":Date,
+    "cancallationQuatity":number
 }

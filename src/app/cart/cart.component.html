@@ -1,7 +1,7 @@
 <div *ngIf="numberOfItemsInCart==0">
-    <h1>No Item Added To The Cart, Please Add some Item to the Cart and Visit......</h1>
+    <h1>Looks like your cart is empty!!, lets add some items</h1>
 </div>
-<div class="offset-lg-9 col-lg-3 fixed-bottom " *ngIf="numberOfItemsInCart!=0">
+<div class="offset-lg-9 col-lg-3 fixed-bottom " *ngIf="totalPrice>0">
     <div class="card  m-lg-5">
         <div class="card ">
             <button class="btn btn-outline-success" (click)="checkOut()">Check Out Here <br>
@@ -37,8 +37,8 @@
                         <tr>
                             <td><button class="btn btn-ctrl btn-ctrl-minus btn-outline-warning pl-5 pr-5" (click)="removeOneFromCart(cart)"><i class="material-icons minus">remove_circle_outline</i></button></td>
                             <td><button class="btn btn-default">{{cart.quantity}}</button></td>
-                            <td><button class="btn btn-ctrl btn-ctrl-plus btn-outline-success pl-5 pr-5" (click)="addToCart(cart)"><i class="material-icons">add_circle_outline</i></button></td>
-                        </tr>                        
+                            <td ><button class="btn btn-ctrl btn-ctrl-plus btn-outline-success pl-5 pr-5" (click)="addToCart(cart)" *ngIf="!(cart.item.quanitity<=cart.quantity)" [disabled]="cart.item.quanitity<=cart.quantity"><i class="material-icons">add_circle_outline</i></button></td>
+                        </tr>           
                     </table>
                     <table class="table table-striped">
                         <tr>
@@ -49,6 +49,7 @@
                 </div>
                 
             </div>
+            <div class="blink_me text-info " *ngIf="cart.item.quanitity<cart.quantity"><p><b class="shadow-lg">*Selected Quantity Of The Item is Not Available In The Stock, Please Try By Reducing The Quantity.</b></p></div>
            
         </div>
     </div>

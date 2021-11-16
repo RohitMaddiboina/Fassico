@@ -83,6 +83,7 @@ import { WalletComponent } from './wallet/wallet.component';
       easing: 'ease-out'
     }), NgxSliderModule,
     MatInputModule,
+    MatTabsModule,
     MatFormFieldModule,
     MatAutocompleteModule,
     MatTabsModule,

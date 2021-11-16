@@ -1,6 +1,6 @@
 import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from '../cart/cart.component';
 import { CartService } from '../service/cartService/cart.service';
@@ -15,7 +15,7 @@ export class Item{
 
 
   constructor(public itemId:number, public itemName:string, public category:string, public itemType:string,public brand:string,
-    public model:string,public quanitity:number,public rating:number,public active:boolean,public discription:string,public price:number,public itemImage:string){}
+    public model:string,public quanitity:number,public rating:number,public active:boolean,public discription:string,public price:number,public itemImage:string,public primaryImage:any){}
 }
 
 @Component({
@@ -41,7 +41,7 @@ export class ItemsComponent implements OnInit {
   pageSize:number;
   selectedPage=0;
   constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:SearchDataShareServiceService
-    ,public toastr: ToastrService,private router:Router,private checkAuthService:CheckAuthService,public cartCountService:CartCountService) {
+    ,public toastr: ToastrService,private router:Router,private route :ActivatedRoute,private checkAuthService:CheckAuthService,public cartCountService:CartCountService) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
     this.itemTypes = new Array<string>();
@@ -49,6 +49,7 @@ export class ItemsComponent implements OnInit {
     this.navItem ="";
     this.list = new ListOfItemsList(new Array<Array<Item>>());
     this.pageSize = 0;
+    console.log( this.router)
    }
   
   ngOnInit(): void {
@@ -117,7 +118,10 @@ export class ItemsComponent implements OnInit {
       data=>console.log(data.discription)
     )
   }
-  addToCart(itemId:number){ 
+  addToCart(itemId:number){
+    if(!this.checkAuthService.isUserLoggedIn()){
+    this.router.navigate(['login'], { queryParams: { 'redirectURL': this.router.routerState.snapshot.url } });
+    } 
     let username = this.checkAuthService.getToken();
     if(username.length > 1){
       
@@ -135,8 +139,13 @@ export class ItemsComponent implements OnInit {
           
         },
         err =>{
+          console.log( this.router)
+    
+          console.log( this.route)
           if(err.error.includes("Token Expired")){
-            this.checkAuthService.logout();
+            console.log( this.router)
+            
+            // this.checkAuthService.logout();
             this.toastr.warning("Thank you please login again!!");
           }else{
             this.toastr.error("Sorry, Please try again after some time!!");

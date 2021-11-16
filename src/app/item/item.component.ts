@@ -7,6 +7,7 @@ import { CheckAuthService } from '../service/checkAuthService/check-auth.service
 import { ItemService } from '../service/itemService/item.service';
 import { RestClientService } from '../service/rest-client.service';
 import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
@@ -18,7 +19,7 @@ export class ItemComponent implements OnInit {
   itemData={} as Item;
   itemDetails:any={};
   
-  constructor(public cartCountService:CartCountService,private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService ) { }
+  constructor(private sanitizer: DomSanitizer,public cartCountService:CartCountService,private activatedRoute:ActivatedRoute,public toastr: ToastrService,private itemService:ItemService,private cartService:CartService,private router:Router,public checkAuthService: CheckAuthService ) { }
 
   ngOnInit(): void {
     
@@ -26,6 +27,9 @@ export class ItemComponent implements OnInit {
       this.itemId=params['itemId'];
       console.log(this.itemId);
       this.itemService.getItem(this.itemId).subscribe(data=>{
+        console.log(data)
+        let objectURL = 'data:image/jpeg;base64,' + data.primaryImage;
+         data.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
         this.itemData=data;        
         this.itemDetails=JSON.parse(this.itemData.discription)
         console.log(this.itemDetails)
@@ -40,6 +44,9 @@ export class ItemComponent implements OnInit {
     // this.restClientService.addToCart(itemData.itemId,this.checkAuthService.getToken())
     // this.cartService.addToCart(itemData.itemId).subscribe(data=>{
     // });
+    if(!this.checkAuthService.isUserLoggedIn()){
+      this.router.navigate(['login'], { queryParams: { 'redirectURL': this.router.routerState.snapshot.url } });
+      } 
     let userName=this.checkAuthService.getToken();;
     if(userName.length>1){
       console.log(userName);

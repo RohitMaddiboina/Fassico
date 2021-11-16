@@ -39,12 +39,20 @@ export class CartComponent implements OnInit {
       if(this.userName!=null){
         this.cartService.getCartItems(this.userName).subscribe(data=>{
           this.cartDetails=data;
-       
-          for(let c of this.cartDetails){
-            if(c.quantity>=0){
-              // this.totalPrice=Number(this.totalPrice)
-              this.totalPrice=this.totalPrice+(Number(Number(c.item.price)*Number(c.quantity)))
-              console.log(this.totalPrice)
+          let meetQuantityCondition=true
+          data.forEach(d=>{
+            if(d.item.quanitity<d.quantity){
+              meetQuantityCondition=false
+              
+            }
+          })
+          if(meetQuantityCondition){
+            for(let c of this.cartDetails){
+              if(c.quantity>=0){
+                // this.totalPrice=Number(this.totalPrice)
+                this.totalPrice=this.totalPrice+(Number(Number(c.item.price)*Number(c.quantity)))
+                console.log(this.totalPrice)
+              }
             }
           }
         })

@@ -28,6 +28,43 @@ input[type="checkbox"]{
 .price-slide .ngx-slider .ngx-slider-tick.ngx-slider-selected {
     background: rgb(0, 110, 255);
   }
+  img {
+    width: 200px;
+    height: 250px;
+    transition: 0.4s;
+}
+.image-container {
+    position: relative;
+}
+/* ---------------------------------------- */
+.image-container .ribbon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 250px;
+    display: none;
+    color: #FFF;
+    display: block;
+    transition: 0.4s;
+}
+
+.ribbon-text{
+    position:absolute;
+    left: 0; bottom: 5px;
+    padding-left: 10px;
+    padding-right:5px;
+    color:#dc143c;
+    font-weight: 500;
+    background-color:white;
+    border-top-right-radius:10px;
+}
+
+/* ---------------------------------------------------------------- */
+
+
+
+
 .card {
     width: 200px;
     height:400px;
@@ -43,6 +80,8 @@ img {
     height: 250px;
     transition: 0.4s;
 }
+
+
 .material-icons {
     vertical-align: middle;
 
@@ -65,7 +104,14 @@ img {
     background-color:rgb(255, 63, 108);
     color: white;
     height: 2em;
-    width: 3em;
+    /* width: 3em; */
+}
+.nostockbtn{
+    background-color:rgb(255, 63, 108);
+    color: white;
+    height: 2em;
+    min-width: 100;
+    max-width: 100;
 }
 .cards-row {
     display:flex;
@@ -108,7 +154,7 @@ img {
 }
 .btn-link{
 
-    border-radius: 0px;
+    border-radius: 3px;
     background-color:rgb(146, 143, 143);
     text-decoration:none;
     color: white!important;
@@ -159,3 +205,13 @@ ul.breadcrumb {
     color: #01447e;
     text-decoration: underline;
   }
+
+.text-over-img{
+     position: absolute;
+     min-width: 20%;
+     margin-left: 25%;
+     max-width: 50%;
+     margin-top: 30%;
+     max-height: 30%;
+  z-index: 999999;
+}

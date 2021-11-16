@@ -5,6 +5,7 @@ import { AuthResponse } from 'src/app/models/AuthResponse.model';
 import { PasswordEntity } from 'src/app/models/PasswordEntity.model';
 import { User } from 'src/app/models/user.model';
 import { Users } from 'users.model';
+import { Constants } from 'src/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -15,35 +16,35 @@ export class UserService {
 
   }
   saveUser(user: User) {
-    return this.http.post("http://localhost:8080/fasscio/save", user);
+    return this.http.post(Constants.userServiceUrl+"save", user);
   }
   validateUser(authReq: AuthReq) {
-    return this.http.post<AuthResponse>("http://localhost:8080/fasscio/user-validate/", authReq);
+    return this.http.post<AuthResponse>(Constants.userServiceUrl+"user-validate/", authReq);
   }
   validateHint(email:string,question:string,ans:string){
-    return this.http.get(`http://localhost:8080/fasscio/hint/${email}/${question}/${ans}`);
+    return this.http.get(Constants.userServiceUrl+`hint/${email}/${question}/${ans}`);
   }
   getUser(userName: string) {
  
-    return this.http.get<User>(`http://localhost:8080/fasscio/get`,{
+    return this.http.get<User>(Constants.userServiceUrl+`get`,{
       headers: {'Authorization':userName}
     });
   }
   getUserDetails(userName:string){
-    return this.http.get<Users>(`http://localhost:8080/fasscio/get`,{
+    return this.http.get<Users>(Constants.userServiceUrl+`get`,{
       headers: {'Authorization':userName}
     });
   }
   updateUser(passwordEntity:PasswordEntity) {
-    return this.http.put<User>(`http://localhost:8080/fasscio/update`, passwordEntity);
+    return this.http.put<User>(Constants.userServiceUrl+`update`, passwordEntity);
   }
   updateAccountDetails(userName: string, user: User) {
-    return this.http.put<User>(`http://localhost:8080/fasscio/updateAccount`, user,{
+    return this.http.put<User>(Constants.userServiceUrl+`updateAccount`, user,{
       headers: {'Authorization': userName}
     });
   }
   getUserWalletAmount(userName:string) {
-    return this.http.get(`http://localhost:8080/fasscio/wallet`,{
+    return this.http.get(Constants.userServiceUrl+`wallet`,{
       headers: {'Authorization': userName}
     });
   }

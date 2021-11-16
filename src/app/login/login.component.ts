@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RestClientService } from '../service/rest-client.service';
 import {ToastrService} from 'ngx-toastr';
 import { DataShareToastService } from '../service/dataShareToast/data-share-toast.service';
@@ -22,8 +22,9 @@ export class LoginComponent implements OnInit {
   authReq : AuthReq;
   authRes : AuthResponse;
   invalid: boolean;
+  returnUrl:any
   constructor(public toastr:ToastrService,public dataShare:DataShareToastService,public router:Router,private userService:UserService,
-    public checkAuthService: CheckAuthService,public cartCountService:CartCountService,public cartService:CartService) { 
+    public checkAuthService: CheckAuthService,public cartCountService:CartCountService,public cartService:CartService,public route:ActivatedRoute) { 
     this.authReq = new AuthReq("","");
     this.authRes = new AuthResponse("");
     this.invalid = false;
@@ -37,7 +38,12 @@ export class LoginComponent implements OnInit {
     this.authReq.password=CryptoJS.SHA1(this.authReq.password).toString();
     this.userService.validateUser(this.authReq).subscribe(
       data => {
-        this.router.navigate(['']);
+        // this.router.navigate(['']);
+        let params = this.route.snapshot.queryParams;
+        if (params['redirectURL']) {
+          this.returnUrl = params['redirectURL'];
+        } 
+        this.router.navigateByUrl(this.returnUrl,)
         this.authRes = data;
       
         

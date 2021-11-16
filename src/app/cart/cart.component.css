@@ -23,3 +23,12 @@ border-radius: 75px;
     border-color:black;
 }
 
+.blink_me {
+    animation: blinker 3s linear infinite;
+  }
+  
+  @keyframes blinker {
+    20% {
+      opacity: 0.3;
+    }
+  }

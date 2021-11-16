@@ -31,7 +31,7 @@ const routes: Routes = [
   {path:'item/:itemId',component:ItemComponent},
   {path:'placeOrders',component:PlaceOrdersComponent,canActivate:[GaurdService]},
   {path:'orders',component:OrdersComponent,canActivate:[GaurdService]},
-  {path:'wallet',component:WalletComponent},
+  {path:'wallet',component:WalletComponent,canActivate:[GaurdService]},
   {path:'**',component:ErrorComponent},
   
 ];

@@ -1,0 +1,6 @@
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(150, 141, 141);
+    
+  font-family: Snell Roundhand, cursive,serif;
+    opacity: 1; /* Firefox */
+  }

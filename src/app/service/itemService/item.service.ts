@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/items.model';
 import { ListOfItemsList } from 'src/app/models/ListOfItemsList.model';
+import { Constants } from 'src/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,18 @@ export class ItemService {
   }
   //Items
   getSearchedItems(keyword:string){
-     return this.http.get<ListOfItemsList>(`http://localhost:8082/getItemsKeyword/${keyword}`);
+     return this.http.get<ListOfItemsList>(Constants.iteServiceUrl+`getItemsKeyword/${keyword}`);
   }
   getItem(itemId: number){
-    return this.http.get<Item>(`http://localhost:8082/getItem/${itemId}`);
+    return this.http.get<Item>(Constants.iteServiceUrl+`getItem/${itemId}`);
   }
   getAllItems(category:string) {
-    return this.http.get<ListOfItemsList>(`http://localhost:8082/getItems/${category}`);
+    return this.http.get<ListOfItemsList>(Constants.iteServiceUrl+`getItems/${category}`);
   }
   getItemType(navItem:string,category:string){
-    return this.http.get<string[]>(`http://localhost:8082/getItemType/${navItem}/${category}`);
+    return this.http.get<string[]>(Constants.iteServiceUrl+`getItemType/${navItem}/${category}`);
   }
   getItemsWithItemType(category:string,itemType:string[],low:number,high:number){
-    return this.http.post<ListOfItemsList>(`http://localhost:8082/getItems/${category}/${low}/${high}`,itemType);
+    return this.http.post<ListOfItemsList>(Constants.iteServiceUrl+`getItems/${category}/${low}/${high}`,itemType);
   }
 }

@@ -2,3 +2,12 @@ img{
     max-width: 100%;
     min-width:50%
 }
+mat-icon{
+    font-size:20px !important;
+    transition: 0.4s;
+    cursor: pointer;
+}
+mat-icon:hover{
+    transform: scale(1.5)
+    
+}

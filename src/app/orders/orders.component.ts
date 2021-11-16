@@ -47,8 +47,9 @@ export class OrdersComponent implements OnInit {
           d.paymentMethod=this.paymentList[1].methodValue
         }
       })
-      this.orders=data.filter(d=>!d.orderCancellationStatus)  
-      this.cancelledOrders=data.filter(d=>d.orderCancellationStatus)
+      this.orders=data.filter(d=>d.quantity>=d.cancallationQuatity)  
+      console.log(this.orders)
+      this.cancelledOrders=data.filter(d=>d.cancallationQuatity>0)
     })
   }
 
@@ -59,7 +60,7 @@ export class OrdersComponent implements OnInit {
       // width: '250px',
       maxWidth:'90%',
       minWidth:'30%',
-      data:{orderId:order.orderId,cancel:false}
+      data:{orderId:order.orderId,quantity:order.quantity,cancel:false}
       // data: {name: this.name, animal: this.animal}
     });
 
@@ -68,21 +69,34 @@ export class OrdersComponent implements OnInit {
         cancellationRequest:this.cancellationRequest
         this.cancellationRequest={
         'orderId':result.orderId,
-        'reason':""
+        'quantity':result.quantity,
+        'reason':result.reason
         }
+        console.log(this.cancellationRequest)
         this.orderService.cancelOrder(this.checkAuth.getToken(), this.cancellationRequest).subscribe(data=>{
           this.ngOnInit();
         })
       }
       
-      // console.log(this.cancellationRequest);
+      console.log(this.cancellationRequest);
       // this.confirmCancellation=result
       // this.animal = result;
     });
   }
+
+  getInvoice(orderId:String){
+   
+    this.orderService.getInvoices(this.checkAuth.getToken(),orderId).subscribe(
+      data=>{
+        window.open(`http://localhost:8084/orders/viewPdf/${orderId}`,"_blank");
+      }
+    );
+  }
 }
 export interface ConfirmCancellation{
   'orderId':string,
+  'quantity':number,
+  'reason':string,
   'cancel':boolean
 } 
 export interface PaymentMethods{
