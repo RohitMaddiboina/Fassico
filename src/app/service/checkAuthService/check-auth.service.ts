@@ -9,18 +9,19 @@ export class CheckAuthService {
   TOKEN_STRING  = "Authorization";
   constructor(public cartCountService:CartCountService) { }
   isUserLoggedIn(): boolean{
-    if(sessionStorage.getItem(this.TOKEN_STRING)!=null){
+    if(localStorage.getItem(this.TOKEN_STRING)!=null){
       return true;
     }
     return false;
   }
 
   setToken(token:string){
-    sessionStorage.setItem(this.TOKEN_STRING,'Bearer '+token);
+  
+    localStorage.setItem(this.TOKEN_STRING,'Bearer '+token);
     
   }
   getToken(): string{
-    let token = sessionStorage.getItem(this.TOKEN_STRING);
+    let token = localStorage.getItem(this.TOKEN_STRING);
     if(token!=null){
 
       return token;
@@ -29,7 +30,7 @@ export class CheckAuthService {
   }
   logout(): void{
     this.cartCountService.changeMessage('0');
-    sessionStorage.removeItem(this.TOKEN_STRING);
+    localStorage.removeItem(this.TOKEN_STRING);
 
   }
 }

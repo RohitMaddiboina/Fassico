@@ -83,6 +83,15 @@ export class OrdersComponent implements OnInit {
       // this.animal = result;
     });
   }
+
+  getInvoice(orderId:String){
+   
+    this.orderService.getInvoices(this.checkAuth.getToken(),orderId).subscribe(
+      data=>{
+        window.open(`http://localhost:8084/orders/viewPdf/${orderId}`,"_blank");
+      }
+    );
+  }
 }
 export interface ConfirmCancellation{
   'orderId':string,

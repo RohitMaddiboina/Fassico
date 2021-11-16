@@ -11,7 +11,7 @@
                         <table class="table">
                             <tr>
                                 <td><b>Order Id</b></td>
-                                <td><b>{{order.orderId}}</b></td>
+                                <td> <b>{{order.orderId}}</b><a style="border: none;float: right; background-color:transparent;text-align:center" (click)="getInvoice(order.orderId)"  title="download invoice"><mat-icon  [ngStyle]="{'color':'green'}">receipt</mat-icon></a></td>
                             </tr>
                             <tr>
                                 <td><b>Product Name</b></td>
@@ -64,10 +64,7 @@
                                 <td><b>Cancelled Quantity </b></td>
                                 <td><b>{{order.cancallationQuatity}}</b></td>
                             </tr>
-                            <tr>
-                                <td><b>Delivery Status</b></td>
-                                <td><b>{{order.deliveryStatus}}</b></td>
-                            </tr>
+                            
                             <tr>
                                 <td><b>Delivery Address</b></td>
                                 <td><b>{{order.deliveryAddress}}</b></td>

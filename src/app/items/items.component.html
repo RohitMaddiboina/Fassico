@@ -43,8 +43,18 @@
                     <div class="col-md-2" >
                         <div class="card">
                             <!-- <img src={{item.itemImage}} class="card-img"  (click)="onClick(item.itemId)" alt="..."> -->
-                            <img [src]="item.primaryImage" class="card-img"  (click)="onClick(item.itemId)" alt="...">
-                            <img src="assets/img/4.png" class="text-over-img"  (click)="onClick(item.itemId)" alt="..." *ngIf="item.quanitity<=0">
+                            <div class="image-container">
+                                <img src={{item.itemImage}} [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="...">
+                                <div class="ribbon" *ngIf="item.quanitity<=0" (click)="onClick(item.itemId)">
+                                    <span class="ribbon-text">Out of Stock</span>
+                                  </div>
+                            </div>
+                            
+                            <!-- <img [src]="item.itemImage" class="card-img"  (click)="onClick(item.itemId)" alt="...">
+                           
+                                <img src="assets/img/4.png" class="text-over-img"  (click)="onClick(item.itemId)" alt="..." *ngIf="item.quanitity<=0"> -->
+                               
+                          
                             <div class="card-body">
                                 <div class="row">
                                     <h5 class="card-title">{{item.brand}} <span class="badge badge-success badge-pill">{{item.rating}}<i class="material-icons review-bar md-18">star</i></span></h5>

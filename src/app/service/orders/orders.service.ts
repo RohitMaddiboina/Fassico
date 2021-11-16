@@ -33,4 +33,9 @@ export class OrdersService {
       headers:{'Authorization':userName}
     })
   }
+  getInvoices(userName:string,orderId:String){
+    return this.http.get(Constants.orderServiceUrl+`createPdf/${orderId}`,{
+      headers:{'Authorization':userName}
+    })
+  }
 }
