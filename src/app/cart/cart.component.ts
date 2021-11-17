@@ -6,6 +6,7 @@ import { RestClientService } from '../service/rest-client.service';
 import { Carts } from '../models/cart.model';
 import { CartService } from '../service/cartService/cart.service';
 import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
+import { DomSanitizer } from '@angular/platform-browser';
 export class Cart{
   constructor(public itemId:number,public username:string,public quantity:number) { }
 }
@@ -23,7 +24,7 @@ export class CartComponent implements OnInit {
     numberOfItemsInCart:number=0;
     userName=this.checkAuthService.getToken();
     totalPrice=Number();
-    constructor(private cartService:CartService, private router:Router, public checkAuthService: CheckAuthService,
+    constructor(private sanitizer: DomSanitizer,private cartService:CartService, private router:Router, public checkAuthService: CheckAuthService,
       public cartCountService:CartCountService) {
      
       if(this.userName!=null){
@@ -50,6 +51,10 @@ export class CartComponent implements OnInit {
             for(let c of this.cartDetails){
               if(c.quantity>=0){
                 // this.totalPrice=Number(this.totalPrice)
+                
+                let objectURL = 'data:image/jpeg;base64,' + c.item.primaryImage;
+                c.item.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+                
                 this.totalPrice=this.totalPrice+(Number(Number(c.item.price)*Number(c.quantity)))
                 console.log(this.totalPrice)
               }

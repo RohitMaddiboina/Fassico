@@ -241,7 +241,8 @@
                 <h1>3. Review Item And Delivery</h1>
                 <div class="col-lg-12 col-md-12 border rounded" *ngIf="viewReview">
                     <div class="row" *ngFor="let c of cart">
-                        <img src="{{c.item.itemImage}}" class="col-lg-3 img p-2"/>
+                        <!-- <img src="{{c.item.itemImage}}" class="col-lg-3 img p-2"/>             -->
+                        <img [src]="c.item.primaryImage" class="col-lg-3 img p-2"/>
                         <!-- <h2 class="col-lg-6">{{c.item.itemName}}</h2> -->
                         <table class="table col-lg-6" >
                             <tr>

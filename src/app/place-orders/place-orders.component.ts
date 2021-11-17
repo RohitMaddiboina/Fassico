@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Carts } from '../models/cart.model';
@@ -15,7 +16,7 @@ import { UserService } from '../service/userService/user.service';
 })
 export class PlaceOrdersComponent implements OnInit {
 
-  constructor(private router:Router,private userService:UserService,public checkAuthService: CheckAuthService,private fb: FormBuilder,private cartService:CartService, private orderService:OrdersService
+  constructor(private sanitizer: DomSanitizer,private router:Router,private userService:UserService,public checkAuthService: CheckAuthService,private fb: FormBuilder,private cartService:CartService, private orderService:OrdersService
     ,public cartCountService:CartCountService,public toastr: ToastrService) { }
   errorMessage="Loading......"
   useSameAddress:boolean=false
@@ -103,6 +104,10 @@ export class PlaceOrdersComponent implements OnInit {
       this.userService.getUserWalletAmount(this.checkAuthService.getToken()).subscribe(data=>{
         this.walletAmount=data;
         this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data1=>{
+          data1.forEach(d=>{
+            let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
+            d.item.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+          })
           this.cart=data1;
           this.cart[0].item.itemImage
           data1.forEach(d=>{
@@ -119,6 +124,10 @@ export class PlaceOrdersComponent implements OnInit {
       this.showWallet=false;
       this.viewReview=true;
       this.cartService.getCartItems(this.checkAuthService.getToken()).subscribe(data1=>{
+        data1.forEach(d=>{
+          let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
+          d.item.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+        })
         this.cart=data1;
         data1.forEach(d=>{
           this.totalPrice+=(Number(d.quantity)*d.item.price)

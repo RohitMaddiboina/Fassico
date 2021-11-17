@@ -44,7 +44,8 @@
                         <div class="card">
                             <!-- <img src={{item.itemImage}} class="card-img"  (click)="onClick(item.itemId)" alt="..."> -->
                             <div class="image-container">
-                                <img src={{item.itemImage}} [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="...">
+                                <!-- <img src={{item.itemImage}} [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="..."> -->
+                                <img [src]="item.primaryImage" [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="...">
                                 <div class="ribbon" *ngIf="item.quanitity<=0" (click)="onClick(item.itemId)">
                                     <span class="ribbon-text">Out of Stock</span>
                                   </div>
