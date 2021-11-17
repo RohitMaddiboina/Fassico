@@ -11,6 +11,7 @@ import { RestClientService } from '../service/rest-client.service';
 import {ListOfItemsList} from '../models/ListOfItemsList.model';
 import { SearchDataShareServiceService } from '../service/searchDataShare/search-data-share-service.service';
 import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
+import { DomSanitizer } from '@angular/platform-browser';
 export class Item{
 
 
@@ -40,7 +41,7 @@ export class ItemsComponent implements OnInit {
   list:ListOfItemsList;
   pageSize:number;
   selectedPage=0;
-  constructor(private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:SearchDataShareServiceService
+  constructor(private sanitizer: DomSanitizer,private activatedRoute: ActivatedRoute,private itemService:ItemService,private cartService:CartService, public dataShare:SearchDataShareServiceService
     ,public toastr: ToastrService,private router:Router,private route :ActivatedRoute,private checkAuthService:CheckAuthService,public cartCountService:CartCountService) {
     this.checkedItemTypes = new Map<string,string>();
     this.items = new Array<Item>();
@@ -61,7 +62,13 @@ export class ItemsComponent implements OnInit {
     )
     this.itemService.getAllItems(this.category).subscribe(
       data => {
+        data.list.forEach(d=>{
+          d.forEach(dd=>{let objectURL = 'data:image/jpeg;base64,' + dd.primaryImage;
+          dd.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+          })
+        })
         this.list = data;
+        // this.list = this.getBlobImages(data)
         this.pageSize = this.list.list.length;
         this.items = this.list.list[0];
         this.options = new Options();
@@ -94,6 +101,11 @@ export class ItemsComponent implements OnInit {
      
       this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
         data=>{
+          data.list.forEach(d=>{
+            d.forEach(dd=>{let objectURL = 'data:image/jpeg;base64,' + dd.primaryImage;
+            dd.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+            })
+          })
           this.list = data;
         this.pageSize = this.list.list.length;
         this.items = this.list.list[0];
@@ -104,6 +116,11 @@ export class ItemsComponent implements OnInit {
         this.checkedItemTypes.delete(itemType);
         this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
           data=>{
+            data.list.forEach(d=>{
+              d.forEach(dd=>{let objectURL = 'data:image/jpeg;base64,' + dd.primaryImage;
+              dd.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+              })
+            })
             this.list = data;
         this.pageSize = this.list.list.length;
         this.items = this.list.list[0];
@@ -161,6 +178,11 @@ export class ItemsComponent implements OnInit {
    
     this.itemService.getItemsWithItemType(this.category,[...this.checkedItemTypes.values()],this.value,this.highValue).subscribe(
       data=>{
+        data.list.forEach(d=>{
+          d.forEach(dd=>{let objectURL = 'data:image/jpeg;base64,' + dd.primaryImage;
+          dd.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+          })
+        })
         this.list = data;
         this.pageSize = this.list.list.length;
         this.items = this.list.list[0];
@@ -172,6 +194,12 @@ export class ItemsComponent implements OnInit {
     this.selectedPage = i;
     this.items = this.list.list[i];
   }
-  
-
+  getBlobImages(data:ListOfItemsList){
+    data.list.forEach(d=>{
+      d.forEach(dd=>{let objectURL = 'data:image/jpeg;base64,' + dd.primaryImage;
+      dd.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+      })
+    })
+    return data;
+  }
 }

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Orders } from '../models/Order.model';
 import { CheckAuthService } from '../service/checkAuthService/check-auth.service';
 import { OrdersService } from '../service/orders/orders.service';
-import { Constants } from 'src/constants'; 
+import { Constants } from 'src/constants';  
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmCancellationComponent } from './confirm-cancellation/confirm-cancellation.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-orders',
@@ -14,7 +15,7 @@ import { ConfirmCancellationComponent } from './confirm-cancellation/confirm-can
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private orderService:OrdersService,public checkAuth:CheckAuthService,private router: Router,public dialog: MatDialog) {
+  constructor(private sanitizer: DomSanitizer,private orderService:OrdersService,public checkAuth:CheckAuthService,private router: Router,public dialog: MatDialog) {
     if(!checkAuth.isUserLoggedIn()){
       router.navigate(['login'])
     }
@@ -36,6 +37,7 @@ export class OrdersComponent implements OnInit {
 
     this.orderService.getOrder(this.checkAuth.getToken()).subscribe(data=>{
       data.map((d)=>{
+        
         d.orderedDate=new Date(d.orderedDate.toString())
         d.canCancelOrderTill=new Date(d.orderedDate.getTime()+((Constants.order.orderCancellationDateLimit-1)* 24 * 60 * 60 * 1000))
         if(d.canCancelOrderTill>=new Date()){          
@@ -47,10 +49,22 @@ export class OrdersComponent implements OnInit {
           d.paymentMethod=this.paymentList[1].methodValue
         }
       })
-      this.orders=data.filter(d=>d.quantity>=d.cancallationQuatity)  
-      console.log(this.orders)
+      this.orders=data.filter(d=>d.quantity>=d.cancallationQuatity)
+      if(this.orders.length>0){
+        this.orders.forEach(d=>{
+          let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
+          d.item.primaryImage= this.sanitizer.bypassSecurityTrustUrl(objectURL)
+        })
+      }
       this.cancelledOrders=data.filter(d=>d.cancallationQuatity>0)
+      if(this.orders.length>0){
+        this.cancelledOrders.forEach(d=>{
+          let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
+          d.item.primaryImage= this.sanitizer.bypassSecurityTrustUrl(objectURL)
+        })
+      }
     })
+  
   }
 
   cancellationRequest:any={}
@@ -72,13 +86,13 @@ export class OrdersComponent implements OnInit {
         'quantity':result.quantity,
         'reason':result.reason
         }
-        console.log(this.cancellationRequest)
+        // console.log(this.cancellationRequest)
         this.orderService.cancelOrder(this.checkAuth.getToken(), this.cancellationRequest).subscribe(data=>{
           this.ngOnInit();
         })
       }
       
-      console.log(this.cancellationRequest);
+      // console.log(this.cancellationRequest);
       // this.confirmCancellation=result
       // this.animal = result;
     });

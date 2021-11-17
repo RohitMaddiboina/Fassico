@@ -27,9 +27,8 @@ export class ItemComponent implements OnInit {
       this.itemId=params['itemId'];
       console.log(this.itemId);
       this.itemService.getItem(this.itemId).subscribe(data=>{
-        console.log(data)
         let objectURL = 'data:image/jpeg;base64,' + data.primaryImage;
-         data.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+        data.primaryImage = this.sanitizer.bypassSecurityTrustUrl(objectURL)
         this.itemData=data;        
         this.itemDetails=JSON.parse(this.itemData.discription)
         console.log(this.itemDetails)
