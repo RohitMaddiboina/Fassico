@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
       
         
         this.checkAuthService.setToken(this.authRes.token);
+         this.userService.saveProfilePicture();
         this.dataShare.changeMessage("Welcome "+this.authReq.username);
         this.cartService.getUSerCartCount(this.checkAuthService.getToken()).subscribe(data => {
          this.cartCountService.changeMessage(data.toString());

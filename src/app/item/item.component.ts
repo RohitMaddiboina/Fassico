@@ -39,10 +39,6 @@ export class ItemComponent implements OnInit {
     });
   }
   addToCart(itemData:Item){
-    // console.log(this.checkAuthService.getToken());
-    // this.restClientService.addToCart(itemData.itemId,this.checkAuthService.getToken())
-    // this.cartService.addToCart(itemData.itemId).subscribe(data=>{
-    // });
     if(!this.checkAuthService.isUserLoggedIn()){
       this.router.navigate(['login'], { queryParams: { 'redirectURL': this.router.routerState.snapshot.url } });
       } 

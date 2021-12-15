@@ -4,6 +4,16 @@ img {
     min-width: 5%;
  
 }
+.cart{
+  
+  height: 85vh;
+}
+.cart-btn-transform{
+  color:white;
+  background-color:#ee5f73;
+  border-color:#ee5f73
+}
+
 .btn-ctrl{
 border-radius: 75px;
   

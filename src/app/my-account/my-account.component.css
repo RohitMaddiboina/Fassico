@@ -17,4 +17,52 @@ thead th {
     background-color: #fff;
 
   }
+/* td{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+} */
+.btn-sm{
+    
+    background-color:#ee5f73;
+    border-color:#ee5f73
+}
 
+.pic-container{
+    cursor: pointer;
+    overflow: hidden;
+}
+.pic-container.pic-medium{
+    width: 50px;
+    height: 50px;
+}
+.pic-circle{
+    border-radius:50px;
+}
+.pic{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.pic-overlay{
+    background-color: rgb(167, 166, 166);
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+  }
+  
+  .pic-container:hover .pic-overlay{
+    top: -100%;
+  }
+  .pic-overlay a{
+    display: block;
+    padding: 30px;
+  }

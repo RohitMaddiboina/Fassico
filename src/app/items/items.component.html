@@ -12,7 +12,7 @@
                             <div *ngFor="let itemType of itemTypes">
                                 <li class="category-item">
                                     <label class="category-label">
-                                        <input type="checkbox" class="category-check"  (change)="onChange(itemType,$event)">
+                                        <input type="checkbox" class="category-check"  (change)="child.onChange(itemType,$event,selectedPage)">
                                         {{itemType}}
                                     </label>
                                 </li>
@@ -23,75 +23,49 @@
                 <div class="price-slider-div">
                     <span class="vertical-filter-head">Price Range</span>
                     <div class="custom-ngx-slider">
-                        <ngx-slider [(value)]="value"  (userChange)="OnSliderChange(value,highValue)" [(highValue)]="highValue" [options]="options"></ngx-slider>  
+                        <ngx-slider [(value)]="child.value"  (userChange)="child.OnSliderChange(value,highValue,selectedPage)" [(highValue)]="child.highValue" [options]="child.options"></ngx-slider>  
                       </div>
                 </div>
             </section>
         </div>
         <div class="container col-md-10">
-            <!-- <div class="row">
-                <ul class="breadcrumb">
-                    <li style="font-weight: 300;"><a href="">Home</a></li>
-                    <li style="font-weight: 300;"><a href="">hhtf</a></li>
-                    <li style="font-weight: 300;"><a href="">hfgh</a></li>
-                    <li style="font-weight: 500;">gfgfd > gdfgdf</li>
-                  </ul>
-            </div> -->
-            <div class="row cards-row">
+            <div class="row" >
+                <div class="col-md-3" style=" padding:17px;">
 
-                <div *ngFor="let item of items">
-                    <div class="col-md-2" >
-                        <div class="card">
-                            <!-- <img src={{item.itemImage}} class="card-img"  (click)="onClick(item.itemId)" alt="..."> -->
-                            <div class="image-container">
-                                <!-- <img src={{item.itemImage}} [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="..."> -->
-                                <img [src]="item.primaryImage" [ngClass]="{'card-img-top': item.quanitity<=0}"  (click)="onClick(item.itemId)" alt="...">
-                                <div class="ribbon" *ngIf="item.quanitity<=0" (click)="onClick(item.itemId)">
-                                    <span class="ribbon-text">Out of Stock</span>
-                                  </div>
-                            </div>
-                            
-                            <!-- <img [src]="item.itemImage" class="card-img"  (click)="onClick(item.itemId)" alt="...">
-                           
-                                <img src="assets/img/4.png" class="text-over-img"  (click)="onClick(item.itemId)" alt="..." *ngIf="item.quanitity<=0"> -->
-                               
-                          
-                            <div class="card-body">
-                                <div class="row">
-                                    <h5 class="card-title">{{item.brand}} <span class="badge badge-success badge-pill">{{item.rating}}<i class="material-icons review-bar md-18">star</i></span></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-
-                                        <span class="card-text">
-                                            <h5 class="text">Rs.{{item.price}}  <span
-                                                    style="text-decoration-line: line-through; font-size: 0.6rem">
-                                                      Rs.{{2*item.price}} </span></h5>
-                                                    
-                                        </span>
-                                    </div>
-                                    <div class="col-md-2" *ngIf="item.quanitity>0">
-                                        <button class="btn" (click)="addToCart(item.itemId)"> <mat-icon>add_shopping_cart</mat-icon></button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="btn" style="
+                    background-color: transparent;
+                    color: black;
+                    text-align:center;
+                    display:inline;
+                    font-size: 13px;
+                    ">{{1+child.selectedPage*10}}-{{(child.selectedPage*10)+child.currentResults}} of over {{child.totalResults}} results</div>
                 </div>
-
+                <div class="col-md-9" style="padding:17px;">
+                    <form class="sortByFilter" [formGroup]="sortByForm" style="float: right">
+                        <label for="sort">
+                            Sort by:
+                        </label>
+                        <select class="sortByFilterSelect" formControlName="sortByFilter" (change)="child.onSortByFilter($event)" name="sort" id="sort">
+                            
+                            <option value="Low to High">Price: Low to High</option>
+                            <option value="High to Low">Price: High to Low</option>
+                        </select>
+                    </form>
+                </div>
             </div>
-            <div class="row">
+         
+            <app-items-child #child (PageSizeChange)="setPageSize($event)"></app-items-child>
+            <div  class="row">
                 <div class="page-div-count col-md-2 col-sm-2">
                         
-                    <p style="display: inline">Page {{selectedPage+1}} of {{pageSize}}</p>
+                    <p style="display: inline">Page {{child.selectedPage+1}} of {{pageSize}}</p>
                 </div>
                 <div class="container col-md-10 col-sm-10 page-container">
                    
                     <ul class="pages-list">
                         <div class="page-div-item" *ngFor="let item of [].constructor(pageSize); let i = index">
                             
-                            <li class="page-item"><a class="btn btn-link" (click)="page(i)">{{i+1}}</a></li>
+                            <li class="page-item"><a class="btn btn-link" (click)="child.page(i)">{{i+1}}</a></li>
                             
                         </div>
                     </ul>
