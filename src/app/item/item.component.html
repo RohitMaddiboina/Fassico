@@ -27,7 +27,6 @@
                         </table>
                     </td>
                 </tr>
-                <tr *ngIf="itemData.quanitity>0"><td colspan="2" align="center"><button class="btn btn-warning mb-2" [disabled]="!itemData.active" (click)="addToCart(itemData)">Add To Cart</button></td></tr>
                 <tr *ngIf="itemData.quanitity>0">
                     <td colspan="2" align="center"><button class="btn btn-warning mb-2"  (click)="addToCart(itemData)">
                         Add To Cart</button></td>

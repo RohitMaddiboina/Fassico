@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsComponent } from '../items/items.component';
@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { SearchDataShareServiceService } from '../service/searchDataShare/search-data-share-service.service';
 import { CartService } from '../service/cartService/cart.service';
 import { CartCountService } from '../service/CartCountShareServiec/cart-count.service';
+import { UserService } from '../service/userService/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class SearchBox{
 
@@ -25,13 +27,15 @@ export class word{
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit,DoCheck {
 
   searchForm:any;
   search : SearchBox;
   CartItemCount:string;
+  profilePicture:any;
   constructor(private activatedRoute: ActivatedRoute,public restClientService:RestClientService, public checkLogin:CheckAuthService, 
-    public fb:FormBuilder,public dataShare:SearchDataShareServiceService,public cartService:CartService,public cartCountService:CartCountService) { 
+    public fb:FormBuilder,public dataShare:SearchDataShareServiceService,public cartService:CartService,public cartCountService:CartCountService,
+    public userService:UserService,private sanitizer: DomSanitizer) { 
     this.search = new SearchBox("");
     this.CartItemCount = '0';
   }
@@ -46,7 +50,9 @@ export class MenuComponent implements OnInit {
     this.cartCountService.currentMessage.subscribe(message=>{
       this.CartItemCount = message;
     });
-    
+  }
+  ngDoCheck() : void{
+    this.profilePicture = this.userService.getProfilePictureFromLocalStorage();
   }
   onSearch(){
     this.search = this.searchForm.value;

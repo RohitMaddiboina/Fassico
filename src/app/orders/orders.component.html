@@ -1,5 +1,6 @@
 <div class="offset-lg-1 col-lg-10 offset-md-1 col-md-10">
 <mat-tab-group  animationDuration="1000ms" mat-align-tabs="start" *ngIf="checkAuth.isUserLoggedIn()"  >
+    
     <mat-tab label="Active Orders">
         <div class="col-lg-12 col-md-12 mt-2 ">
             <div class="col-lg-12 col-md-12" *ngIf="orders.length>0">
@@ -13,7 +14,15 @@
                         <table class="table">
                             <tr>
                                 <td><b>Order Id</b></td>
-                                <td> <b>{{order.orderId}}</b><a style="border: none;float: right; background-color:transparent;text-align:center" (click)="getInvoice(order.orderId)"  title="download invoice"><mat-icon  [ngStyle]="{'color':'green'}">receipt</mat-icon></a></td>
+                                <td> <b>{{order.orderId}}</b>
+                                    <span>
+
+                                        <a style="border: none;float: right; background-color:transparent;text-align:center" (click)="getInvoice(order.orderId)"  title="download invoice">
+                                           
+                                            <p class="download-invoice"> <mat-icon  [ngStyle]="{'color':'green'}">receipt</mat-icon>Download invoice</p></a>
+                                    </span>
+
+                                </td>
                             </tr>
                             <tr>
                                 <td><b>Product Name</b></td>

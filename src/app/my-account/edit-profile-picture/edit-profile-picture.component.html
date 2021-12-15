@@ -1,0 +1,16 @@
+<h2 mat-dialog-title style="text-align:center">Edit Profile Picture</h2>
+<mat-dialog-content>
+
+    <div class="pic-container pic-large pic-circle">
+        <img class="pic" [src]="profilePicture" alt="no image">
+        <div class="pic-overlay">
+            <input type="file" hidden="true" accept="image/*" #upload_file (change)="edit($event)"/>
+            <a (click)="upload_file.click()">
+                <mat-icon style="color:green">edit</mat-icon>
+            </a>
+            <a (click)="remove()"><mat-icon style="color:crimson">delete</mat-icon></a>
+        </div>
+    
+    </div>
+
+</mat-dialog-content>

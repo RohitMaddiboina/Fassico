@@ -1,4 +1,5 @@
 export class User {
+  public profilePic:any
     constructor(
      
   
@@ -20,7 +21,8 @@ export class User {
       public landmark:string,
   
       public security_questions:string,
-      public security_answer:string
+      public security_answer:string,
+      
     ) {
   
     }

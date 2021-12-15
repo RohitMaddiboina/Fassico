@@ -37,7 +37,9 @@ export class OrdersComponent implements OnInit {
 
     this.orderService.getOrder(this.checkAuth.getToken()).subscribe(data=>{
       data.map((d)=>{
-        
+        let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
+        d.item.primaryImage= this.sanitizer.bypassSecurityTrustUrl(objectURL)
+
         d.orderedDate=new Date(d.orderedDate.toString())
         d.canCancelOrderTill=new Date(d.orderedDate.getTime()+((Constants.order.orderCancellationDateLimit-1)* 24 * 60 * 60 * 1000))
         if(d.canCancelOrderTill>=new Date()){          
@@ -50,19 +52,18 @@ export class OrdersComponent implements OnInit {
         }
       })
       this.orders=data.filter(d=>d.quantity>=d.cancallationQuatity)
-      if(this.orders.length>0){
-        this.orders.forEach(d=>{
-          let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
-          d.item.primaryImage= this.sanitizer.bypassSecurityTrustUrl(objectURL)
-        })
-      }
+      // if(this.orders.length>0){
+      //   this.orders.forEach(d=>{
+         
+      //   })
+      // }
       this.cancelledOrders=data.filter(d=>d.cancallationQuatity>0)
-      if(this.orders.length>0){
-        this.cancelledOrders.forEach(d=>{
-          let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
-          d.item.primaryImage= this.sanitizer.bypassSecurityTrustUrl(objectURL)
-        })
-      }
+      // if(this.cancelledOrders.length>0){
+      //   this.cancelledOrders.forEach(d=>{
+      //     let objectURL = 'data:image/jpeg;base64,' + d.item.primaryImage;
+      //     d.item.primaryImage= this.sanitizer.bypassSecurityTrustUrl(objectURL)
+      //   })
+      // }
     })
   
   }
@@ -102,7 +103,7 @@ export class OrdersComponent implements OnInit {
    
     this.orderService.getInvoices(this.checkAuth.getToken(),orderId).subscribe(
       data=>{
-        window.open(`http://localhost:8084/orders/viewPdf/${orderId}`,"_blank");
+        window.open(`http://localhost:8751/order-service/orders/viewPdf/${orderId}`,"_blank");
       }
     );
   }

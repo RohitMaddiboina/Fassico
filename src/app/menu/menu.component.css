@@ -1,90 +1,98 @@
 .navbar {
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  }
-  .nav-ele {
-    padding: 9px;
-    border: 1.5px solid transparent;
-    border-radius: 10px;
-  }
-  .nav-ele:hover {
-    border: 1.5px solid rgb(255, 63, 108);
-    border-radius: 10px;
-    background-color:rgb(255, 63, 108);
-    color: white;
-  }
-  div>.top-wear{
-    display: inline-block;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
-.category-menu{
+.nav-item{
+  display: flex;align-items: center;justify-content:center;padding-right:3px ;
+}
+.nav-ele {
+  padding: 9px;
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.nav-item-cart{
+  cursor: pointer;
+}
+.nav-ele:hover {
+  border: 1.5px solid rgb(255, 63, 108);
+  border-radius: 10px;
+  background-color: rgb(255, 63, 108);
+  color: white;
+}
+.dp-image{
+ width: 35px; height: 35px;
+ border-radius: 50px;
+ border: 3px solid #ccc;
+}
+div > .top-wear {
+  display: inline-block;
+}
+.category-menu {
   width: 350px;
- 
 }
-.category{
+.category {
   font-weight: 600;
 }
-ul{
-  list-style-type:none;
+.cart-count-badge{
+  background-color:#ee5f73;
+  border-color:#ee5f73
 }
-.top-wear, .bottom-wear {
+ul {
+  list-style-type: none;
+}
+.top-wear,
+.bottom-wear {
   float: left;
   width: 40.3%;
   box-sizing: border-box;
- 
- 
- 
 }
 
-.nav-head-link{
-  font-size:small;
+.nav-head-link {
+  font-size: small;
   color: #ee5f73;
   font-weight: 500;
   text-decoration: none;
 }
 
-.nav-other-link{
+.nav-other-link {
   color: grey;
   font-size: small;
- text-decoration: none;
+  text-decoration: none;
 }
-.nav-other-link:hover{
+.nav-other-link:hover {
   color: black;
   font-size: 13.5px;
- text-decoration: none;
+  text-decoration: none;
 }
-
 
 .badge {
   font-size: 10px;
   display: inline-flex;
   align-items: center;
+}
+
+mat-icon {
+  font-size: 20px !important;
 
 }
 
-
-
-mat-icon{
-    font-size: 20px !important;
+.search input[type="text"] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
 }
 
+.search button {
+  padding: 6px 10px;
+  background: transparent;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
 
- .search input[type=text] {
-  
-    padding: 6px;
-    margin-top: 8px;
-    font-size: 17px;
-    border: none;
-  }
-  
-  .search button {
-    padding: 6px 10px;
-    background: transparent;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-  }
- 
-   .search button:hover {
-    background: #ccc;
-  }
-   
+.search button:hover {
+  background: #ccc;
+}

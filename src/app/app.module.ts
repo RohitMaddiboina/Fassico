@@ -42,6 +42,8 @@ import { PlaceOrdersComponent } from './place-orders/place-orders.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ConfirmCancellationComponent } from './orders/confirm-cancellation/confirm-cancellation.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { ItemsChildComponent } from './items/items-child/items-child.component';
+import { EditProfilePictureComponent } from './my-account/edit-profile-picture/edit-profile-picture.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +65,9 @@ import { WalletComponent } from './wallet/wallet.component';
     PlaceOrdersComponent,
     OrdersComponent,
     ConfirmCancellationComponent,
-    WalletComponent
+    WalletComponent,
+    ItemsChildComponent,
+    EditProfilePictureComponent
 
   ],
   imports: [
